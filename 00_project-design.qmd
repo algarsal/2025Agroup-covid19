@@ -1,0 +1,85 @@
+---
+title: Covid-19 comorbidity in Mexico
+subtitle: Project for the subject Data Acquistion, Analysis and Scientific Methods in Life Sciences.  
+author:
+   - affiliation: Instituto Agroforestal Mediterráneo. Departamento de Ecosistemas Agroforestales. Universidad Politécnica de Valencia.
+     affiliation-url: https://www.upv.es/entidades/DEAF/
+     email: algarsal@upv.es
+     name: Alfonso Garmendia
+     orcid: 0000-0001-6837-1818
+     url: https://garmendia.blogs.upv.es/
+title-block-banner: true
+date: last-modified
+date-format: iso
+lang: en-US
+code-fold: true
+code_folding: hide 
+toc: true
+toc-depth: 6
+toc-location: body
+format:
+  html:
+    self_contained: TRUE
+    embed-resources: true
+---
+
+# Teacher comments
+
+## Group A
+
+Members:  Cléa Meystre, Neil Mabalot, Sebastian Torres, Raymundo Gutierrez, Hamna Tahir
+
+Github user names: Cmeystre, neilmabalot-34404, torressebastian757-blip, raymoran-netizen, hannatahirskg09-design
+
+Link to data: https://gaia.inegi.org.mx/covid19/
+
+## The project design
+
+The project is right.  It is interesting to link Covid with social or health data. 
+
+But in the link you provide, there are only covid data. I didn’t find the other health data. 
+
+There are covid19 data also in R packages, as the “COVID19” package from John Hopkins University, which enables also to download data from the World Bank and other sources. You should also explore these. 
+
+Other problem is that you will not have a nice article to follow. It might be interesting to look for an article for the proposed comorbidities. 
+
+For example Salinas-Aguirre et al. (2021) Clinical characteristics and comorbidities associated with mortality in patients with Covid-19 in Coalhuila (Mexico). 
+
+You can start with your project (check the task "Your project. Preliminary results" in PoliformaT). 
+
+# Students proposal
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+1.  Title of your project (in Yaml header)
+
+2.  Names of group members (in Yaml header).
+
+3.  Github user name for each group member.
+
+    Githib user name: Cmeystre, neilmabalot-34404, torressebastian757-blip, raymoran-netizen, hannatahirskg09-design
+
+4.  A description of the selected data. A link to the data and describe its structure and main variables. (If it is your own data, upload it to github to link it here).
+
+    Description: This dataset was created as a report of the COVID-19 pandemic in Mexico. Starting in March 2020 to September 2023. The virus infected and in some cases killed people all over the country. However we theorize that those deaths were affected through other comorbidities present before the infection. We propose to find a corelation between comorbidities such as diabetes, hypertension, smoking and heart diseases and death rates caused by COVID19. The proposal analyzes will be carried out with a lineal regression model.
+
+5.  Define the objectives, research questions and main hypotheses.
+
+    Objective: Determine if the COVID-19 mortality rates are directly linked to contracting the COVID-19 virus or if they are due to the individual being simultaneously infected with COVID-19 and a comorbidity disease(s).
+
+    Research question: What is the correlation between the presence of comorbidities and the mortality rate of COVID-19 patients?
+
+    Main Hypothesis: There is a higher risk of death with a combination of COVID-19 and a comorbidity disease(s).
+
+6.  Name the analyses you think are necessary or which you would like to use.
+
+    1.Linear regression model - To see the correlation between our different factors (Mortality rates, contraction of COVID-19 virus and the presence of comorbidities diseases).
+
+    2.Test for Moderation - To see how the comorbidities impacts COVID-19 deaths.
+
+    3\. ANOVA - To see if there is a statistical difference between mean deaths per age group.
+
+    4.Post-hoc tests ANOVA (Tukey test) - Used to see the statistical differences and attempt to explain their correlation to mortality rates.
+    
+    Data Link: https://gaia.inegi.org.mx/covid19/
+    
