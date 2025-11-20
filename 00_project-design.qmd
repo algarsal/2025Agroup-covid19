@@ -85,3 +85,14 @@ Quarto enables you to weave together content and executable code into a finished
     
 #Date: November 20, 2025
 #Hello
+
+install.packages("covid19.analytics")
+library(covid19.analytics)
+data <- covid19.data("ts-confirmed")
+head(data)
+covid19.data("ts-deaths")
+covid19.data("ts-recovered")
+covid19.data("ts-ALL")     # all time-series
+
+
+
