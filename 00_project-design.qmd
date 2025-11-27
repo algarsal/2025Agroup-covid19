@@ -97,7 +97,52 @@ covid19.data("ts-ALL")     # all time-series
 
 #Our own group data literature search
 covid19A <- read.csv("/Users/neilsfolder/Documents/MS - EMPH/M1 - First Semester/34404 - Data Acquisition in Life Sciences/Final Project/Literature Search/covid_mexico_comorbidity_dataset_100k.csv")
-str (covid19A)
+str (covid19A) 
+
+#Preliminaries
+```{r}
+summary(covid19A)
+library(dplyr)
+```
+
+
+#Create Table: COVID 19 Deaths Without Commorbidity
+```{r}
+table_no_commorb <- covid19A %>%
+  filter(COVID_Death == 1,
+         Number_of_Comorbidities == 0)
+
+table_no_commorb
+
+table_no_comorb_summary <- table_no_commorb %>%
+  summarise(
+    total_cases = n(),
+    avg_age = mean(Age),
+    gender_counts = list(table(Gender))
+  )
+
+table_no_comorb_summary
+
+```
+
+#Create Table: COVID 19 Deaths with Commorbidity
+```{r}
+table_with_comorb <- covid19A %>%
+  filter(COVID_Death == 1,
+         Number_of_Comorbidities > 0)
+
+table_with_comorb
+
+table_with_comorb_summary <- table_with_comorb %>%
+  summarise(
+    total_cases = n(),
+    avg_age = mean(Age),
+    gender_counts = list(table(Gender)),
+    comorb_distribution = list(table(Number_of_Comorbidities))
+  )
+
+table_with_comorb_summary
+```
 
 7. Introduction. Why your project is interesting? and What is known already about it? Most citations should be done in the introduction.
 
@@ -106,6 +151,30 @@ str (covid19A)
 9. Methods. Explain the origin and structure of your data. What have you done? And what did you use to do it? Step by step, so anyone could do it again by reading this part.
 
 10. Results. Figures and tables with captions and description of what do they mean. Never include citations in this part. This is only your work.
+
+#Analyses
+#Linear Regression
+```{r}
+#No Commorbidity - Age + Gender
+lm_no_comorb <- lm(COVID_Death ~ Age + Gender, data = table_no_commorb)
+summary(lm_no_comorb)
+
+#With Commorbidity - Age + Gender
+lm_with_comorb <- lm(COVID_Death ~ Age + Gender + Number_of_Comorbidities, data = table_with_comorb)
+summary(lm_with_comorb)
+
+#No Commorbidity - 
+lm_no_comorb <- lm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,data = table_no_commorb)
+summary(lm_no_comorb)
+
+#With Commorbidity -
+lm_with_comorb <- lm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking + Number_of_Comorbidities,data = table_with_comorb)
+
+summary(lm_with_comorb)
+
+```
+
+
 
 11. Discussion. From your objectives.
 
