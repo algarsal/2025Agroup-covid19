@@ -97,7 +97,17 @@ covid19.data("ts-ALL")     # all time-series
 covid19A <- read.csv("/Users/neilsfolder/Documents/MS - EMPH/M1 - First Semester/34404 - Data Acquisition in Life Sciences/Final Project/Literature Search/covid_mexico_comorbidity_dataset_100k.csv")
 str (covid19A)
 
+7. Introduction. Why your project is interesting? and What is known already about it? Most citations should be done in the introduction.
 
+8. Objectives and hypotheses.
+
+9. Methods. Explain the origin and structure of your data. What have you done? And what did you use to do it? Step by step, so anyone could do it again by reading this part.
+
+10. Results. Figures and tables with captions and description of what do they mean. Never include citations in this part. This is only your work.
+
+11. Discussion. From your objectives.
+
+12. Conclusions.
 
 
 
