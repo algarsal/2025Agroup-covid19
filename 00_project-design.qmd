@@ -84,9 +84,9 @@ Quarto enables you to weave together content and executable code into a finished
     Data Link: https://gaia.inegi.org.mx/covid19/
     
 #Date: November 20, 2025
-#Hello
 
 #Installed COVID 19 Data in R Packages
+```{r}
 install.packages("covid19.analytics")
 library(covid19.analytics)
 data <- covid19.data("ts-confirmed")
@@ -94,8 +94,15 @@ head(data)
 covid19.data("ts-deaths")
 covid19.data("ts-recovered")
 covid19.data("ts-ALL")     # all time-series
+```
 
 #Our own group data literature search
+```{r}
+data <- "https://github.com/algarsal/2025Agroup-covid19/blob/main/covid_mexico_comorbidity_dataset_100k.csv"
+covid19W <- read.table(data, header = T, sep = ",")
+
+```
+
 covid19A <- read.csv("/Users/neilsfolder/Documents/MS - EMPH/M1 - First Semester/34404 - Data Acquisition in Life Sciences/Final Project/Literature Search/covid_mexico_comorbidity_dataset_100k.csv")
 str (covid19A) 
 
@@ -126,6 +133,16 @@ table_no_comorb_summary <- table_no_commorb %>%
 table_no_comorb_summary
 
 ```
+```{r}
+table(covid19A$COVID_Death)
+table(covid19A$COVID_Death, covid19A$Number_of_Comorbidities)
+
+
+
+
+```
+
+
 
 #Create Table: COVID 19 Deaths with Commorbidity
 ```{r}
@@ -173,6 +190,57 @@ summary(lm_no_comorb)
 lm_with_comorb <- lm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking + Number_of_Comorbidities,data = table_with_comorb)
 
 summary(lm_with_comorb)
+
+
+#------------------------------BETTER------------------------------------------------------
+
+#Table - Diabetes
+diabetes_table <- table(covid19A$COVID_Death, covid19A$Diabetes)
+diabetes_table <- as.data.frame.matrix(diabetes_table)
+diabetes_table
+
+#Chi-square of Diabetes
+chisq.test(diabetes_table)
+#p-value = p-value < 2.2e-16
+
+#------------------------------BETTER------------------------------------------------------
+
+#Table - Hypertension
+hypertension_table <- table(covid19A$COVID_Death, covid19A$Hypertension)
+hypertension_table <- as.data.frame.matrix(hypertension_table)
+hypertension_table
+
+#Chi-square of Hypertension
+chisq.test(hypertension_table)
+#p-value = p-value < 2.2e-16
+
+#------------------------------BETTER------------------------------------------------------
+
+#Table - Obesity
+obesity_table <- table(covid19A$COVID_Death, covid19A$Obesity)
+obesity_table <- as.data.frame.matrix(obesity_table)
+obesity_table
+
+#Chi-square of Obesity
+chisq.test(obesity_table)
+#p-value = p-value < 2.2e-16
+
+#------------------------------BETTER------------------------------------------------------
+
+#Table - Smoking
+smoking_table <- table(covid19A$COVID_Death, covid19A$Smoking)
+smoking_table <- as.data.frame.matrix(obesity_table)
+smoking_table
+
+#Chi-square of Obesity
+chisq.test(smoking_table)
+#p-value = p-value < 2.2e-16
+
+
+
+
+
+
 
 ```
 
