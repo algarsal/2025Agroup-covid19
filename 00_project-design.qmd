@@ -86,6 +86,7 @@ Quarto enables you to weave together content and executable code into a finished
 #Date: November 20, 2025
 #Hello
 
+#Installed COVID 19 Datasets in R
 install.packages("covid19.analytics")
 library(covid19.analytics)
 data <- covid19.data("ts-confirmed")
@@ -94,6 +95,7 @@ covid19.data("ts-deaths")
 covid19.data("ts-recovered")
 covid19.data("ts-ALL")     # all time-series
 
+#Our own group data literature search
 covid19A <- read.csv("/Users/neilsfolder/Documents/MS - EMPH/M1 - First Semester/34404 - Data Acquisition in Life Sciences/Final Project/Literature Search/covid_mexico_comorbidity_dataset_100k.csv")
 str (covid19A)
 
