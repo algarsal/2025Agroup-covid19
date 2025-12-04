@@ -98,7 +98,8 @@ covid19.data("ts-ALL")     # all time-series
 
 #Our own group data literature search
 ```{r}
-data <- "https://github.com/algarsal/2025Agroup-covid19/blob/main/covid_mexico_comorbidity_dataset_100k.csv"
+dir("data")
+data <- "data/covid_mexico_comorbidity_dataset_100k.csv"
 covid19A <- read.table(data, header = T, sep = ",")
 
 ```
@@ -112,55 +113,6 @@ summary(covid19A)
 library(dplyr)
 ```
 
-
-#Create Table: COVID 19 Deaths Without Commorbidity
-```{r}
-table_no_commorb <- covid19A %>%
-  filter(COVID_Death == 1,
-         Number_of_Comorbidities == 0)
-
-table_no_commorb
-
-table_no_comorb_summary <- table_no_commorb %>%
-  summarise(
-    total_cases = n(),
-    avg_age = mean(Age),
-    gender_counts = list(table(Gender))
-  )
-
-table_no_comorb_summary
-
-```
-```{r}
-table(covid19A$COVID_Death)
-table(covid19A$COVID_Death, covid19A$Number_of_Comorbidities)
-
-
-
-
-```
-
-
-
-#Create Table: COVID 19 Deaths with Commorbidity
-```{r}
-table_with_comorb <- covid19A %>%
-  filter(COVID_Death == 1,
-         Number_of_Comorbidities > 0)
-
-table_with_comorb
-
-table_with_comorb_summary <- table_with_comorb %>%
-  summarise(
-    total_cases = n(),
-    avg_age = mean(Age),
-    gender_counts = list(table(Gender)),
-    comorb_distribution = list(table(Number_of_Comorbidities))
-  )
-
-table_with_comorb_summary
-```
-
 7. Introduction. Why your project is interesting? and What is known already about it? Most citations should be done in the introduction.
   Our project is interesting because it regards a worldwide pandemic that impacted many countries drastically. We will study the correlation between presence of 4 different comorbities and their impact on COVID-19 Deaths. 
 
@@ -169,123 +121,6 @@ table_with_comorb_summary
 9. Methods. Explain the origin and structure of your data. What have you done? And what did you use to do it? Step by step, so anyone could do it again by reading this part.
 
 10. Results. Figures and tables with captions and description of what do they mean. Never include citations in this part. This is only your work.
-
-#Analyses
-#Linear Regression
-```{r}
-#No Commorbidity - Age + Gender
-lm_no_comorb <- lm(COVID_Death ~ Age + Gender, data = table_no_commorb)
-summary(lm_no_comorb)
-
-#With Commorbidity - Age + Gender
-lm_with_comorb <- lm(COVID_Death ~ Age + Gender + Number_of_Comorbidities, data = table_with_comorb)
-summary(lm_with_comorb)
-
-#No Commorbidity - 
-lm_no_comorb <- lm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,data = table_no_commorb)
-summary(lm_no_comorb)
-
-#With Commorbidity -
-lm_with_comorb <- lm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking + Number_of_Comorbidities,data = table_with_comorb)
-
-summary(lm_with_comorb)
-
-
-#------------------------------BETTER------------------------------------------------------
-
-#Table - Diabetes
-diabetes_table <- table(covid19A$COVID_Death, covid19A$Diabetes)
-diabetes_table <- as.data.frame.matrix(diabetes_table)
-diabetes_table
-
-#Chi-square of Diabetes
-chisq.test(diabetes_table)
-#p-value = p-value < 2.2e-16
-
-#------------------------------BETTER------------------------------------------------------
-
-#Table - Hypertension
-hypertension_table <- table(covid19A$COVID_Death, covid19A$Hypertension)
-hypertension_table <- as.data.frame.matrix(hypertension_table)
-hypertension_table
-
-#Chi-square of Hypertension
-chisq.test(hypertension_table)
-#p-value = p-value < 2.2e-16
-
-#------------------------------BETTER------------------------------------------------------
-
-#Table - Obesity
-obesity_table <- table(covid19A$COVID_Death, covid19A$Obesity)
-obesity_table <- as.data.frame.matrix(obesity_table)
-obesity_table
-
-#Chi-square of Obesity
-chisq.test(obesity_table)
-#p-value = p-value < 2.2e-16
-
-#------------------------------BETTER------------------------------------------------------
-
-#Table - Smoking
-smoking_table <- table(covid19A$COVID_Death, covid19A$Smoking)
-smoking_table <- as.data.frame.matrix(obesity_table)
-smoking_table
-
-#Chi-square of Obesity
-chisq.test(smoking_table)
-#p-value = p-value < 2.2e-16
-
-```
-
-##Logistic Regression
-
-```{r}
-#Logistic No Commorbidity
-no_comorb <- subset(covid19A, Number_of_Comorbidities == 0)
-
-#Logistic With Commorbidities
-with_comorb <- subset(covid19A, Number_of_Comorbidities > 0)
-
-#Logistic Regression - No Commorbidity
-logit_no <- glm(COVID_Death ~ 1,        
-                data = no_comorb,
-                family = binomial)
-
-summary(logit_no)
-
-#Logistic Regression - With Commorbidities
-logit_with <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
-                  data = with_comorb,
-                  family = binomial)
-
-summary(logit_with)
-
-#Logistic Regression - No. of Commorbidities
-logit_noc <- glm(COVID_Death ~ Number_of_Comorbidities,
-                  data = with_comorb,
-                  family = binomial)
-
-summary(logit_noc)
-
-#Interpretation of Logistic Regression
-exp(coef(logit_with))
-
-
-
-#Moderation Full
-logit_moderation_full <- glm(COVID_Death ~ 
-                                Diabetes + Hypertension + Obesity + Smoking +
-                                Number_of_Comorbidities +
-                                (Number_of_Comorbidities * Smoking),
-                              data = covid19A,
-                              family = binomial)
-
-summary(logit_moderation_full)
-
-
-
-```
-
 
 11. Discussion. From your objectives.
 
