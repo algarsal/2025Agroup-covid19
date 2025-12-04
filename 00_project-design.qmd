@@ -99,14 +99,12 @@ covid19.data("ts-ALL")     # all time-series
 #Our own group data literature search
 ```{r}
 data <- "https://github.com/algarsal/2025Agroup-covid19/blob/main/covid_mexico_comorbidity_dataset_100k.csv"
-covid19W <- read.table(data, header = T, sep = ",")
+covid19A <- read.table(data, header = T, sep = ",")
 
 ```
 
 covid19A <- read.csv("/Users/neilsfolder/Documents/MS - EMPH/M1 - First Semester/34404 - Data Acquisition in Life Sciences/Final Project/Literature Search/covid_mexico_comorbidity_dataset_100k.csv")
 str (covid19A) 
-
-
 
 #Preliminaries
 ```{r}
@@ -164,6 +162,7 @@ table_with_comorb_summary
 ```
 
 7. Introduction. Why your project is interesting? and What is known already about it? Most citations should be done in the introduction.
+  Our project is interesting because it regards a worldwide pandemic that impacted many countries drastically. We will study the correlation between presence of 4 different comorbities and their impact on COVID-19 Deaths. 
 
 8. Objectives and hypotheses.
 
