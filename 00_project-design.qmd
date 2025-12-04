@@ -83,6 +83,8 @@ Quarto enables you to weave together content and executable code into a finished
     
     Data Link: https://gaia.inegi.org.mx/covid19/
     
+    Sources: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0296895
+    
 #Date: November 20, 2025
 
 #Installed COVID 19 Data in R Packages
@@ -101,11 +103,11 @@ covid19.data("ts-ALL")     # all time-series
 dir("data")
 data <- "data/covid_mexico_comorbidity_dataset_100k.csv"
 covid19A <- read.table(data, header = T, sep = ",")
+str (covid19A) 
 
 ```
 
 covid19A <- read.csv("/Users/neilsfolder/Documents/MS - EMPH/M1 - First Semester/34404 - Data Acquisition in Life Sciences/Final Project/Literature Search/covid_mexico_comorbidity_dataset_100k.csv")
-str (covid19A) 
 
 #Preliminaries
 ```{r}

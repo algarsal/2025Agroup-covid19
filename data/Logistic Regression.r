@@ -31,7 +31,6 @@ summary(logit_noc)
 exp(coef(logit_with))
 
 
-
 #Moderation Full
 logit_moderation_full <- glm(COVID_Death ~ 
                                Diabetes + Hypertension + Obesity + Smoking +
@@ -41,3 +40,86 @@ logit_moderation_full <- glm(COVID_Death ~
                              family = binomial)
 
 summary(logit_moderation_full)
+
+#Individual Logistic Regression 
+
+# Load needed package
+install.packages("broom")
+
+# Logistic Regression 1: Diabetes + Hypertension
+model_Diabetes_Hypertension <- glm(
+  COVID_Death ~ Diabetes + Hypertension,
+  data = covid19A,
+  family = binomial()
+)
+summary(model_Diabetes_Hypertension)
+tidyr::model_Diabetes_Hypertension, exponentiate = TRUE, conf.int = TRUE
+broom::tidy(model_Diabetes_Smoking, exponentiate = TRUE, conf.int = TRUE)
+
+# Logistic Regression 2: Diabetes + Smoking
+model_Diabetes_Smoking <- glm(
+  COVID_Death ~ Diabetes + Smoking,
+  data = df,
+  family = binomial()
+)
+summary(model_Diabetes_Smoking)
+tidy(model_Diabetes_Smoking, exponentiate = TRUE, conf.int = TRUE)
+
+# Logistic Regression 3: Diabetes + Obesity
+model_Diabetes_Obesity <- glm(
+  COVID_Death ~ Diabetes + Obesity,
+  data = df,
+  family = binomial()
+)
+summary(model_Diabetes_Obesity)
+tidy(model_Diabetes_Obesity, exponentiate = TRUE, conf.int = TRUE)
+
+
+# Logistic Regression 4: Hypertension + Smoking
+model_Hypertension_Smoking <- glm(
+  COVID_Death ~ Hypertension + Smoking,
+  data = df,
+  family = binomial()
+)
+summary(model_Hypertension_Smoking)
+tidy(model_Hypertension_Smoking, exponentiate = TRUE, conf.int = TRUE)
+
+
+# Logistic Regression 5: Obesity + Smoking
+model_Obesity_Smoking <- glm(
+  COVID_Death ~ Obesity + Smoking,
+  data = df,
+  family = binomial()
+)
+summary(model_Obesity_Smoking)
+tidy(model_Obesity_Smoking, exponentiate = TRUE, conf.int = TRUE)
+
+
+# Logistic Regression 6: Hypertension + Obesity
+model_Hypertension_Obesity <- glm(
+  COVID_Death ~ Hypertension + Obesity,
+  data = df,
+  family = binomial()
+)
+summary(model_Hypertension_Obesity)
+tidy(model_Hypertension_Obesity, exponentiate = TRUE, conf.int = TRUE)
+
+#Single combined output table
+library(dplyr)
+
+models <- list(
+  Diabetes_Hypertension = model_Diabetes_Hypertension,
+  Diabetes_Smoking = model_Diabetes_Smoking,
+  Diabetes_Obesity = model_Diabetes_Obesity,
+  Hypertension_Smoking = model_Hypertension_Smoking,
+  Obesity_Smoking = model_Obesity_Smoking,
+  Hypertension_Obesity = model_Hypertension_Obesity
+)
+
+results <- lapply(names(models), function(name) {
+  tidy(models[[name]], exponentiate = TRUE, conf.int = TRUE) %>%
+    mutate(Model = name)
+})
+
+combined_results <- bind_rows(results)
+combined_results
