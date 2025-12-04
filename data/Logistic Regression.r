@@ -47,19 +47,20 @@ summary(logit_moderation_full)
 install.packages("broom")
 
 # Logistic Regression 1: Diabetes + Hypertension
+library(broom)
 model_Diabetes_Hypertension <- glm(
   COVID_Death ~ Diabetes + Hypertension,
   data = covid19A,
   family = binomial()
 )
 summary(model_Diabetes_Hypertension)
-tidyr::model_Diabetes_Hypertension, exponentiate = TRUE, conf.int = TRUE
+tidy(model_Diabetes_Hypertension, exponentiate = TRUE, conf.int = TRUE)
 broom::tidy(model_Diabetes_Smoking, exponentiate = TRUE, conf.int = TRUE)
 
 # Logistic Regression 2: Diabetes + Smoking
 model_Diabetes_Smoking <- glm(
   COVID_Death ~ Diabetes + Smoking,
-  data = df,
+  data = covid19A,
   family = binomial()
 )
 summary(model_Diabetes_Smoking)
@@ -68,7 +69,7 @@ tidy(model_Diabetes_Smoking, exponentiate = TRUE, conf.int = TRUE)
 # Logistic Regression 3: Diabetes + Obesity
 model_Diabetes_Obesity <- glm(
   COVID_Death ~ Diabetes + Obesity,
-  data = df,
+  data = covid19A,
   family = binomial()
 )
 summary(model_Diabetes_Obesity)
@@ -78,7 +79,7 @@ tidy(model_Diabetes_Obesity, exponentiate = TRUE, conf.int = TRUE)
 # Logistic Regression 4: Hypertension + Smoking
 model_Hypertension_Smoking <- glm(
   COVID_Death ~ Hypertension + Smoking,
-  data = df,
+  data = covid19A,
   family = binomial()
 )
 summary(model_Hypertension_Smoking)
@@ -88,7 +89,7 @@ tidy(model_Hypertension_Smoking, exponentiate = TRUE, conf.int = TRUE)
 # Logistic Regression 5: Obesity + Smoking
 model_Obesity_Smoking <- glm(
   COVID_Death ~ Obesity + Smoking,
-  data = df,
+  data = covid19A,
   family = binomial()
 )
 summary(model_Obesity_Smoking)
@@ -98,7 +99,7 @@ tidy(model_Obesity_Smoking, exponentiate = TRUE, conf.int = TRUE)
 # Logistic Regression 6: Hypertension + Obesity
 model_Hypertension_Obesity <- glm(
   COVID_Death ~ Hypertension + Obesity,
-  data = df,
+  data = covid19A,
   family = binomial()
 )
 summary(model_Hypertension_Obesity)
