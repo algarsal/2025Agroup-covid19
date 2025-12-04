@@ -96,6 +96,19 @@ covid19.data("ts-deaths")
 covid19.data("ts-recovered")
 covid19.data("ts-ALL")     # all time-series
 
+#Our own group data literature search
+```{r}
+dir("data")
+data <- "data/covid_mexico_comorbidity_dataset_100k.csv"
+covid19A <- read.table(data, header = T, sep = ",")
+
+```
+#Preliminaries
+covid19A <- read.csv("/Users/neilsfolder/Documents/MS - EMPH/M1 - First Semester/34404 - Data Acquisition in Life Sciences/Final Project/Literature Search/covid_mexico_comorbidity_dataset_100k.csv")
+str (covid19A) 
+
+summary(covid19A)
+library(dplyr)
 
 7. Introduction. Why your project is interesting? and What is known already about it? Most citations should be done in the introduction.
 
@@ -108,6 +121,9 @@ covid19.data("ts-ALL")     # all time-series
 11. Discussion. From your objectives.
 
 12. Conclusions.
+
+
+
 
 
 

@@ -1,3 +1,17 @@
+
+#install.packages("covid19.analytics")
+library(covid19.analytics)
+library(dplyr)
+
+dir("data")
+data <- "data/covid_mexico_comorbidity_dataset_100k.csv"
+covid19A <- read.table(data, header = T, sep = ",")
+
+#covid19A <- covid19.data("ts-confirmed")
+#covid19.data("ts-deaths")
+#covid19.data("ts-recovered")
+#covid19.data("ts-ALL") 
+
 #Create Table: COVID 19 Deaths Without Commorbidity
 
 table_no_commorb <- covid19A %>%
