@@ -111,7 +111,7 @@ covid19A <- read.csv("/Users/neilsfolder/Documents/MS - EMPH/M1 - First Semester
 
 #Preliminaries
 ```{r}
-summary(covid19A)
+
 library(dplyr)
 ```
 
