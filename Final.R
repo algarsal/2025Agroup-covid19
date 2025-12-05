@@ -1,7 +1,7 @@
 ## ----------------Statistical Analysis-----------------------------
-## ---------------(Code from the start)----------------------------
+## ---------------(Code from the start)------------------------------
 
-##----------------- Load the data base---------------------------
+##----------------- Load the data base-------------------------------
 
 dir("data")
 data <- "data/covid_mexico_comorbidity_dataset_100k.csv"
@@ -11,7 +11,7 @@ summary(covid19A)
 
 library(dplyr) ###
 
-### ------------------Chi square Test--------------------------
+### ------------------Chi square Test--------------------------------
 
 # The Chi square is test is gonna allow us to find association between
 # DEATHS & each COMORBIDITY 
@@ -56,19 +56,72 @@ for (c in comorbidities) {
 
 chi_results
 
-#  All tests resulted in highly significant p-values (p < 2.2e-16), 
+#  All tests resulted in highly significant p-values, 
 #  indicating that the distribution of deaths differs significantly 
-#  between patients with and without the comorbidity.
+#  between patients with and without the comorbidity (CM).
 
 ##  This supports the conclusion that comorbidities are strongly 
 ##  associated with increased mortality.
 
-# Now that we found statistically significant association between each 
-# and every comorbidity 
+#  Now that we found statistically significant association between each 
+#  and every comorbidity, to investigate about the probability of death 
+#  based on the presence or absence of each CM, combinations &
+#  interactions...
 
-###-------------LOGISTIC REGRESION MODEL-------------------------
+#  The logistic model is ideal for this analysis because our outcome
+#  variables are binary 
+
+###-------------LOGISTIC REGRESION MODEL (LRM)-------------------------
+
+           # We start doing individual LRM for each CM
+
+## load library 
 
 library(broom)
+
+# Indiv. LGM Diabetes
+
+model_Diabetes <- glm(
+  COVID_Death ~ Diabetes,
+  data = covid19A,
+  family = binomial()
+)
+summary(model_Diabetes)
+tidy(model_Diabetes, exponentiate = TRUE, conf.int = TRUE)
+ 
+# Indiv. LGM Smoking
+
+model_Smoking <- glm(
+  COVID_Death ~ Smoking,
+  data = covid19A,
+  family = binomial()
+)
+summary(model_Smoking)
+tidy(model_Smoking, exponentiate = TRUE, conf.int = TRUE)
+
+# Indiv. LGM  Obesity
+
+model_Obesity <- glm(
+  COVID_Death ~ Obesity,
+  data = covid19A,
+  family = binomial()
+)
+summary(model_Obesity)
+tidy(model_Obesity, exponentiate = TRUE, conf.int = TRUE)
+
+# Indiv. LGM  Hypertension
+
+model_Hypertension <- glm(
+  COVID_Death ~ Hypertension,
+  data = covid19A,
+  family = binomial()
+)
+summary(model_Hypertension)
+tidy(model_Hypertension, exponentiate = TRUE, conf.int = TRUE)
+
+
+
+
 # Logistic Regression 1: Diabetes + Hypertension
 model_Diabetes_Hypertension <- glm(
   COVID_Death ~ Diabetes + Hypertension,
@@ -126,41 +179,6 @@ model_Hypertension_Obesity <- glm(
 summary(model_Hypertension_Obesity)
 tidy(model_Hypertension_Obesity, exponentiate = TRUE, conf.int = TRUE)
 
-#Logistic Regression 7: Diabetes
-model_Diabetes <- glm(
-  COVID_Death ~ Diabetes,
-  data = covid19A,
-  family = binomial()
-)
-summary(model_Diabetes)
-tidy(model_Diabetes, exponentiate = TRUE, conf.int = TRUE)
-
-#Logistic Regression 8: Smoking
-model_Smoking <- glm(
-  COVID_Death ~ Smoking,
-  data = covid19A,
-  family = binomial()
-)
-summary(model_Smoking)
-tidy(model_Smoking, exponentiate = TRUE, conf.int = TRUE)
-
-#Logistic Regression 9: Obesity
-model_Obesity <- glm(
-  COVID_Death ~ Obesity,
-  data = covid19A,
-  family = binomial()
-)
-summary(model_Obesity)
-tidy(model_Obesity, exponentiate = TRUE, conf.int = TRUE)
-
-#Logistic Regression 10: Hypertension
-model_Hypertension <- glm(
-  COVID_Death ~ Hypertension,
-  data = covid19A,
-  family = binomial()
-)
-summary(model_Hypertension)
-tidy(model_Hypertension, exponentiate = TRUE, conf.int = TRUE)
 
 #Single combined output table
 library(dplyr)
