@@ -56,20 +56,20 @@ for (c in comorbidities) {
 
 chi_results
 
-#  All tests resulted in highly significant p-values, 
-#  indicating that the distribution of deaths differs significantly 
-#  between patients with and without the comorbidity (CM).
+  #  All tests resulted in highly significant p-values, 
+  #  indicating that the distribution of deaths differs significantly 
+  #  between patients with and without the comorbidity (CM).
 
-##  This supports the conclusion that comorbidities are strongly 
-##  associated with increased mortality.
+  ##  This supports the conclusion that comorbidities are strongly 
+  ##  associated with increased mortality.
 
-#  Now that we found statistically significant association between each
-#  and every comorbidity, to investigate about the probability of death 
-#  based on the presence or absence of each CM, combinations &
-#  interactions...
+  #  Now that we found statistically significant association between each
+  #  and every comorbidity, to investigate about the probability of death 
+  #  based on the presence or absence of each CM, combinations &
+  #  interactions...
 
-#  The logistic model is ideal for this analysis because our outcome
-#  variables are binary 
+  #  The logistic model is ideal for this analysis because our outcome
+  #  variables are binary 
 
 ###-------------LOGISTIC REGRESION MODEL (LRM)-------------------------
 
@@ -122,9 +122,9 @@ tidy(model_Hypertension, exponentiate = TRUE, conf.int = TRUE)
 
       ## However, running individual LRM is measuring the association of each
       ## individual CM, while for isolating effect we might need to incorporate 
-      ## all the CM analyzed in this study a Multivariable Model (MVM)
+      ## all the CM analyzed in this study as a Multivariable Model (MVM)
 
-# MVM
+                         ##Multivariable Model (MVM)
 
 MVM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
                   data = covid19A,
@@ -137,8 +137,9 @@ summary(MVM)
        # the odds of dying?
     
      # Another version for the MVM would be only considering only the people
-     # with at least 1 comorbility (a subset of the data (Number of CM >1))
+     # with at least 1 comorbility (a subset of the data (Number of CM >=1))
      # that would attenuate the effect of the CM. Answering the question
+
      # Among people who already have comorbidities, which specific diseases
      # increase the odds of death?
 
@@ -152,10 +153,14 @@ MVMwithCM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
 
 summary(MVMwithCM)
 
+    ######## To compare which model is more fitted (MVMwithCM or MVM)
+    ######## AIC & ANOVA models could be run
+
+
      # which can be compared with a mortality baseline given by a LGM of 
      # only the people WITH OUT any CM
 
-# Mortality baseline (Deaths WITH OUT CM)
+#Mortality baseline (Deaths WITH OUT CM)
 
 no_comorb <- subset(covid19A, Number_of_Comorbidities == 0)
 
@@ -169,9 +174,21 @@ summary(LRMnoCM)
      # multiple CM increases the odds of death, To answer this question we 
      # run a LGM considering Number_of_Comorbidities (given in our dataset)
 
-# LGM Number of comorbidities
+                       # LGM Number of comorbidities
 
+LRM_NCM <- glm(COVID_Death ~ Number_of_Comorbidities,
+                 data = with_comorb, #again with the subset 
+                 family = binomial)
 
+summary(LRM_NCM)
+
+     ## Now that we know that the risk of death increases as the Number of CM 
+     ## increases. Identifying which combination of CM's is the most dangerous 
+     ## would help us shape the profile for a high risk of death infected person
+     ## given that usually CM's appear simultaneously 
+   
+  # To analyse that running Paired LRM (PLRM) and the compare. Would help us 
+  # identify the most dangerous combinations
 
 # Logistic Regression 1: Diabetes + Hypertension
 model_Diabetes_Hypertension <- glm(
