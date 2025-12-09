@@ -13,9 +13,11 @@ library(dplyr) ###
 
 ### ------------------Chi square Test--------------------------------
 
-# The Chi square is test is gonna allow us to find association between
+# The Chi square test is gonna allow us to find association between
 # DEATHS & each COMORBIDITY 
 
+      ## Made a loop for all the comorbidities instead of typing
+      ## by hand each contingency table & Chi test
 
 comorbidities <- c("Diabetes", "Hypertension", "Obesity", "Smoking")
 
@@ -27,8 +29,6 @@ for (c in comorbidities) {
   print(chisq.test(tab))
 }
 
-      ## Made a loop for all the comorbidities instead of typing
-      ## by hand each contingency table & Chi test
 
 # results table
 
@@ -63,7 +63,7 @@ chi_results
 ##  This supports the conclusion that comorbidities are strongly 
 ##  associated with increased mortality.
 
-#  Now that we found statistically significant association between each 
+#  Now that we found statistically significant association between each
 #  and every comorbidity, to investigate about the probability of death 
 #  based on the presence or absence of each CM, combinations &
 #  interactions...
@@ -73,13 +73,13 @@ chi_results
 
 ###-------------LOGISTIC REGRESION MODEL (LRM)-------------------------
 
-           # We start doing individual LRM for each CM
+            # We start doing individual LRM for each CM
 
 ## load library 
 
 library(broom)
 
-# Indiv. LGM Diabetes
+# Indiv. LRM Diabetes
 
 model_Diabetes <- glm(
   COVID_Death ~ Diabetes,
@@ -89,7 +89,7 @@ model_Diabetes <- glm(
 summary(model_Diabetes)
 tidy(model_Diabetes, exponentiate = TRUE, conf.int = TRUE)
  
-# Indiv. LGM Smoking
+# Indiv. LRM Smoking
 
 model_Smoking <- glm(
   COVID_Death ~ Smoking,
@@ -99,7 +99,7 @@ model_Smoking <- glm(
 summary(model_Smoking)
 tidy(model_Smoking, exponentiate = TRUE, conf.int = TRUE)
 
-# Indiv. LGM  Obesity
+# Indiv. LRM  Obesity
 
 model_Obesity <- glm(
   COVID_Death ~ Obesity,
@@ -119,6 +119,57 @@ model_Hypertension <- glm(
 summary(model_Hypertension)
 tidy(model_Hypertension, exponentiate = TRUE, conf.int = TRUE)
 
+
+      ## However, running individual LRM is measuring the association of each
+      ## individual CM, while for isolating effect we might need to incorporate 
+      ## all the CM analyzed in this study a Multivariable Model (MVM)
+
+# MVM
+
+MVM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
+                  data = covid19A,
+                  family = binomial)
+
+summary(MVM)
+
+       # This model is considering the whole dataset. Answering the question:
+       # Across the entire population, does each comorbidity increase 
+       # the odds of dying?
+    
+     # Another version for the MVM would be only considering only the people
+     # with at least 1 comorbility (a subset of the data (Number of CM >1))
+     # that would attenuate the effect of the CM. Answering the question
+     # Among people who already have comorbidities, which specific diseases
+     # increase the odds of death?
+
+#MVM with CM
+
+with_comorb <- subset(covid19A, Number_of_Comorbidities > 0)
+
+MVMwithCM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
+                  data = with_comorb,
+                  family = binomial)
+
+summary(MVMwithCM)
+
+     # which can be compared with a mortality baseline given by a LGM of 
+     # only the people WITH OUT any CM
+
+# Mortality baseline (Deaths WITH OUT CM)
+
+no_comorb <- subset(covid19A, Number_of_Comorbidities == 0)
+
+LRMnoCM <- glm(COVID_Death ~ 1,        
+                data = no_comorb,
+                family = binomial)
+
+summary(LRMnoCM)
+
+     # Another interesting question to analyse would be if the addition of 
+     # multiple CM increases the odds of death, To answer this question we 
+     # run a LGM considering Number_of_Comorbidities (given in our dataset)
+
+# LGM Number of comorbidities
 
 
 
