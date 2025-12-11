@@ -271,6 +271,25 @@ results <- lapply(names(models), function(name) {
 combined_results <- bind_rows(results)
 combined_results
 
+#Graph to show represent combined result table
+library(ggplot2)
+
+ls(combined_results)
+head(combined_results)
+combined_results %>%
+  filter(term != "(Intercept)") %>%
+  ggplot(aes(x = Model, y = term, fill = -log10(p.value))) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "red") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(
+    title = "Comorbidities Risk Factor Heatmap",
+    x = "Model",
+    y = "Risk Factor",
+    fill = "-log10(p)"
+  )
+
 #11/12/2025
 ###-------------AIV and GIV Analyses-------------------------
 #library(dplyr)
