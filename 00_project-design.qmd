@@ -21,13 +21,16 @@ format:
   html:
     self_contained: TRUE
     embed-resources: true
+editor: 
+  markdown: 
+    wrap: sentence
 ---
 
 # Teacher comments
 
 ## Group A
 
-Members:  Cléa Meystre, Neil Mabalot, Sebastian Torres, Raymundo Gutierrez, Hamna Tahir
+Members: Cléa Meystre, Neil Mabalot, Sebastian Torres, Raymundo Gutierrez, Hamna Tahir
 
 Github user names: Cmeystre, neilmabalot-34404, torressebastian757-blip, raymoran-netizen, hannatahirskg09-design
 
@@ -35,21 +38,26 @@ Link to data: https://gaia.inegi.org.mx/covid19/
 
 ## The project design
 
-The project is right.  It is interesting to link Covid with social or health data. 
+The project is right.
+It is interesting to link Covid with social or health data.
 
-But in the link you provide, there are only covid data. I didn’t find the other health data. 
+But in the link you provide, there are only covid data.
+I didn’t find the other health data.
 
-There are covid19 data also in R packages, as the “COVID19” package from John Hopkins University, which enables also to download data from the World Bank and other sources. You should also explore these. 
+There are covid19 data also in R packages, as the “COVID19” package from John Hopkins University, which enables also to download data from the World Bank and other sources.
+You should also explore these.
 
-Other problem is that you will not have a nice article to follow. It might be interesting to look for an article for the proposed comorbidities. 
+Other problem is that you will not have a nice article to follow.
+It might be interesting to look for an article for the proposed comorbidities.
 
-For example Salinas-Aguirre et al. (2021) Clinical characteristics and comorbidities associated with mortality in patients with Covid-19 in Coalhuila (Mexico). 
+For example Salinas-Aguirre et al. (2021) Clinical characteristics and comorbidities associated with mortality in patients with Covid-19 in Coalhuila (Mexico).
 
-You can start with your project (check the task "Your project. Preliminary results" in PoliformaT). 
+You can start with your project (check the task "Your project. Preliminary results" in PoliformaT).
 
 # Students proposal
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+Quarto enables you to weave together content and executable code into a finished document.
+To learn more about Quarto see <https://quarto.org>.
 
 1.  Title of your project (in Yaml header)
 
@@ -59,63 +67,114 @@ Quarto enables you to weave together content and executable code into a finished
 
     Githib user name: Cmeystre, neilmabalot-34404, torressebastian757-blip, raymoran-netizen, hannatahirskg09-design
 
-#4.  A description of the selected data. A link to the data and describe its structure and main variables. (If it is your own data, upload it to github to link it here).
+#4.
+A description of the selected data.
+A link to the data and describe its structure and main variables.
+(If it is your own data, upload it to github to link it here).
 
-    Description: This dataset was created as a report of the COVID-19 pandemic in Mexico. Starting in March 2020 to September 2023. The virus infected and in some cases killed people all over the country. However we theorize that those deaths were affected through other comorbidities present before the infection. We propose to find a corelation between comorbidities such as diabetes, hypertension, smoking and heart diseases and death rates caused by COVID19. The proposal analyzes will be carried out with a lineal regression model.
+```         
+Description: This dataset was created as a report of the COVID-19 pandemic in Mexico. Starting in March 2020 to September 2023. The virus infected and in some cases killed people all over the country. However we theorize that those deaths were affected through other comorbidities present before the infection. We propose to find a corelation between comorbidities such as diabetes, hypertension, smoking and heart diseases and death rates caused by COVID19. The proposal analyzes will be carried out with a lineal regression model.
+```
 
-#5.  Define the objectives, research questions and main hypotheses.
+#5.
+Define the objectives, research questions and main hypotheses.
 
-    Objective: Determine if the COVID-19 mortality rates are directly linked to contracting the COVID-19 virus or if they are due to the individual being simultaneously infected with COVID-19 and a comorbidity disease(s).
+```         
+Objective: Determine if the COVID-19 mortality rates are directly linked to contracting the COVID-19 virus or if they are due to the individual being simultaneously infected with COVID-19 and a comorbidity disease(s).
 
-    Research question: What is the correlation between the presence of comorbidities and the mortality rate of COVID-19 patients?
+Research question: What is the correlation between the presence of comorbidities and the mortality rate of COVID-19 patients?
 
-    Main Hypothesis: There is a higher risk of death with a combination of COVID-19 and a comorbidity disease(s).
+Main Hypothesis: There is a higher risk of death with a combination of COVID-19 and a comorbidity disease(s).
+```
 
-#6.  Name the analyses you think are necessary or which you would like to use.
+#6.
+Name the analyses you think are necessary or which you would like to use.
 
-    1.Linear regression model - To see the correlation between our different factors (Mortality rates, contraction of COVID-19 virus and the presence of comorbidities diseases).
+```         
+1.Linear regression model - To see the correlation between our different factors (Mortality rates, contraction of COVID-19 virus and the presence of comorbidities diseases).
 
-    2.Test for Moderation - To see how the comorbidities impacts COVID-19 deaths.
+2.Test for Moderation - To see how the comorbidities impacts COVID-19 deaths.
 
-    3\. ANOVA - To see if there is a statistical difference between mean deaths per age group.
+3\. ANOVA - To see if there is a statistical difference between mean deaths per age group.
 
-    4.Post-hoc tests ANOVA (Tukey test) - Used to see the statistical differences and attempt to explain their correlation to mortality rates.
-    
-    Data Link: https://gaia.inegi.org.mx/covid19/
-    
-    Sources: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0296895
-             https://www.sciencedirect.com/science/article/pii/S0014256521000138
-             
-#7.   Introduction. Why your project is interesting? and What is known already about it? Most citations should  be done in the introduction.
-  Our project is interesting because it regards a worldwide pandemic that impacted many countries drastically. We will study the correlation between presence of 4 different comorbities and their impact on COVID-19 Deaths. 
+4.Post-hoc tests ANOVA (Tukey test) - Used to see the statistical differences and attempt to explain their correlation to mortality rates.
 
-#8. Objectives and hypotheses.
- Objectives: Reach an understanding at how comorbidities affect the patients and can possibly increase mortality. We also aimed to understand what specific comorbidity or combination of two comorbities out of the four present in the data set, are most impactful in this study. 
-  Final hypotheses: 
+Data Link: https://gaia.inegi.org.mx/covid19/
 
-#9. Methods. Explain the origin and structure of your data. What have you done? And what did you use to do it? Step by step, so anyone could do it again by reading this part.
-  1. Chi square Test - The Chi square test is gonna allow us to find association between DEATHS & each COMORBIDITY. All tests resulted in highly significant p-values, indicating that the distribution of deaths differs significantly between patients with and without the comorbidity. This supports the conclusion that comorbidities are strongly associated with increased mortality. Now that we found statistically significant association between each and every comorbidity, to investigate about the probability of death based on the presence or absence of each comorbidity, combinations & interactions. The logistic model is ideal for this analysis because our outcome variables are binary.
+Sources: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0296895 
+           https://www.sciencedirect.com/science/article/pii/S0014256521000138 
+           https://pmc.ncbi.nlm.nih.gov/articles/PMC7310609/ 
+           https://pubmed.ncbi.nlm.nih.gov/33608563/ 
+```
+
+##Introduction 
+#7.Why your project is interesting? and What is known already about it? Most citations should be done in the introduction.
+
+```         
+  Experiencing a global pandemic in the 21st century is scientifically and statistically jarring, particularly given the era’s sophisticated pharmaceutical and surveillance capabilities. The emergence of a highly contagious respiratory illness in 2020 infamously known as the Coronavirus Disease 2019 (COVID-19), caused by the virus ‘Severe Acute Respiratory Syndrome Coronavirus 2’ (SARs-CoV-2), has profoundly impacted global health that resulted in a declaration of global health emergency. As a result, this prompted extensive research into the factors that contribute to severe outcomes and mortality.
   
-  2. Logistic Regressions - We first ran individual LRM to measure the association of each individual Comorbidity. Then to isolate the effect we incorporated all the Comorbidities analyzed in this study as a Multivariable Model (MVM). This model is considering the whole dataset. Answering the question: Across the entire population, does each comorbidity increase the odds of dying? 
-  We then made another version of the MVM that would only consider the people with at least 1 comorbility (a subset of the data (Number of CM >=1)) that would attenuate the effect of the Comorbitiy (MVMwithCM). Answering the question: Among people who already have comorbidities, which specific diseases increase the odds of death? 
-  We then compared the MVM and the MVMwithCM models with a mortality baseline given by a LRM of only the people WITH OUT any CM (LRMnoCM).
-  Another interesting question to analyse would be if the addition of multiple Comorbities increases the odds of death.To answer this question we run a LGM considering Number_of_Comorbidities (given in our dataset) (LRM_NCM).
-  Now that we know that the risk of death increases as the Number of Comorbidities increases. Identifying which combination of Comorbidities is the most dangerous would help us shape the profile for a high risk of death infected person, given that usually Comorbidities appear simultaneously. To analyse this we used the Paired LRM (PLRM) and used it to compare Diabetes + Hypertension, Diabetes + Smoking, Diabetes + Obesity, Hypertension + Smoking, Obesity + Smoking and Hypertension + Obesity. 
-  Finally, we created a single combined output table with the Individual LRM results for each Comorbidity and the PLRM results. 
-  
-  3. AIV and GIV analyses - Incremental value analysis was used to quantify the relative importance of four predictors—hypertension, obesity, diabetes, and smoking—across multiple logistic regression specifications.
-Average Incremental Value (AIV) was computed for each predictor as the mean absolute standardized coefficient (|β/SE|) across all models in which the predictor appeared. AIV reflects the average individual contribution of a predictor to model performance, regardless of other covariates.
-General Incremental Value (GIV) was calculated as the sum of AIV contributions across all model combinations involving each predictor. GIV reflects the overall importance of each variable across the entire model space, capturing how consistently and strongly it improves predictive performance.
-Both metrics provide a complementary assessment: AIV reflects effect strength within models, while GIV reflects global contribution across models. Higher values for either metric indicate stronger incremental predictive importance.
-  4. ANOVA - 
+    Understanding the pathophysiological mechanism of viral disease infections, the role of comorbidities, i.e., pre-existing health conditions, became the main research interest linking its influence on the risk of death among individuals infected with SARS-CoV-2. Over the years since the pandemic passed, multiple literature quantified the mortality risk associated with comorbidities. 
+    
+  One study by Elezkurtaj et al. (2021) highlighted that COVID-19 patients with more than two comorbidities increased mortality than those with single or no comorbidities. Among the comorbidities identified, a study by Espinosa et al. (2021) revealed that hypertension, diabetes, and cardiovascular disease were the most frequent comorbidities in fatal cases of COVID-19. Furthermore, another study by Salinas-Aguirre et al. (2022) concluded that diabetes mellitus, systemic arterial hypertension, obesity, and chronic kidney damage increase mortality in patients with COVID-19 in the population of Coahuila in Mexico. These findings were further solidified by a study conducted by Lowhorn et al. (2024) stating that hypertension, followed by obesity and diabetes, are the most often occurring comorbidities in COVID-19 patients and are also some of the comorbidities most strongly related with high mortality rates in the Mexican population.
 
-10. Results. Figures and tables with captions and description of what do they mean. Never include citations in this part. This is only your work.
+  Considering the literatures cited, the impact of the COVID-19 pandemic in Mexico is arguably one of the most severe in the world. The pandemic in Mexico wasn't just a viral outbreak; it was a synergistic epidemic where the virus collided with the country's high rates of pre-existing chronic disease crisis (comorbidities). In line with this, our project aims to statistically analyze the data presented in the Analytical Viewer for COVID-19, a platform created by Mexico's National Institute of Statistics and Geography (INEGI). By exploring this link, our project aims to delve deeper into the nuances of comorbidity-related risks and its implications on actionable insights and protective measures for future pandemic preparedness, especially to the vulnerable sector of the population. 
+```
 
-11. Discussion. From your objectives.
+#8.Objectives and hypotheses.
+##Objectives 
+Objectives: Reach an understanding at how comorbidities affect the patients and can possibly increase mortality.
+We also aimed to understand what specific comorbidity or combination of two comorbities out of the four present in the data set, are most impactful in this study.
+##Hypothesis 
+Final hypotheses:
 
-12. Conclusions.
+#9.
+##Methods.
+Explain the origin and structure of your data.
+What have you done?
+And what did you use to do it?
+Step by step, so anyone could do it again by reading this part.
+1.
+Chi square Test - The Chi square test is gonna allow us to find association between DEATHS & each COMORBIDITY.
+All tests resulted in highly significant p-values, indicating that the distribution of deaths differs significantly between patients with and without the comorbidity.
+This supports the conclusion that comorbidities are strongly associated with increased mortality.
+Now that we found statistically significant association between each and every comorbidity, to investigate about the probability of death based on the presence or absence of each comorbidity, combinations & interactions.
+The logistic model is ideal for this analysis because our outcome variables are binary.
+
+2.  Logistic Regressions - We first ran individual LRM to measure the association of each individual Comorbidity.
+    Then to isolate the effect we incorporated all the Comorbidities analyzed in this study as a Multivariable Model (MVM).
+    This model is considering the whole dataset.
+    Answering the question: Across the entire population, does each comorbidity increase the odds of dying?
+    We then made another version of the MVM that would only consider the people with at least 1 comorbility (a subset of the data (Number of CM \>=1)) that would attenuate the effect of the Comorbitiy (MVMwithCM).
+    Answering the question: Among people who already have comorbidities, which specific diseases increase the odds of death?
+    We then compared the MVM and the MVMwithCM models with a mortality baseline given by a LRM of only the people WITH OUT any CM (LRMnoCM).
+    Another interesting question to analyse would be if the addition of multiple Comorbities increases the odds of death.To answer this question we run a LGM considering Number_of_Comorbidities (given in our dataset) (LRM_NCM).
+    Now that we know that the risk of death increases as the Number of Comorbidities increases.
+    Identifying which combination of Comorbidities is the most dangerous would help us shape the profile for a high risk of death infected person, given that usually Comorbidities appear simultaneously.
+    To analyse this we used the Paired LRM (PLRM) and used it to compare Diabetes + Hypertension, Diabetes + Smoking, Diabetes + Obesity, Hypertension + Smoking, Obesity + Smoking and Hypertension + Obesity.
+    Finally, we created a single combined output table with the Individual LRM results for each Comorbidity and the PLRM results.
+
+3.  AIV and GIV analyses - Incremental value analysis was used to quantify the relative importance of four predictors—hypertension, obesity, diabetes, and smoking—across multiple logistic regression specifications.
+    Average Incremental Value (AIV) was computed for each predictor as the mean absolute standardized coefficient (\|β/SE\|) across all models in which the predictor appeared.
+    AIV reflects the average individual contribution of a predictor to model performance, regardless of other covariates.
+    General Incremental Value (GIV) was calculated as the sum of AIV contributions across all model combinations involving each predictor.
+    GIV reflects the overall importance of each variable across the entire model space, capturing how consistently and strongly it improves predictive performance.
+    Both metrics provide a complementary assessment: AIV reflects effect strength within models, while GIV reflects global contribution across models.
+    Higher values for either metric indicate stronger incremental predictive importance.
+
+4.  ANOVA -
+
+5.  Results.
+    Figures and tables with captions and description of what do they mean.
+    Never include citations in this part.
+    This is only your work.
+
+6.  Discussion.
+    From your objectives.
+
+7.  Conclusions.
 
 ##----------------- Load the data base-------------------------------
+
 ```{r}
 dir("data")
 data <- "data/covid_mexico_comorbidity_dataset_100k.csv"
@@ -127,7 +186,9 @@ library(dplyr)
 ```
 
 ### ------------------Chi square Test--------------------------------
+
 # The Chi square test is gonna allow us to find association between Deaths & each Comorbidities
+
 ```{r}
 comorbidities <- c("Diabetes", "Hypertension", "Obesity", "Smoking")
 
@@ -141,6 +202,7 @@ for (c in comorbidities) {
 ```
 
 # results table
+
 ```{r}
 chi_results <- data.frame(
   Comorbidity = character(),
@@ -166,8 +228,8 @@ for (c in comorbidities) {
 chi_results
 ```
 
-###-------------LOGISTIC REGRESION MODEL (LRM)-------------------------
-# We start doing individual LRM for each Comorbidity
+###-------------LOGISTIC REGRESION MODEL (LRM)------------------------- \# We start doing individual LRM for each Comorbidity
+
 ```{r}
 ## load library 
 library(broom)
@@ -245,7 +307,8 @@ LRM_NCM <- glm(COVID_Death ~ Number_of_Comorbidities,
 summary(LRM_NCM)
 ```
 
-#Paired Logistic Regression Models (PLRM) and the comparisons. 
+#Paired Logistic Regression Models (PLRM) and the comparisons.
+
 ```{r}
 # Logistic Regression 1: Diabetes + Hypertension
 model_Diabetes_Hypertension <- glm(
@@ -302,7 +365,8 @@ summary(model_Hypertension_Obesity)
 tidy(model_Hypertension_Obesity, exponentiate = TRUE, conf.int = TRUE)
 ```
 
-#Single combined output table of all 10 Logistic Regression Models 
+#Single combined output table of all 10 Logistic Regression Models
+
 ```{r}
 models <- list(
   Diabetes_Hypertension = model_Diabetes_Hypertension,
@@ -323,4 +387,3 @@ results <- lapply(names(models), function(name) {
 combined_results <- bind_rows(results)
 combined_results
 ```
-
