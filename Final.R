@@ -271,3 +271,81 @@ results <- lapply(names(models), function(name) {
 combined_results <- bind_rows(results)
 combined_results
 
+#11/12/2025
+###-------------AIV and GIV Analyses-------------------------
+#library(dplyr)
+#library(stringr)
+#library(tidyr)
+
+# Extract variables from model name
+if (is.list(results) && !is.data.frame(results)) {
+  results <- bind_rows(results)
+}
+model_vars <- results %>%
+  distinct(Model) %>%
+  mutate(vars = str_split(Model, "_"))
+
+#AIV (Average Incremental Value) = average of the absolute standardized coefficients of a variable across all models where it appears. Measures the average strength of each variable across all the model specifications where it appears. Higher AIV = stronger, more stable effect.
+# Compute AIV: mean(|β| / SE) across models where variable appears
+aiv <- results %>%
+  filter(term != "(Intercept)") %>%
+  mutate(standardized = abs(estimate / std.error)) %>%
+  group_by(term) %>%
+  summarise(AIV = mean(standardized)) %>%
+  arrange(desc(AIV))
+
+# Expand model × variable pairs
+model_var_pairs <- model_vars %>%
+  unnest(vars) %>%
+  rename(term = vars)
+
+#GIV (General Incremental Value) = sum of AIV contributions across all models in which the variable appears.Measures the overall importance of each variable across all models. Higher GIV = more robust predictive importance.
+# Join AIV back onto model-variable pairs
+giv <- model_var_pairs %>%
+  left_join(aiv, by = "term") %>%
+  group_by(term) %>%
+  summarise(GIV = sum(AIV)) %>%
+  arrange(desc(GIV))
+
+#Interpreting results: AIV results tell me that if I add each variable to different models, hypertension, obesity, and diabetes each add a large amount of predictive value, while smoking adds somewhat less.Hypertension has the strongest individual effect across models. Its contribution to the outcome is consistently high, regardless of which other variables are included. GIV takes into consideration how strong the variable is (AIV) and how often and in what combinations it improves model performance. Across all models and variable combinations, hypertension is the most influential predictor, while smoking is consistently the least influential. Our AIV and GIV results are consistent and confirm that hypertension is the dominant predictor, followed by obesity and diabetes, with smoking having the smallest (yet still relevant) effect.
+
+#AIV bar chart
+library(ggplot2)
+ggplot(aiv, aes(x = reorder(term, AIV), y = AIV)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Average Incremental Value (AIV) by Predictor",
+    x = "Predictor",
+    y = "AIV"
+  ) +
+  theme_minimal(base_size = 14)
+
+#GIV bar chart 
+ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
+  geom_col(fill = "darkorange") +
+  coord_flip() +
+  labs(
+    title = "General Incremental Value (GIV) by Predictor",
+    x = "Predictor",
+    y = "GIV"
+  ) +
+  theme_minimal(base_size = 14)
+
+###-------------ANOVA Analyses-------------------------
+library(car)
+
+Anova(model_Diabetes_Hypertension, type = "II", test.statistic = "LR")
+Anova(model_Diabetes_Smoking, type = "II", test.statistic = "LR")
+Anova(model_Diabetes_Obesity, type = "II", test.statistic = "LR")
+Anova(model_Hypertension_Smoking, type = "II", test.statistic = "LR")
+Anova(model_Obesity_Smoking, type = "II", test.statistic = "LR")
+Anova(model_Hypertension_Obesity, type = "II", test.statistic = "LR")
+Anova(model_Diabetes, type = "II", test.statistic = "LR")
+Anova(model_Smoking, type = "II", test.statistic = "LR")
+Anova(model_Obesity, type = "II", test.statistic = "LR")
+Anova(model_Hypertension, type = "II", test.statistic = "LR")
+
+#Interpret results - This is Pair wise analysis ANOVA
+#Comparisons of ANOVA
+anova(model1, model2, test="LRT")
