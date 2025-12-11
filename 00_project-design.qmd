@@ -111,7 +111,8 @@ Sources: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.02968
 #7.Why your project is interesting? and What is known already about it? Most citations should be done in the introduction.
 
 ```         
-  Experiencing a global pandemic in the 21st century is scientifically and statistically jarring, particularly given the era’s sophisticated pharmaceutical and surveillance capabilities. The emergence of a highly contagious respiratory illness in 2020 infamously known as the Coronavirus Disease 2019 (COVID-19), caused by the virus ‘Severe Acute Respiratory Syndrome Coronavirus 2’ (SARs-CoV-2), has profoundly impacted global health that resulted in a declaration of global health emergency. As a result, this prompted extensive research into the factors that contribute to severe outcomes and mortality.
+
+Experiencing a global pandemic in the 21st century is scientifically and statistically jarring, particularly given the era’s sophisticated pharmaceutical and surveillance capabilities. The emergence of a highly contagious respiratory illness in 2020 infamously known as the Coronavirus Disease 2019 (COVID-19), caused by the virus ‘Severe Acute Respiratory Syndrome Coronavirus 2’ (SARs-CoV-2), has profoundly impacted global health that resulted in a declaration of global health emergency. As a result, this prompted extensive research into the factors that contribute to severe outcomes and mortality.
   
     Understanding the pathophysiological mechanism of viral disease infections, the role of comorbidities, i.e., pre-existing health conditions, became the main research interest linking its influence on the risk of death among individuals infected with SARS-CoV-2. Over the years since the pandemic passed, multiple literature quantified the mortality risk associated with comorbidities. 
     
