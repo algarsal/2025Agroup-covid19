@@ -271,7 +271,22 @@ results <- lapply(names(models), function(name) {
 combined_results <- bind_rows(results)
 combined_results
 
-#Graph to show represent combined result table
+#Single models for Individual CM
+models2 <- list(
+  Hypertension = model_Hypertension,
+  Obesity = model_Obesity,
+  Smoking = model_Smoking,
+  Diabetes = model_Diabetes
+)
+
+results2 <- lapply(names(models2), function(name) {
+  tidy(models2[[name]], exponentiate = TRUE, conf.int = TRUE) %>%
+    mutate(Model = name)
+})
+combined_results2 <- bind_rows(results2)
+combined_results2
+
+#Graph Heatmap to show represent combined result table - 
 library(ggplot2)
 
 ls(combined_results)
@@ -285,6 +300,23 @@ combined_results %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(
     title = "Comorbidities Risk Factor Heatmap",
+    x = "Model",
+    y = "Risk Factor",
+    fill = "-log10(p)"
+  )
+
+#Heatmap for Individual CM
+ls(combined_results2)
+head(combined_results2)
+combined_results2 %>%
+  filter(term != "(Intercept)") %>%
+  ggplot(aes(x = Model, y = term, fill = -log10(p.value))) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "red") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(
+    title = "Individual Comorbidities Risk Factor Heatmap ",
     x = "Model",
     y = "Risk Factor",
     fill = "-log10(p)"
@@ -339,7 +371,7 @@ ggplot(aiv, aes(x = reorder(term, AIV), y = AIV)) +
     x = "Predictor",
     y = "AIV"
   ) +
-  theme_minimal(base_size = 14)
+  theme_minimal(base_size = 10)
 
 #GIV bar chart 
 ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
@@ -350,7 +382,7 @@ ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
     x = "Predictor",
     y = "GIV"
   ) +
-  theme_minimal(base_size = 14)
+  theme_minimal(base_size = 10)
 
 ###-------------ANOVA Analyses-------------------------
 library(car)
