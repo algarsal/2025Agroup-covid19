@@ -109,7 +109,7 @@ model_Obesity <- glm(
 summary(model_Obesity)
 tidy(model_Obesity, exponentiate = TRUE, conf.int = TRUE)
 
-# Indiv. LGM  Hypertension
+# Indiv. LRM  Hypertension
 
 model_Hypertension <- glm(
   COVID_Death ~ Hypertension,
@@ -172,9 +172,9 @@ summary(LRMnoCM)
 
      # Another interesting question to analyse would be if the addition of 
      # multiple CM increases the odds of death, To answer this question we 
-     # run a LGM considering Number_of_Comorbidities (given in our dataset)
+     # run a LRM considering Number_of_Comorbidities (given in our dataset)
 
-                       # LGM Number of comorbidities
+                       # LRM Number of comorbidities
 
 LRM_NCM <- glm(COVID_Death ~ Number_of_Comorbidities,
                  data = with_comorb, #again with the subset 
@@ -283,7 +283,7 @@ if (is.list(results) && !is.data.frame(results)) {
 }
 model_vars <- results %>%
   distinct(Model) %>%
-  mutate(vars = str_split(Model, "_"))
+  mutate(vars = strsplit(Model, "_"))
 
 #AIV (Average Incremental Value) = average of the absolute standardized coefficients of a variable across all models where it appears. Measures the average strength of each variable across all the model specifications where it appears. Higher AIV = stronger, more stable effect.
 # Compute AIV: mean(|β| / SE) across models where variable appears
@@ -295,8 +295,9 @@ aiv <- results %>%
   arrange(desc(AIV))
 
 # Expand model × variable pairs
+library(tidyr)
 model_var_pairs <- model_vars %>%
-  unnest(vars) %>%
+  unnest(vars)%>%
   rename(term = vars)
 
 #GIV (General Incremental Value) = sum of AIV contributions across all models in which the variable appears.Measures the overall importance of each variable across all models. Higher GIV = more robust predictive importance.
