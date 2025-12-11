@@ -84,6 +84,8 @@ Quarto enables you to weave together content and executable code into a finished
     Data Link: https://gaia.inegi.org.mx/covid19/
     
     Sources: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0296895
+             https://www.sciencedirect.com/science/article/pii/S0014256521000138
+             
     
 #Date: November 20, 2025
 
