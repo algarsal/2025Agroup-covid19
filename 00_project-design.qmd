@@ -119,14 +119,12 @@ The pandemic in Mexico wasn't just a viral outbreak; it was a synergistic epidem
 In line with this, our project aims to statistically analyze the data presented in the Analytical Viewer for COVID-19, a platform created by Mexico's National Institute of Statistics and Geography (INEGI).
 By exploring this link, our project aims to delve deeper into the nuances of comorbidity-related risks and its implications on actionable insights and protective measures for future pandemic preparedness, especially to the vulnerable sector of the population.
 
-#8.
-Objectives and hypotheses Objective: The current project aims to substantiate the association between the mortality and the pre-existing health conditions / comorbidities of COVID-19 patients from Mexico City using the INEGI dataset, thereby providing a comparative analysis against literature-based evidence from some parts of Mexico and national studies to validate the consistency of comorbidity impact across different Mexican demographics.
-3 Hypotheses: 1.
-COVID-19 patients with pre-existing health condition / comorbidity are more likely to die from the viral disease.
-2.
-Among the 4 identified comorbidities, COVID-19 patients with cardiovascular diseases are more likely to die from the viral disease.\
-3.
-Ultimately, COVID-19 patients with cardiovascular disease in combination of another comorbidity are more likely to die from the viral disease.
+#8. Objectives and hypotheses 
+  Objective: The current project aims to substantiate the association between the mortality and the pre-existing health conditions / comorbidities of COVID-19 patients from Mexico City using the INEGI dataset, thereby providing a comparative analysis against literature-based evidence from some parts of Mexico and national studies to validate the consistency of comorbidity impact across different Mexican demographics.
+3 Hypotheses: 
+  1.COVID-19 patients with pre-existing health condition / comorbidity are more likely to die from the viral disease.
+  2.Among the 4 identified comorbidities, COVID-19 patients with cardiovascular diseases are more likely to die from the viral disease.\
+  3.Ultimately, COVID-19 patients with cardiovascular disease in combination of another comorbidity are more likely to die from the viral disease.
 
 #9.
 Methods Explain the origin and structure of your data.
@@ -180,18 +178,16 @@ The logistic model is ideal for this analysis because our outcome variables are 
     All predictors (Diabetes, Hypertension, Smoking, Obesity) have p-values \< 2.2e-16, meaning extremely strong evidence that each predictor is associated with COVID-19 mortality, independently of the other variable in the model.
     Strength of predictors, based on the LR Chisq value is the strongest for Hypertension, then for Diabetes, then Obesity and lastlt Smoking is slightly less strong than others.
 
-#10 Results Figures and tables with captions and description of what do they mean.Never include citations in this part.
-This is only your work.
-Figure 1: Figue 2: Figure 3: The AIV quantifies the additional predictive usefulness gained from each predictor when added to the model.
-Higher values indicate stronger contribution.
-Hypertension shows the highest average incremental value among predictor Figure 4: The GIV reflects the overall added predictive value contributed by each predictor across the full model.
-Larger GIV values represent more influential predictors.
-Hypertension shows the highest average incremental value among predictor.
+#10 Results Figures and tables with captions and description of what do they mean.Never include citations in this part.This is only your work.
+  Figure 1: 
+  Figue 2: 
+  Figure 3: The AIV quantifies the additional predictive usefulness gained from each predictor when added to the model. Higher values indicate stronger contribution. Hypertension shows the highest average incremental value among predictor 
+  Figure 4: The GIV reflects the overall added predictive value contributed by each predictor across the full model.
+Larger GIV values represent more influential predictors. Hypertension shows the highest average incremental value among predictor.
 
 #11 Discussion From your objectives.
 
-#12.
-Conclusions
+#12 Conclusions
 
 # Load the data base
 ```{r}
