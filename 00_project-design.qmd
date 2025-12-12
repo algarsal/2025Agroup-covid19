@@ -207,17 +207,6 @@ library(dplyr)
 # Chi square Test
 The Chi square test is gonna allow us to find association between Deaths & each Comorbidities
 ```{r}
-comorbidities <- c("Diabetes", "Hypertension", "Obesity", "Smoking")
-
-for (c in comorbidities) {
-  cat("\n==========================\n")
-  cat("Chi-square test for", c, "\n")
-  tab <- table(covid19A$COVID_Death, covid19A[[c]])
-}
-```
-
-# Results table
-```{r}
 chi_results <- data.frame(
   Comorbidity = character(),
   Chi_square = numeric(),
@@ -239,7 +228,8 @@ for (c in comorbidities) {
     )
   )
 }
-chi_results
+#chi_results
+knitr::kable(chi_results, caption = "Summary of Chi Square Test", digits = 2, align = "c")
 ```
 
 # LOGISTIC REGRESION MODEL (LRM)
@@ -275,6 +265,7 @@ model_Hypertension <- glm(
   data = covid19A,
   family = binomial()
 )
+knitr::kable(combined_results2_clean, caption = "Single-Predictor Logistic Regression Results", digits = 2, align = "c")
 
 #Multivariable Model (MVM)
 MVM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
@@ -323,9 +314,11 @@ model_Obesity_Smoking <- glm( COVID_Death ~ Obesity + Smoking, data = covid19A, 
 
 #Logistic Regression 6: Hypertension + Obesity
 model_Hypertension_Obesity <- glm( COVID_Death ~ Hypertension + Obesity, data = covid19A, family = binomial() )
+
+knitr::kable(combined_results_clean, caption = "Paired Logistic Regression Results", digits = 2, align = "c")
 ```
 
-#Single combined output table
+# Single combined output table
 ```{r}
 library(dplyr)
 
@@ -435,25 +428,12 @@ knitr::kable(AIC_BIC_table2, caption = "AIC and BIC for Single-Predictor Models"
 knitr::kable(AIC_BIC_table_paired, caption = "AIC and BIC for Paired Models", digits = 2, align = "c")
 ```
 
-#Graph Heatmap to show represent combined result table
+# Graph Heatmap to show represent combined result table
 ```{r}
 library(ggplot2)
 
 ls(combined_results)
 head(combined_results)
-combined_results %>%
-  filter(term != "(Intercept)") %>%
-  ggplot(aes(x = Model, y = term, fill = -log10(p.value))) +
-  geom_tile() +
-  scale_fill_gradient(low = "white", high = "red") +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(
-    title = "Comorbidities Risk Factor Heatmap",
-    x = "Model",
-    y = "Risk Factor",
-    fill = "-log10(p)"
-  )
 
 #Adding legend and caption to the Heatmap graph
 caption_text <- "Figure 1: Statistical significance of risk factors. Darker red = higher significance level (-log10 p-value)." 
@@ -480,19 +460,6 @@ combined_results %>%
 #Heatmap for Individual CM
 ls(combined_results2)
 head(combined_results2)
-combined_results2 %>%
-  filter(term != "(Intercept)") %>%
-  ggplot(aes(x = Model, y = term, fill = -log10(p.value))) +
-  geom_tile() +
-  scale_fill_gradient(low = "white", high = "red") +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(
-    title = "Individual Comorbidities Risk Factor Heatmap",
-    x = "Model",
-    y = "Risk Factor",
-    fill = "-log10(p)"
-  )
 
 #Adding legend and caption to the Heatmap graph
 caption_text <- "Figure 2: Statistical significance of risk factors. Darker red = higher significance level (-log10 p-value)." 
@@ -546,29 +513,6 @@ giv <- model_var_pairs %>%
   group_by(term) %>%
   summarise(GIV = sum(AIV)) %>%
   arrange(desc(GIV))
-
-#AIV bar chart
-library(ggplot2)
-ggplot(aiv, aes(x = reorder(term, AIV), y = AIV)) +
-  geom_col(fill = "steelblue") +
-  coord_flip() +
-  labs(
-    title = "Average Incremental Value (AIV) by Predictor",
-    x = "Predictor",
-    y = "AIV"
-  ) +
-  theme_minimal(base_size = 10)
-
-#GIV bar chart 
-ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
-  geom_col(fill = "darkorange") +
-  coord_flip() +
-  labs(
-    title = "General Incremental Value (GIV) by Predictor",
-    x = "Predictor",
-    y = "GIV"
-  ) +
-  theme_minimal(base_size = 10)
 
 #Adding legend and caption to the AIV and GIV graph
 library(stringr)
