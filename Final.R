@@ -370,6 +370,28 @@ combined_results %>%
     fill = "-log10(p)"
   )
 
+#Adding legend and caption to the Heatmap graph
+caption_text <- "Figure 1: Heatmap displaying the statistical significance of risk factors.Darker red indicates a higher significance level (-log10 p-value)" 
+
+combined_results %>%
+  filter(term != "(Intercept)") %>%
+  ggplot(aes(x = Model, y = term, fill = -log10(p.value))) +
+  geom_tile(color = "grey70") +
+  scale_fill_gradient(low = "white", high = "red", name = "-log10(p)") +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(face = "bold", size = 14),
+    axis.title = element_text(face = "bold"),
+    plot.caption = element_text(hjust = 0)  
+  ) +
+  labs(
+    title = "Comorbidities Risk Factor Heatmap",
+    x = "Model",
+    y = "Risk Factor",
+    caption = strwrap(caption_text, width = 80)
+  )
+
 #Heatmap for Individual CM
 ls(combined_results2)
 head(combined_results2)
