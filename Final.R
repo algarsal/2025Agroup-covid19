@@ -584,10 +584,11 @@ summary.table <- do.call(rbind, lapply(names(anova_list), function(name) {
     Df        = res$Df[2],
     Deviance  = res$Deviance[2],
     Chisq     = res$Chisq[2],
-    P_value   = res$Pr(>Chi)[2],  
+    P_value   = res$Pr(Chi)[2],  
     row.names = NULL
   )
 }))
+
 
 summary.table
 
