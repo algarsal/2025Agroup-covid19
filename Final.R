@@ -348,8 +348,8 @@ info_criteria2 <- lapply(names(models2), function(name) {
 AIC_BIC_table2 <- dplyr::bind_rows(info_criteria2)
 AIC_BIC_table2
 
-knitr::kable(AIC_BIC_table2, caption = "AIC and BIC for Single-Predictor Models")
-knitr::kable(AIC_BIC_table_paired, caption = "AIC and BIC for Paired Models")
+knitr::kable(AIC_BIC_table2, caption = "AIC and BIC for Single-Predictor Models", digits = 2, align = "c")
+knitr::kable(AIC_BIC_table_paired, caption = "AIC and BIC for Paired Models", digits = 2, align = "c")
 
 #Graph Heatmap to show represent combined result table - 
 library(ggplot2)
