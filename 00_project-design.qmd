@@ -148,8 +148,6 @@ for (c in comorbidities) {
   cat("\n==========================\n")
   cat("Chi-square test for", c, "\n")
   tab <- table(covid19A$COVID_Death, covid19A[[c]])
-  print(tab)
-  print(chisq.test(tab))
 }
 ```
 
