@@ -371,7 +371,7 @@ combined_results %>%
   )
 
 #Adding legend and caption to the Heatmap graph
-caption_text <- "Figure 1: Heatmap displaying the statistical significance of risk factors.Darker red indicates a higher significance level (-log10 p-value)" 
+caption_text <- "Figure 1: Statistical significance of risk factors. Darker red = higher significance level (-log10 p-value)." 
 
 combined_results %>%
   filter(term != "(Intercept)") %>%
@@ -383,13 +383,13 @@ combined_results %>%
     axis.text.x = element_text(angle = 45, hjust = 1),
     plot.title = element_text(face = "bold", size = 14),
     axis.title = element_text(face = "bold"),
-    plot.caption = element_text(hjust = 0)  
+    plot.caption = element_text(hjust = 0.5)  
   ) +
   labs(
     title = "Comorbidities Risk Factor Heatmap",
     x = "Model",
     y = "Risk Factor",
-    caption = strwrap(caption_text, width = 90)
+    caption = strwrap(caption_text, width = 110)
   )
 
 #Heatmap for Individual CM
@@ -403,10 +403,32 @@ combined_results2 %>%
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(
-    title = "Individual Comorbidities Risk Factor Heatmap ",
+    title = "Individual Comorbidities Risk Factor Heatmap",
     x = "Model",
     y = "Risk Factor",
     fill = "-log10(p)"
+  )
+
+#Adding legend and caption to the Heatmap graph
+caption_text <- "Figure 2: Statistical significance of risk factors. Darker red = higher significance level (-log10 p-value)." 
+
+combined_results2 %>%
+  filter(term != "(Intercept)") %>%
+  ggplot(aes(x = Model, y = term, fill = -log10(p.value))) +
+  geom_tile(color = "grey70") +
+  scale_fill_gradient(low = "white", high = "red", name = "-log10(p)") +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(face = "bold", size = 14),
+    axis.title = element_text(face = "bold"),
+    plot.caption = element_text(hjust = 0.5)  
+  ) +
+  labs(
+    title = "Individual Comorbidities Risk Factor Heatmap",
+    x = "Model",
+    y = "Risk Factor",
+    caption = strwrap(caption_text, width = 110)
   )
 
 #11/12/2025
@@ -470,6 +492,49 @@ ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
     y = "GIV"
   ) +
   theme_minimal(base_size = 10)
+
+#Adding legend and caption to the AIV and GIV graph
+library(stringr)
+
+caption_text <- "Figure 3: The AIV quantifies the additional predictive usefulness gained from each predictor when added to the model. Higher values indicate stronger contribution. Hypertension shows the highest average incremental value among predictor."
+
+ggplot(aiv, aes(x = reorder(term, AIV), y = AIV)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Average Incremental Value (AIV) by Predictor",
+    x = "Predictor",
+    y = "AIV",
+    caption = str_wrap(caption_text, width = 70)   # <— caption added + wrapped
+  ) +
+  theme_minimal(base_size = 10) +
+  theme(
+    plot.caption = element_text(
+      hjust = 0,                 # left-align caption
+      size = 9,
+      margin = margin(t = 10)    # spacing above caption
+    )
+  )
+
+giv_caption <- "Figure 4: The GIV reflects the overall added predictive value contributed by each predictor across the full model. Larger GIV values represent more influential predictors. Hypertension shows the highest average incremental value among predictor."
+
+ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
+  geom_col(fill = "darkorange") +
+  coord_flip() +
+  labs(
+    title = "General Incremental Value (GIV) by Predictor",
+    x = "Predictor",
+    y = "GIV",
+    caption = str_wrap(giv_caption, width = 70)   # wrapped caption
+  ) +
+  theme_minimal(base_size = 10) +
+  theme(
+    plot.caption = element_text(
+      hjust = 0,                 # left align caption
+      size = 9,
+      margin = margin(t = 10)    # add space above caption
+    )
+  )
 
 ###-------------ANOVA Analyses-------------------------
 library(car)

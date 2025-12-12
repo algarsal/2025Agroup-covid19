@@ -1,7 +1,7 @@
 ---
 title: Covid-19 comorbidity in Mexico
 subtitle: Project for the subject Data Acquistion, Analysis and Scientific Methods in Life Sciences.  
-author: Clea Meystre, Neil Mabalot, Raymundo Moran 
+author: 
    - affiliation: Instituto Agroforestal Mediterráneo. Departamento de Ecosistemas Agroforestales. Universidad Politécnica de Valencia.
      affiliation-url: https://www.upv.es/entidades/DEAF/
      email: algarsal@upv.es
