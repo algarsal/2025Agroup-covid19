@@ -78,11 +78,11 @@ Research question: What is the correlation between the presence of comorbidities
 Main Hypothesis: There is a higher risk of death with a combination of COVID-19 and a comorbidity disease(s).
 
 #6. Name the analyses you think are necessary or which you would like to use.
-1.Linear regression model - To see the correlation between our different factors (Mortality rates, contraction of COVID-19 virus and the presence of comorbidities diseases).
+#1.Linear regression model - To see the correlation between our different factors (Mortality rates, contraction of COVID-19 virus and the presence of comorbidities diseases).
 
-2.Test for Moderation - To see how the comorbidities impacts COVID-19 deaths.
+#2.Test for Moderation - To see how the comorbidities impacts COVID-19 deaths.
 
-3. ANOVA - To see if there is a statistical difference between mean deaths per age group.
+#3. ANOVA - To see if there is a statistical difference between mean deaths per age group.
 
 4.Post-hoc tests ANOVA (Tukey test) - Used to see the statistical differences and attempt to explain their correlation to mortality rates.
 
