@@ -464,6 +464,12 @@ Anova(model_Obesity, type = "II", test.statistic = "LR")
 Anova(model_Hypertension, type = "II", test.statistic = "LR")
 
 #Interpret results - This is Pair wise analysis ANOVA. ANOVA test tells me if this predictor improves the model fit after adjusting for the other predictor. In our case the answer is yes with overwhelmeing evidence. Both Diabetes and Hypertension are highly significant independent predictors of COVID-19 death. Hypertension has a larger LR Chi-square, meaning it explains a bit more variation than diabetes (but both are extremely strong)
+
 #Comparisons of ANOVA
-anova(model1, model2, test="LRT")
+A_Diab_Hyp <- anova(model_Diabetes, model_Hypertension, test = "LRT")
+A_Diab_Smok <- anova(model_Diabetes, model_Smoking, test = "LRT")
+A_Diab_Obe <- anova(model_Diabetes, model_Obesity, test = "LRT")
+A_Hyp_Smok <- anova(model_Hypertension, model_Smoking, test = "LRT")
+A_Obe_Smok <- anova(model_Obesity, model_Smoking, test = "LRT")
+A_Hyp_Obe <- anova(model_Hypertension, model_Obesity, test = "LRT")
 
