@@ -428,20 +428,23 @@ pairwise_results <- bind_rows(
 
 #Heat map
 
-pairwise_results
+# Pairwise results table
+pairwise_results <- bind_rows(
+  lapply(names(models_pairs), function(name) {
+    extract_pair_results(models_pairs[[name]], name)
+  })
+)
 
+# Heatmap data
 heatmap_PAIRWISE <- pairwise_results %>%
-+     mutate(
-+         Odds_Ratio = round(Odds_Ratio, 2)
-+     ) %>%
-+     select(Model, Predictor, Odds_Ratio)
-
+  mutate(Odds_Ratio = round(Odds_Ratio, 2)) %>%
+  select(Model, Predictor, Odds_Ratio)
 
 library(ggplot2)
 
 ggplot(heatmap_PAIRWISE, aes(x = Model, y = Predictor, fill = Odds_Ratio)) +
   geom_tile(color = "white") +
-  scale_fill_gradient(low = "#FEE5D9", high = "#A50F15") +  # light → dark red
+  scale_fill_gradient(low = "#FEE5D9", high = "#A50F15") +
   geom_text(aes(label = Odds_Ratio), color = "black", size = 4) +
   theme_minimal() +
   theme(
@@ -449,7 +452,3 @@ ggplot(heatmap_PAIRWISE, aes(x = Model, y = Predictor, fill = Odds_Ratio)) +
     axis.title = element_blank()
   ) +
   ggtitle("Heatmap of Odds Ratios for Pairwise Logistic Regression Models")
-
-```
-
-
