@@ -445,19 +445,6 @@ library(ggplot2)
 
 ls(combined_results)
 head(combined_results)
-combined_results %>%
-  filter(term != "(Intercept)") %>%
-  ggplot(aes(x = Model, y = term, fill = -log10(p.value))) +
-  geom_tile() +
-  scale_fill_gradient(low = "white", high = "red") +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(
-    title = "Comorbidities Risk Factor Heatmap",
-    x = "Model",
-    y = "Risk Factor",
-    fill = "-log10(p)"
-  )
 
 #Adding legend and caption to the Heatmap graph
 caption_text <- "Figure 1: Statistical significance of risk factors. Darker red = higher significance level (-log10 p-value)." 
@@ -484,19 +471,6 @@ combined_results %>%
 #Heatmap for Individual CM
 ls(combined_results2)
 head(combined_results2)
-combined_results2 %>%
-  filter(term != "(Intercept)") %>%
-  ggplot(aes(x = Model, y = term, fill = -log10(p.value))) +
-  geom_tile() +
-  scale_fill_gradient(low = "white", high = "red") +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(
-    title = "Individual Comorbidities Risk Factor Heatmap",
-    x = "Model",
-    y = "Risk Factor",
-    fill = "-log10(p)"
-  )
 
 #Adding legend and caption to the Heatmap graph
 caption_text <- "Figure 2: Statistical significance of risk factors. Darker red = higher significance level (-log10 p-value)." 
