@@ -412,23 +412,23 @@ Would help us #identify the most dangerous combinations
 
 \`\`\`{r} \# Logistic Regression 1: Diabetes + Hypertension model_Diabetes_Hypertension \<- glm( COVID_Death \~ Diabetes + Hypertension, data = covid19A, family = binomial() )
 
-# Logistic Regression 2: Diabetes + Smoking
+#Logistic Regression 2: Diabetes + Smoking
 
 model_Diabetes_Smoking \<- glm( COVID_Death \~ Diabetes + Smoking, data = covid19A, family = binomial() )
 
-# Logistic Regression 3: Diabetes + Obesity
+#Logistic Regression 3: Diabetes + Obesity
 
 model_Diabetes_Obesity \<- glm( COVID_Death \~ Diabetes + Obesity, data = covid19A, family = binomial() )
 
-# Logistic Regression 4: Hypertension + Smoking
+#Logistic Regression 4: Hypertension + Smoking
 
 model_Hypertension_Smoking \<- glm( COVID_Death \~ Hypertension + Smoking, data = covid19A, family = binomial() )
 
-# Logistic Regression 5: Obesity + Smoking
+#Logistic Regression 5: Obesity + Smoking
 
 model_Obesity_Smoking \<- glm( COVID_Death \~ Obesity + Smoking, data = covid19A, family = binomial() )
 
-# Logistic Regression 6: Hypertension + Obesity
+#Logistic Regression 6: Hypertension + Obesity
 
 model_Hypertension_Obesity \<- glm( COVID_Death \~ Hypertension + Obesity, data = covid19A, family = binomial() ) \# Results Table
 
@@ -451,3 +451,52 @@ heatmap_PAIRWISE \<- pairwise_results %\>% mutate(Odds_Ratio = round(Odds_Ratio,
 library(ggplot2)
 
 ggplot(heatmap_PAIRWISE, aes(x = Model, y = Predictor, fill = Odds_Ratio)) + geom_tile(color = "white") + scale_fill_gradient(low = "#FEE5D9", high = "#A50F15") + geom_text(aes(label = Odds_Ratio), color = "black", size = 4) + theme_minimal() + theme( axis.text.x = element_text(angle = 45, hjust = 1), axis.title = element_blank() ) + ggtitle("Heatmap of Odds Ratios for Pairwise Logistic Regression Models")
+
+# AIC and BIC Analyses
+```{r}
+models_paired <- list(
+  Diabetes_Hypertension = model_Diabetes_Hypertension,
+  Diabetes_Smoking      = model_Diabetes_Smoking,
+  Diabetes_Obesity      = model_Diabetes_Obesity,
+  Hypertension_Smoking  = model_Hypertension_Smoking,
+  Obesity_Smoking       = model_Obesity_Smoking,
+  Hypertension_Obesity  = model_Hypertension_Obesity
+)
+
+info_criteria_paired <- lapply(names(models_paired), function(name) {
+  m <- models_paired[[name]]
+  
+  data.frame(
+    Model = name,
+    AIC  = AIC(m),
+    BIC  = BIC(m)
+  )
+})
+
+AIC_BIC_table_paired <- dplyr::bind_rows(info_criteria_paired)
+AIC_BIC_table_paired
+
+models2 <- list(
+  Hypertension = model_Hypertension,
+  Obesity = model_Obesity,
+  Smoking = model_Smoking,
+  Diabetes = model_Diabetes
+)
+
+info_criteria2 <- lapply(names(models2), function(name) {
+  m <- models2[[name]]
+  
+  data.frame(
+    Model = name,
+    AIC  = AIC(m),
+    BIC  = BIC(m)
+  )
+})
+
+AIC_BIC_table2 <- dplyr::bind_rows(info_criteria2)
+AIC_BIC_table2
+
+knitr::kable(AIC_BIC_table2, caption = "AIC and BIC for Single-Predictor Models", digits = 2, align = "c")
+knitr::kable(AIC_BIC_table_paired, caption = "AIC and BIC for Paired Models", digits = 2, align = "c")
+```
+
