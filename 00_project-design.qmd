@@ -199,21 +199,15 @@ dir("data")
 data <- "data/covid_mexico_comorbidity_dataset_100k.csv"
 covid19A <- read.table(data, header = T, sep = ",")
 str (covid19A) 
-summary(covid19A)
+#summary(covid19A)
 
-library(dplyr)
+#library(dplyr)
 ```
 
 # Chi square Test
 The Chi square test is gonna allow us to find association between Deaths & each Comorbidities
 ```{r}
 comorbidities <- c("Diabetes", "Hypertension", "Obesity", "Smoking")
-
-for (c in comorbidities) {
-  cat("\n==========================\n")
-  cat("Chi-square test for", c, "\n")
-  tab <- table(covid19A$COVID_Death, covid19A[[c]])
-}
 
 chi_results <- data.frame(
   Comorbidity = character(),
@@ -236,7 +230,8 @@ for (c in comorbidities) {
     )
   )
 }
-chi_results
+#chi_results
+knitr::kable(chi_results, caption = "Summary of Chi Square Tests", digits = 2, align = "c")
 ```
 
 # LOGISTIC REGRESION MODEL (LRM)
@@ -277,32 +272,34 @@ model_Hypertension <- glm(
 MVM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
                   data = covid19A,
                   family = binomial)
-summary(MVM)
+#summary(MVM)
+knitr::kable(tidy(MVM), caption = "Multivariable Model of Individual LRM", digits = 2, align = "c")
+
 
 #MVM with CM
 with_comorb <- subset(covid19A, Number_of_Comorbidities > 0)
 MVMwithCM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
                   data = with_comorb,
                   family = binomial)
-summary(MVMwithCM)
+#summary(MVMwithCM)
+knitr::kable(tidy(MVMwithCM), caption = "Multivariable Model with CM of Individual LRM", digits = 2, align = "c")
 
 #Mortality baseline (Deaths WITH OUT CM)
 no_comorb <- subset(covid19A, Number_of_Comorbidities == 0)
 LRMnoCM <- glm(COVID_Death ~ 1,        
                 data = no_comorb,
                 family = binomial)
-summary(LRMnoCM)
+#summary(LRMnoCM)
+knitr::kable(tidy(LRMnoCM), caption = "Mortality baseline (Deaths WITH OUT CM)", digits = 2, align = "c")
+
 
 #LRM Number of comorbidities
 LRM_NCM <- glm(COVID_Death ~ Number_of_Comorbidities,
                  data = with_comorb, #again with the subset 
                  family = binomial)
-summary(LRM_NCM)
+#summary(LRM_NCM)
+knitr::kable(tidy(LRM_NCM), caption = "LRM Number of comorbidities", digits = 2, align = "c")
 
-```
-
-# Paired Logistic Regression Models (PLRM)
-```{r}
 #Logistic Regression 1: Diabetes + Hypertension 
 model_Diabetes_Hypertension <- glm( COVID_Death ~ Diabetes + Hypertension, data = covid19A, family = binomial() )
 
@@ -322,9 +319,9 @@ model_Obesity_Smoking <- glm( COVID_Death ~ Obesity + Smoking, data = covid19A, 
 model_Hypertension_Obesity <- glm( COVID_Death ~ Hypertension + Obesity, data = covid19A, family = binomial() )
 ```
 
-# Single combined output table
+# Paired LRM and Individual LRM
 ```{r}
-library(dplyr)
+#library(dplyr)
 
 models <- list(
   Diabetes_Hypertension = model_Diabetes_Hypertension,
@@ -344,7 +341,7 @@ results <- lapply(names(models), function(name) {
     mutate(Model = name)
 })
 combined_results <- bind_rows(results)
-combined_results
+#combined_results
 
 #Single models for Individual CM
 models2 <- list(
@@ -359,7 +356,7 @@ results2 <- lapply(names(models2), function(name) {
     mutate(Model = name)
 })
 combined_results2 <- bind_rows(results2)
-combined_results2
+#combined_results2
 
 #Tables of combined results
 library(knitr)
@@ -369,7 +366,7 @@ combined_results_clean <- combined_results %>%
   select(-contains("stat", ignore.case = TRUE)) %>%
   as.data.frame()
 
-names(combined_results_clean)
+#names(combined_results_clean)
 #kable(combined_results_clean, digits = 3, caption = "Paired Logistic Regression Results")
 
 combined_results2_clean <- combined_results2 %>%
@@ -377,7 +374,7 @@ combined_results2_clean <- combined_results2 %>%
   select(-contains("stat", ignore.case = TRUE)) %>%
   as.data.frame()
 
-names(combined_results2_clean)
+#names(combined_results2_clean)
 #kable(combined_results2_clean, digits = 3, caption = "Single-Predictor Logistic Regression Results")
 
 knitr::kable(combined_results_clean, caption = "Paired Logistic Regression Results", digits = 2, align = "c")
