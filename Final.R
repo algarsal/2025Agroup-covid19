@@ -464,8 +464,15 @@ Anova(model_Obesity, type = "II", test.statistic = "LR")
 Anova(model_Hypertension, type = "II", test.statistic = "LR")
 
 #Interpret results - This is Pair wise analysis ANOVA. ANOVA test tells me if this predictor improves the model fit after adjusting for the other predictor. In our case the answer is yes with overwhelmeing evidence. Both Diabetes and Hypertension are highly significant independent predictors of COVID-19 death. Hypertension has a larger LR Chi-square, meaning it explains a bit more variation than diabetes (but both are extremely strong)
+#The purpose of ANOVA (Analysis of Variance) is to determine if there are statistically significant differences between the means of three or more groups. Furthermore it tests if variations in a dependent variable are due to an independent variable or random chance.
 
 #Comparisons of ANOVA
+anova(model_Diabetes, model_Hypertension, test = "LRT")
+anova(model_Diabetes, model_Smoking, test = "LRT")
+anova(model_Diabetes, model_Obesity, test = "LRT")
+anova(model_Hypertension, model_Smoking, test = "LRT")
+anova(model_Obesity, model_Smoking, test = "LRT")
+anova(model_Hypertension, model_Obesity, test = "LRT")
 A_Diab_Hyp <- anova(model_Diabetes, model_Hypertension, test = "LRT")
 A_Diab_Smok <- anova(model_Diabetes, model_Smoking, test = "LRT")
 A_Diab_Obe <- anova(model_Diabetes, model_Obesity, test = "LRT")
@@ -473,3 +480,29 @@ A_Hyp_Smok <- anova(model_Hypertension, model_Smoking, test = "LRT")
 A_Obe_Smok <- anova(model_Obesity, model_Smoking, test = "LRT")
 A_Hyp_Obe <- anova(model_Hypertension, model_Obesity, test = "LRT")
 
+anova_list <- list(
+  "Diabetes vs Hypertension" = A_Diab_Hyp,
+  "Diabetes vs Smoking"      = A_Diab_Smok,
+  "Diabetes vs Obesity"      = A_Diab_Obe,
+  "Hypertension vs Smoking"  = A_Hyp_Smok,
+  "Obesity vs Smoking"       = A_Obe_Smok,
+  "Hypertension vs Obesity"  = A_Hyp_Obe
+)
+
+res$'Pr(>Chi)'
+summary.table <- do.call(rbind, lapply(names(anova_list), function(name) {
+  res <- anova_list[[name]]
+  data.frame(
+    Comparison = name,
+    Df        = res$Df[2],
+    Deviance  = res$Deviance[2],
+    Chisq     = res$Chisq[2],
+    P_value   = res$Pr(>Chi)[2],  
+    row.names = NULL
+  )
+}))
+
+summary.table
+
+  
+ 
