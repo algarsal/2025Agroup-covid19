@@ -194,7 +194,6 @@ Hypertension shows the highest average incremental value among predictor.
 Conclusions
 
 # Load the data base
-
 ```{r}
 dir("data")
 data <- "data/covid_mexico_comorbidity_dataset_100k.csv"
@@ -206,9 +205,7 @@ library(dplyr)
 ```
 
 # Chi square Test
-
 The Chi square test is gonna allow us to find association between Deaths & each Comorbidities
-
 ```{r}
 comorbidities <- c("Diabetes", "Hypertension", "Obesity", "Smoking")
 
@@ -220,7 +217,6 @@ for (c in comorbidities) {
 ```
 
 # Results table
-
 ```{r}
 chi_results <- data.frame(
   Comorbidity = character(),
@@ -522,3 +518,101 @@ combined_results2 %>%
 
 ```
 
+# AIV and GIV Analyses
+```{r}
+# Extract variables from model name
+if (is.list(results) && !is.data.frame(results)) {
+  results <- bind_rows(results)
+}
+model_vars <- results %>%
+  distinct(Model) %>%
+  mutate(vars = strsplit(Model, "_"))
+
+aiv <- results %>%
+  filter(term != "(Intercept)") %>%
+  mutate(standardized = abs(estimate / std.error)) %>%
+  group_by(term) %>%
+  summarise(AIV = mean(standardized)) %>%
+  arrange(desc(AIV))
+
+# Expand model × variable pairs
+library(tidyr)
+model_var_pairs <- model_vars %>%
+  unnest(vars)%>%
+  rename(term = vars)
+
+giv <- model_var_pairs %>%
+  left_join(aiv, by = "term") %>%
+  group_by(term) %>%
+  summarise(GIV = sum(AIV)) %>%
+  arrange(desc(GIV))
+
+#AIV bar chart
+library(ggplot2)
+ggplot(aiv, aes(x = reorder(term, AIV), y = AIV)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Average Incremental Value (AIV) by Predictor",
+    x = "Predictor",
+    y = "AIV"
+  ) +
+  theme_minimal(base_size = 10)
+
+#GIV bar chart 
+ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
+  geom_col(fill = "darkorange") +
+  coord_flip() +
+  labs(
+    title = "General Incremental Value (GIV) by Predictor",
+    x = "Predictor",
+    y = "GIV"
+  ) +
+  theme_minimal(base_size = 10)
+
+#Adding legend and caption to the AIV and GIV graph
+library(stringr)
+
+caption_text <- "Figure 3: The AIV of the 4 comorbidities are ordered from highest to lowest contribution to COVID-19 mortality."
+
+ggplot(aiv, aes(x = reorder(term, AIV), y = AIV)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Average Incremental Value (AIV) by Predictor",
+    x = "Predictor",
+    y = "AIV",
+    caption = str_wrap(caption_text, width = 70)   # <— caption added + wrapped
+  ) +
+  theme_minimal(base_size = 10) +
+  theme(
+    plot.caption = element_text(
+      hjust = 0,                 # left-align caption
+      size = 9,
+      margin = margin(t = 10)    # spacing above caption
+    )
+  )
+
+giv_caption <- "Figure 4: The GIV of the 4 comorbidities are ordered from highest to lowest contribution to COVID-19 mortality."
+
+ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
+  geom_col(fill = "darkorange") +
+  coord_flip() +
+  labs(
+    title = "General Incremental Value (GIV) by Predictor",
+    x = "Predictor",
+    y = "GIV",
+    caption = str_wrap(giv_caption, width = 70)   # wrapped caption
+  ) +
+  theme_minimal(base_size = 10) +
+  theme(
+    plot.caption = element_text(
+      hjust = 0,                 # left align caption
+      size = 9,
+      margin = margin(t = 10)    # add space above caption
+    )
+  )
+
+```
+
+# ANOVA Analyses
