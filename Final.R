@@ -305,6 +305,52 @@ combined_results2_clean <- combined_results2 %>%
 names(combined_results2_clean)
 kable(combined_results2_clean, digits = 3, caption = "Single-Predictor Logistic Regression Results")
 
+#AIC and BIC Analyses
+models_paired <- list(
+  Diabetes_Hypertension = model_Diabetes_Hypertension,
+  Diabetes_Smoking      = model_Diabetes_Smoking,
+  Diabetes_Obesity      = model_Diabetes_Obesity,
+  Hypertension_Smoking  = model_Hypertension_Smoking,
+  Obesity_Smoking       = model_Obesity_Smoking,
+  Hypertension_Obesity  = model_Hypertension_Obesity
+)
+
+info_criteria_paired <- lapply(names(models_paired), function(name) {
+  m <- models_paired[[name]]
+  
+  data.frame(
+    Model = name,
+    AIC  = AIC(m),
+    BIC  = BIC(m)
+  )
+})
+
+AIC_BIC_table_paired <- dplyr::bind_rows(info_criteria_paired)
+AIC_BIC_table_paired
+
+models2 <- list(
+  Hypertension = model_Hypertension,
+  Obesity = model_Obesity,
+  Smoking = model_Smoking,
+  Diabetes = model_Diabetes
+)
+
+info_criteria2 <- lapply(names(models2), function(name) {
+  m <- models2[[name]]
+  
+  data.frame(
+    Model = name,
+    AIC  = AIC(m),
+    BIC  = BIC(m)
+  )
+})
+
+AIC_BIC_table2 <- dplyr::bind_rows(info_criteria2)
+AIC_BIC_table2
+
+knitr::kable(AIC_BIC_table2, caption = "AIC and BIC for Single-Predictor Models")
+knitr::kable(AIC_BIC_table_paired, caption = "AIC and BIC for Paired Models")
+
 #Graph Heatmap to show represent combined result table - 
 library(ggplot2)
 
