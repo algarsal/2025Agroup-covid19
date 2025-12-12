@@ -463,7 +463,7 @@ Anova(model_Smoking, type = "II", test.statistic = "LR")
 Anova(model_Obesity, type = "II", test.statistic = "LR")
 Anova(model_Hypertension, type = "II", test.statistic = "LR")
 
-#Interpret results - This is Pair wise analysis ANOVA. ANOVA test tells me if this predictor improves the model fit after adjusting for the other predictor. In our case the answer is yes with overwhelmeing evidence. Both Diabetes and Hypertension are highly significant independent predictors of COVID-19 death. Hypertension has a larger LR Chi-square, meaning it explains a bit more variation than diabetes (but both are extremely strong)
+#Interpret results - This is Pair wise analysis ANOVA. ANOVA test tells me if this predictor improves the model fit after adjusting for the other predictor. In our case the answer is yes with overwhelming evidence. Both Diabetes and Hypertension are highly significant independent predictors of COVID-19 death. Hypertension has a larger LR Chi-square, meaning it explains a bit more variation than diabetes (but both are extremely strong)
 #The purpose of ANOVA (Analysis of Variance) is to determine if there are statistically significant differences between the means of three or more groups. Furthermore it tests if variations in a dependent variable are due to an independent variable or random chance.
 
 #Comparisons of ANOVA
