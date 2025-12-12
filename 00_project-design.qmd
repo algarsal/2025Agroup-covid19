@@ -207,6 +207,14 @@ library(dplyr)
 # Chi square Test
 The Chi square test is gonna allow us to find association between Deaths & each Comorbidities
 ```{r}
+comorbidities <- c("Diabetes", "Hypertension", "Obesity", "Smoking")
+
+for (c in comorbidities) {
+  cat("\n==========================\n")
+  cat("Chi-square test for", c, "\n")
+  tab <- table(covid19A$COVID_Death, covid19A[[c]])
+}
+
 chi_results <- data.frame(
   Comorbidity = character(),
   Chi_square = numeric(),
