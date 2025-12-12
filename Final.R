@@ -389,7 +389,7 @@ combined_results %>%
     title = "Comorbidities Risk Factor Heatmap",
     x = "Model",
     y = "Risk Factor",
-    caption = strwrap(caption_text, width = 80)
+    caption = strwrap(caption_text, width = 90)
   )
 
 #Heatmap for Individual CM
