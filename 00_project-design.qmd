@@ -132,6 +132,10 @@ Once statistically significant values are found. An anylsis to see association b
 
 #10 Results
 Figures and tables with captions and description of what do they mean.Never include citations in this part. This is only your work.
+Figure 1:
+Figue 2:
+Figure 3: The AIV quantifies the additional predictive usefulness gained from each predictor when added to the model. Higher values indicate stronger contribution. Hypertension shows the highest average incremental value among predictor
+Figure 4: The GIV reflects the overall added predictive value contributed by each predictor across the full model. Larger GIV values represent more influential predictors. Hypertension shows the highest average incremental value among predictor.
 
 #11 Discussion
 From your objectives.
@@ -186,10 +190,6 @@ for (c in comorbidities) {
 }
 chi_results
 ```
-All tests resulted in highly significant p-values, indicating that the distribution of deaths differs significantly between patients with and without the comorbidity (CM).
-This supports the conclusion that comorbidities are strongly associated with increased mortality.
-Now that we found statistically significant association between each and every comorbidity, to investigate about the probability of death based on the presence or absence of each CM, combinations & interactions.
-The logistic model is ideal for this analysis because our outcome variables are binary. 
 
 # LOGISTIC REGRESION MODEL (LRM)
 LRM for each Comorbidity Individualy
@@ -198,7 +198,6 @@ LRM for each Comorbidity Individualy
 library(broom)
 
 # Indiv. LRM Diabetes
-
 model_Diabetes <- glm(
   COVID_Death ~ Diabetes,
   data = covid19A,
@@ -206,7 +205,6 @@ model_Diabetes <- glm(
 )
 
 # Indiv. LRM Smoking
-
 model_Smoking <- glm(
   COVID_Death ~ Smoking,
   data = covid19A,
@@ -214,7 +212,6 @@ model_Smoking <- glm(
 )
 
 # Indiv. LRM  Obesity
-
 model_Obesity <- glm(
   COVID_Death ~ Obesity,
   data = covid19A,
@@ -222,7 +219,6 @@ model_Obesity <- glm(
 )
 
 # Indiv. LRM  Hypertension
-
 model_Hypertension <- glm(
   COVID_Death ~ Hypertension,
   data = covid19A,
@@ -267,8 +263,6 @@ results_individual <- bind_rows(lapply(models_individual, extract_results))
 results_individual
 
 ```
-####COMENTS on the results!!!!!!
-
 Another interesting question to analyse would be if the addition of multiple CM increases the odds of death, To answer this question we run a LRM considering Number_of_Comorbidities (given in our dataset)
 
 #LRM Number of comorbidities
@@ -326,7 +320,6 @@ LRM_NCM_results
 #all the CM analyzed in this study as a Multivariable Model (MVM)
 
 # Multivariable Model (MVM)
-
 ```{r}
 MVM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
                   data = covid19A,

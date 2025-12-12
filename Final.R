@@ -496,7 +496,7 @@ ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
 #Adding legend and caption to the AIV and GIV graph
 library(stringr)
 
-caption_text <- "Figure 3: The AIV quantifies the additional predictive usefulness gained from each predictor when added to the model. Higher values indicate stronger contribution. Hypertension shows the highest average incremental value among predictor."
+caption_text <- "Figure 3: The AIV of the 4 comorbidities are ordered from highest to lowest contribution to COVID-19 mortality."
 
 ggplot(aiv, aes(x = reorder(term, AIV), y = AIV)) +
   geom_col(fill = "steelblue") +
@@ -516,7 +516,7 @@ ggplot(aiv, aes(x = reorder(term, AIV), y = AIV)) +
     )
   )
 
-giv_caption <- "Figure 4: The GIV reflects the overall added predictive value contributed by each predictor across the full model. Larger GIV values represent more influential predictors. Hypertension shows the highest average incremental value among predictor."
+giv_caption <- "Figure 4: The GIV of the 4 comorbidities are ordered from highest to lowest contribution to COVID-19 mortality."
 
 ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
   geom_col(fill = "darkorange") +
