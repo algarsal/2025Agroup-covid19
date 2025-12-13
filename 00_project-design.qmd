@@ -1,5 +1,5 @@
 ---
-title: Covid-19 comorbidity in Mexico
+title: Covid-19 Comorbidity in Mexico
 subtitle: Project for the subject Data Acquistion, Analysis and Scientific Methods in Life Sciences.  
 author: 
    - affiliation: Instituto Agroforestal Mediterráneo. Departamento de Ecosistemas Agroforestales. Universidad Politécnica de Valencia.
