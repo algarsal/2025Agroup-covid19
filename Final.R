@@ -592,5 +592,13 @@ summary.table <- do.call(rbind, lapply(names(anova_list), function(name) {
 
 summary.table
 
+
+#10 Results Figures and tables with captions and description of what do they mean.Never include citations in this part.This is only your work.
+Figure 1: Figue 2: Figure 3: The AIV quantifies the additional predictive usefulness gained from each predictor when added to the model.
+Higher values indicate stronger contribution.
+Hypertension shows the highest average incremental value among predictor Figure 4: The GIV reflects the overall added predictive value contributed by each predictor across the full model.
+Larger GIV values represent more influential predictors.
+Hypertension shows the highest average incremental value among predictor.
+
   
  
