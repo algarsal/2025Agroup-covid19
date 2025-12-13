@@ -228,7 +228,7 @@ knitr::kable(chi_results, caption = "Summary of Chi Square Tests", digits = 2, a
 
 # LOGISTIC REGRESION MODEL (LRM)
 
-LRM for each Comorbidity Individualy
+LRM for each Comorbidity Individually
 
 ```{r}
 ##load library 
@@ -558,6 +558,9 @@ ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
 ```
 
 # ANOVA Analyses
+```{r}
+
+```
 
 
 #11 Discussion From your objectives.
