@@ -181,3 +181,10 @@ extract_pair_results <- function(model, model_name) { tidy(model) %\>% filter(te
   library(ggplot2)
   
   ggplot(heatmap_PAIRWISE, aes(x = Model, y = Predictor, fill = Odds_Ratio)) + geom_tile(color = "white") + scale_fill_gradient(low = "#FEE5D9", high = "#A50F15") + geom_text(aes(label = Odds_Ratio), color = "black", size = 4) + theme_minimal() + theme( axis.text.x = element_text(angle = 45, hjust = 1), axis.title = element_blank() ) + ggtitle("Heatmap of Odds Ratios for Pairwise Logistic Regression Models")
+
+  #10 Results Figures and tables with captions and description of what do they mean.Never include citations in this part.This is only your work.
+  #Figure 1: Figue 2: Figure 3: The AIV quantifies the additional predictive usefulness gained from each predictor when added to the model.
+  #Higher values indicate stronger contribution.
+  #Hypertension shows the highest average incremental value among predictor Figure 4: The GIV reflects the overall added predictive value contributed by each predictor across the full model.
+  #Larger GIV values represent more influential predictors.
+  #Hypertension shows the highest average incremental value among predictor.
