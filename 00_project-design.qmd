@@ -222,9 +222,14 @@ for (c in comorbidities) {
     )
   )
 }
+
 #chi_results
 knitr::kable(chi_results, caption = "Table 1. Summary of Chi Square Tests", digits = 2, align = "c")
 ```
+
+  Table 1 confirms that the presence of four comorbidities namely Diabetes, Hypertension, Obesity, or Smoking is significantly non-randomly associated with mortality. Hypertension displays the strongest statistical signal of association supporting their prioritization as critical risk factors.
+
+
 
 # LOGISTIC REGRESION MODEL (LRM)
 
@@ -268,8 +273,12 @@ MVM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
                   family = binomial)
 #summary(MVM)
 knitr::kable(tidy(MVM), caption = "Table 2. Multivariable Model of Individual LRM", digits = 2, align = "c")
+```
+
+Table 2 shows 
 
 
+```{r}
 #MVM with CM
 with_comorb <- subset(covid19A, Number_of_Comorbidities > 0)
 MVMwithCM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
@@ -277,7 +286,11 @@ MVMwithCM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
                   family = binomial)
 #summary(MVMwithCM)
 knitr::kable(tidy(MVMwithCM), caption = "Table 3. Multivariable Model with CM of Individual LRM", digits = 2, align = "c")
+```
 
+Table 3 reveals 
+
+```{r}
 #Mortality baseline (Deaths WITH OUT CM)
 no_comorb <- subset(covid19A, Number_of_Comorbidities == 0)
 LRMnoCM <- glm(COVID_Death ~ 1,        
@@ -285,15 +298,22 @@ LRMnoCM <- glm(COVID_Death ~ 1,
                 family = binomial)
 #summary(LRMnoCM)
 knitr::kable(tidy(LRMnoCM), caption = "Table 4. Mortality baseline (Deaths WITH OUT CM)", digits = 2, align = "c")
+```
 
+Table 4 shows 
 
+```{r}
 #LRM Number of comorbidities
 LRM_NCM <- glm(COVID_Death ~ Number_of_Comorbidities,
                  data = with_comorb, #again with the subset 
                  family = binomial)
 #summary(LRM_NCM)
 knitr::kable(tidy(LRM_NCM), caption = "Table 5. LRM Number of comorbidities", digits = 2, align = "c")
+```
 
+Table 5 reveals 
+
+```{r}
 #Logistic Regression 1: Diabetes + Hypertension 
 model_Diabetes_Hypertension <- glm( COVID_Death ~ Diabetes + Hypertension, data = covid19A, family = binomial() )
 
@@ -361,20 +381,22 @@ combined_results_clean <- combined_results %>%
   select(-contains("stat", ignore.case = TRUE)) %>%
   as.data.frame()
 
-#names(combined_results_clean)
-#kable(combined_results_clean, digits = 3, caption = "Paired Logistic Regression Results")
+knitr::kable(combined_results_clean, caption = "Table 6. Paired Logistic Regression Results", digits = 2, align = "c")
+```
+
+Table 6 shows 
+
+```{r}
 
 combined_results2_clean <- combined_results2 %>%
   filter(term != "(Intercept)") %>%
   select(-contains("stat", ignore.case = TRUE)) %>%
   as.data.frame()
 
-#names(combined_results2_clean)
-#kable(combined_results2_clean, digits = 3, caption = "Single-Predictor Logistic Regression Results")
-
-knitr::kable(combined_results_clean, caption = "Table 6. Paired Logistic Regression Results", digits = 2, align = "c")
 knitr::kable(combined_results2_clean, caption = "Table 7. Single-Predictor Logistic Regression Results", digits = 2, align = "c")
 ```
+
+Table 7 reveals 
 
 # AIC and BIC Analyses
 
@@ -422,10 +444,18 @@ AIC_BIC_table2 <- dplyr::bind_rows(info_criteria2)
 #AIC_BIC_table2
 
 knitr::kable(AIC_BIC_table2, caption = "Table 8. AIC and BIC for Single-Predictor Models", digits = 2, align = "c")
+```
+
+Table 8 shows
+
+```{r}
 knitr::kable(AIC_BIC_table_paired, caption = "Table 9. AIC and BIC for Paired Models", digits = 2, align = "c")
 ```
 
-# Graph Heatmap to show represent combined result table
+Table 9 reveals 
+
+# Graphs
+Graph a Heatmap to represent combined result table
 
 ```{r}
 library(ggplot2)
@@ -454,7 +484,11 @@ combined_results %>%
     y = "Risk Factor",
     caption = strwrap(caption_text, width = 110)
   )
+```
 
+Figure 1 shows that 
+
+```{r}
 #Heatmap for Individual CM
 #ls(combined_results2)
 #head(combined_results2)
@@ -482,6 +516,8 @@ combined_results2 %>%
   )
 
 ```
+
+Figure 2 reveals that
 
 # AIV and GIV Analyses
 
@@ -535,7 +571,11 @@ ggplot(aiv, aes(x = reorder(term, AIV), y = AIV)) +
       margin = margin(t = 10)    # spacing above caption
     )
   )
+```
 
+Figure 3 shows that
+
+```{r}
 giv_caption <- "Figure 4: The GIV of the 4 comorbidities are ordered from highest to lowest contribution to COVID-19 mortality."
 
 ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
@@ -556,6 +596,8 @@ ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
     )
   )
 ```
+
+Figure 4 reveals that 
 
 # ANOVA Analyses
 ```{r}
