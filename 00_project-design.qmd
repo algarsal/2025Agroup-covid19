@@ -182,13 +182,13 @@ The logistic model is ideal for this analysis because our outcome variables are 
     Strength of predictors, based on the LR Chisq value is the strongest for Hypertension, then for Diabetes, then Obesity and lastlt Smoking is slightly less strong than others.
 
 # Results
-# Load the data base
 
+Datasets
 ```{r}
 dir("data")
 data <- "data/covid_mexico_comorbidity_dataset_100k.csv"
 covid19A <- read.table(data, header = T, sep = ",")
-str (covid19A) 
+#str (covid19A) 
 #summary(covid19A)
 
 library(dplyr)
