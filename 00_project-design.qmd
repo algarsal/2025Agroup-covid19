@@ -223,7 +223,7 @@ for (c in comorbidities) {
   )
 }
 #chi_results
-knitr::kable(chi_results, caption = "Summary of Chi Square Tests", digits = 2, align = "c")
+knitr::kable(chi_results, caption = "Table 1. Summary of Chi Square Tests", digits = 2, align = "c")
 ```
 
 # LOGISTIC REGRESION MODEL (LRM)
@@ -267,7 +267,7 @@ MVM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
                   data = covid19A,
                   family = binomial)
 #summary(MVM)
-knitr::kable(tidy(MVM), caption = "Multivariable Model of Individual LRM", digits = 2, align = "c")
+knitr::kable(tidy(MVM), caption = "Table 2. Multivariable Model of Individual LRM", digits = 2, align = "c")
 
 
 #MVM with CM
@@ -276,7 +276,7 @@ MVMwithCM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
                   data = with_comorb,
                   family = binomial)
 #summary(MVMwithCM)
-knitr::kable(tidy(MVMwithCM), caption = "Multivariable Model with CM of Individual LRM", digits = 2, align = "c")
+knitr::kable(tidy(MVMwithCM), caption = "Table 3. Multivariable Model with CM of Individual LRM", digits = 2, align = "c")
 
 #Mortality baseline (Deaths WITH OUT CM)
 no_comorb <- subset(covid19A, Number_of_Comorbidities == 0)
@@ -284,7 +284,7 @@ LRMnoCM <- glm(COVID_Death ~ 1,
                 data = no_comorb,
                 family = binomial)
 #summary(LRMnoCM)
-knitr::kable(tidy(LRMnoCM), caption = "Mortality baseline (Deaths WITH OUT CM)", digits = 2, align = "c")
+knitr::kable(tidy(LRMnoCM), caption = "Table 4. Mortality baseline (Deaths WITH OUT CM)", digits = 2, align = "c")
 
 
 #LRM Number of comorbidities
@@ -292,7 +292,7 @@ LRM_NCM <- glm(COVID_Death ~ Number_of_Comorbidities,
                  data = with_comorb, #again with the subset 
                  family = binomial)
 #summary(LRM_NCM)
-knitr::kable(tidy(LRM_NCM), caption = "LRM Number of comorbidities", digits = 2, align = "c")
+knitr::kable(tidy(LRM_NCM), caption = "Table 5. LRM Number of comorbidities", digits = 2, align = "c")
 
 #Logistic Regression 1: Diabetes + Hypertension 
 model_Diabetes_Hypertension <- glm( COVID_Death ~ Diabetes + Hypertension, data = covid19A, family = binomial() )
@@ -372,8 +372,8 @@ combined_results2_clean <- combined_results2 %>%
 #names(combined_results2_clean)
 #kable(combined_results2_clean, digits = 3, caption = "Single-Predictor Logistic Regression Results")
 
-knitr::kable(combined_results_clean, caption = "Paired Logistic Regression Results", digits = 2, align = "c")
-knitr::kable(combined_results2_clean, caption = "Single-Predictor Logistic Regression Results", digits = 2, align = "c")
+knitr::kable(combined_results_clean, caption = "Table 6. Paired Logistic Regression Results", digits = 2, align = "c")
+knitr::kable(combined_results2_clean, caption = "Table 7. Single-Predictor Logistic Regression Results", digits = 2, align = "c")
 ```
 
 # AIC and BIC Analyses
