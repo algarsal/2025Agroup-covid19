@@ -276,8 +276,23 @@ model_Hypertension <- glm(
 MVM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
                   data = covid19A,
                   family = binomial)
+
+MVM_tidy <- tidy(MVM) |>
+  filter(term != "(Intercept)") |>
+  mutate(
+    p.value = formatC(p.value, format = "e", digits = 3),
+    signif = case_when(
+      as.numeric(p.value) < 0.001 ~ "***",
+      as.numeric(p.value) < 0.01  ~ "**",
+      as.numeric(p.value) < 0.05  ~ "*",
+      as.numeric(p.value) < 0.1   ~ ".",
+      TRUE                        ~ ""
+    )
+  )
+
 #summary(MVM)
-knitr::kable(tidy(MVM), caption = "Table 2. Multivariable Model of Individual LRM", digits = 2, align = "c")
+knitr::kable(MVM_tidy, caption = "Table 2. Multivariable Model of Individual LRM", digits= 2, align = "c")
+
 ```
 
 Table 2 shows 
