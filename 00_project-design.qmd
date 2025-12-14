@@ -734,10 +734,10 @@ The analysis validates the hypothesis that the combination of Hypertension with 
 
 ## Conclusion
 
-This comprehensive analysis elucidates the differential impact of common comorbidities on COVID-19 mortality. Hypertension was identified as the single most critical risk factor, demonstrating both the highest statistical robustness and the greatest incremental value for mortality prediction.
+This current project provides a comprehensive analysis about the impact of common comorbidities on COVID-19 mortality. Based on the results, it was proven that there is a significant role of comorbidities and pre-exisiting health conditions on the likelihood of death. Among the comorbidities, hypertension was identified as the single most critical risk factor, demonstrating both the highest statistical robustness and the greatest incremental value for mortality prediction.
 
 While Diabetes and Obesity are both severe risk factors, their roles differ slightly in modeling contexts: Diabetes offers high statistical confidence, whereas Obesity offers superior incremental predictive gain. Smoking, while significant, presents a lower risk profile relative to these metabolic conditions.
 
-These findings support a risk-stratification strategy that prioritizes patients with Hypertension, particularly when comorbid with Obesity or Diabetes, for early intervention and intensive monitoring. Future research should focus on the mechanistic interactions between these comorbidities to further refine prognostic models.
+These findings support a risk-stratification strategy that prioritizes patients with Hypertension, particularly when combined with Obesity or Diabetes, for early intervention and intensive monitoring of vulnerable sectors of the population. Ultimately, this current project recommends future research to focus on the mechanistic interactions between these comorbidities, specifically hypertension, to further refine prognostic models.
 
 
