@@ -96,6 +96,10 @@ Name the analyses you think are necessary or which you would like to use.
 
 4.Post-hoc tests ANOVA (Tukey test) - Used to see the statistical differences and attempt to explain their correlation to mortality rates.
 
+```{r}
+library(dplyr)
+```
+
 Data Link: https://gaia.inegi.org.mx/covid19/
 
 Sources: https://journals.plos.org/plosone/article?i
@@ -191,7 +195,6 @@ covid19A <- read.table(data, header = T, sep = ",")
 #str (covid19A) 
 #summary(covid19A)
 
-library(dplyr)
 ```
 
 # Chi square Test
@@ -213,21 +216,23 @@ for (c in comorbidities) {
   chi <- chisq.test(tab)
   
   chi_results <- rbind(
-    chi_results,
-    data.frame(
-      Comorbidity = c,
-      Chi_square = chi$statistic,
-      df = chi$parameter,
-      P_value = chi$p.value
-    )
+  chi_results,
+  data.frame(
+    Comorbidity = c,
+    Chi_square  = as.numeric(chi$statistic),
+    df          = as.numeric(chi$parameter),
+    P_value     = formatC(chi$p.value, format = "e", digits = 3),
+    stringsAsFactors = FALSE
   )
+)
 }
 
 #chi_results
-knitr::kable(chi_results, caption = "Table 1. Summary of Chi Square Tests", digits = 2, align = "c")
+knitr::kable(chi_results, caption = "Table 1. Summary of Chi Square Tests", align = "c")
+
 ```
 
-  Table 1 confirms that the presence of four comorbidities namely Diabetes, Hypertension, Obesity, or Smoking is significantly non-randomly associated with mortality. Hypertension displays the strongest statistical signal of association supporting their prioritization as critical risk factors.
+  Table 1 confirms that the presence of four comorbidities namely Diabetes, Hypertension, Obesity, or Smoking is significantly non-randomly associated with mortality. Hypertension displays the strongest statistical signal of association supporting its prioritization as a critical risk factor.
 
 
 
