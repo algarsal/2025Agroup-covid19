@@ -408,30 +408,6 @@ combined_results2 <- bind_rows(results2)
 #Tables of combined results
 library(knitr)
 
-combined_results_clean <- combined_results %>%
-  filter(term != "(Intercept)") %>%
-  select(Model, everything(), -term) %>%
-  mutate(
-    p.value = formatC(p.value, format = "e", digits = 3),
-    signif = case_when(
-      as.numeric(p.value) < 0.001 ~ "***",
-      as.numeric(p.value) < 0.01  ~ "**",
-      as.numeric(p.value) < 0.05  ~ "*",
-      as.numeric(p.value) < 0.1   ~ ".",
-      TRUE                        ~ ""
-    )
-  )
-
-knitr::kable(combined_results_clean, caption = "Table 4. Paired Logistic Regression Results", digits = 2, align = "c") %>%
-kable_styling(full_width = FALSE) %>%
-footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, . p < 0.1", general_title = "")
-
-```
-
-Table 4 shows 
-
-```{r}
-
 combined_results2_clean <- combined_results2 %>%
   filter(term != "(Intercept)") %>%
   select(Model, everything(), -term) %>%
@@ -446,13 +422,39 @@ combined_results2_clean <- combined_results2 %>%
     )
   )
 
-knitr::kable(combined_results2_clean, caption = "Table 5. Single-Predictor Logistic Regression Results", digits = 2, align = "c")%>%
+
+knitr::kable(combined_results2_clean, caption = "Table 4. Single-Predictor Logistic Regression Results", digits = 2, align = "c") %>%
 kable_styling(full_width = FALSE) %>%
 footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, . p < 0.1", general_title = "")
 
 ```
 
-Table 5 reveals 
+Table 4 summarizes the results of the single-predictor logistic regression models, providing the unadjusted odds ratios for each comorbidity. All four risk factors demonstrated highly statistically significant associations with the outcome (p<0.001). Hypertension and diabetes exhibited the strongest magnitude of effect, both yielding an estimate of 1.62, with 95% confidence intervals of 1.55–1.70 and 1.54–1.70, respectively. These findings confirm that, in isolation, each condition serves as a robust predictor of increased odds for the outcome.
+
+```{r}
+
+combined_results_clean <- combined_results %>%
+  filter(term != "(Intercept)") %>%
+  select(Model, everything(), -term) %>%
+  mutate(
+    p.value = formatC(p.value, format = "e", digits = 3),
+    signif = case_when(
+      as.numeric(p.value) < 0.001 ~ "***",
+      as.numeric(p.value) < 0.01  ~ "**",
+      as.numeric(p.value) < 0.05  ~ "*",
+      as.numeric(p.value) < 0.1   ~ ".",
+      TRUE                        ~ ""
+    )
+  )
+
+
+knitr::kable(combined_results_clean, caption = "Table 5. Paired Logistic Regression Results", digits = 2, align = "c")%>%
+kable_styling(full_width = FALSE) %>%
+footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, . p < 0.1", general_title = "")
+
+```
+
+Table 5 displays the results of the paired logistic regression analyses, which assess the stability of the associations between the comorbidities and the outcome when adjusting for one another. The data reveals that the risk estimates for diabetes, hypertension, obesity, and smoking remain highly statistically significant (p<0.001) and remarkably consistent across all model configurations. Specifically, diabetes and hypertension consistently showed the strongest associations, with odds ratios (OR) holding steady at approximately 1.62 in both individual and paired models. This stability in effect sizes indicates that these comorbidities function as independent risk factors, as their predictive power is not diminished by the inclusion of concurrent conditions in the model.
 
 # AIC and BIC Analyses
 
