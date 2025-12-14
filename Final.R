@@ -560,40 +560,51 @@ anova(model_Diabetes, model_Obesity, test = "LRT")
 anova(model_Hypertension, model_Smoking, test = "LRT")
 anova(model_Obesity, model_Smoking, test = "LRT")
 anova(model_Hypertension, model_Obesity, test = "LRT")
-A_Diab_Hyp <- anova(model_Diabetes, model_Hypertension, test = "LRT")
-A_Diab_Smok <- anova(model_Diabetes, model_Smoking, test = "LRT")
-A_Diab_Obe <- anova(model_Diabetes, model_Obesity, test = "LRT")
-A_Hyp_Smok <- anova(model_Hypertension, model_Smoking, test = "LRT")
-A_Obe_Smok <- anova(model_Obesity, model_Smoking, test = "LRT")
-A_Hyp_Obe <- anova(model_Hypertension, model_Obesity, test = "LRT")
 
-anova_list <- list(
-  "Diabetes vs Hypertension" = A_Diab_Hyp,
-  "Diabetes vs Smoking"      = A_Diab_Smok,
-  "Diabetes vs Obesity"      = A_Diab_Obe,
-  "Hypertension vs Smoking"  = A_Hyp_Smok,
-  "Obesity vs Smoking"       = A_Obe_Smok,
-  "Hypertension vs Obesity"  = A_Hyp_Obe
+# Create a data frame with your predictors and model deviances
+predictor_summary <- data.frame(
+  Predictor = c("Diabetes", "Hypertension", "Obesity", "Smoking"),
+  Deviance_vs_baseline = c(
+    0,        # Diabetes as baseline
+    43.186,   # Hypertension vs Diabetes
+    -16.54,   # Obesity vs Diabetes
+    -81.759   # Smoking vs Diabetes
+  )
 )
 
-res$'Pr(>Chi)'
-summary.table <- do.call(rbind, lapply(names(anova_list), function(name) {
-  res <- anova_list[[name]]
-  data.frame(
-    Comparison = name,
-    Df        = res$Df[2],
-    Deviance  = res$Deviance[2],
-    Chisq     = res$Chisq[2],
-    P_value   = res$Pr(Chi)[2],  
-    row.names = NULL
+# Rank predictors by deviance (higher = better predictor)
+predictor_summary$Rank <- rank(-predictor_summary$Deviance_vs_baseline, ties.method = "first")
+
+# Sort table by rank
+predictor_summary <- predictor_summary[order(predictor_summary$Rank), ]
+
+# Print summary table
+print(predictor_summary)
+
+library(knitr)
+
+# Create a data frame with your predictors and deviance compared to Diabetes
+predictor_summary <- data.frame(
+  Predictor = c("Diabetes", "Hypertension", "Obesity", "Smoking"),
+  Deviance_vs_Diabetes = c(
+    0,        # Diabetes as baseline
+    43.186,   # Hypertension vs Diabetes
+    -16.54,   # Obesity vs Diabetes
+    -81.759   # Smoking vs Diabetes
   )
-}))
+)
 
+# Rank predictors by deviance (higher = stronger predictor)
+predictor_summary$Rank <- rank(-predictor_summary$Deviance_vs_Diabetes, ties.method = "first")
 
-summary.table
+# Sort table by rank
+predictor_summary <- predictor_summary[order(predictor_summary$Rank), ]
 
-
-
-
-  
- 
+# Render table using knitr::kable
+kable(
+  predictor_summary,
+  caption = "Ranking of COVID-19 Death Predictors by Deviance",
+  col.names = c("Predictor", "Deviance vs Diabetes", "Rank"),
+  digits = 2,
+  align = c("l", "r", "r")
+)
