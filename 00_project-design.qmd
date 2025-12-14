@@ -504,13 +504,13 @@ AIC_BIC_table2 <- dplyr::bind_rows(info_criteria2)
 knitr::kable(AIC_BIC_table2, caption = "Table 6. AIC and BIC for Single-Predictor Models", digits = 2, align = "c")
 ```
 
-Table 6 shows
+Table 6 evaluates the relative quality of the single-predictor logistic regression models using the Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC), where lower values indicate a better trade-off between goodness-of-fit and model complexity. The model utilizing Hypertension as the sole predictor demonstrated the superior statistical fit, yielding the lowest AIC (65,453.78) and BIC (65,472.81) among the four comorbidities analyzed. This suggests that while all predictors are significant, Hypertension provides the most informative individual explanation for the data variance within this set.
 
 ```{r}
 knitr::kable(AIC_BIC_table_paired, caption = "Table 7. AIC and BIC for Paired Models", digits = 2, align = "c")
 ```
 
-Table 7 reveals 
+Table 7 reveals that the model combining Diabetes and Hypertension provided the best fit among all paired combinations, achieving the lowest AIC (65,131.99) and BIC (65,160.53). This was followed by the Hypertension and Obesity model (AIC = 65,147.32) and the Diabetes and Obesity model (AIC = 65,188.86), while the combination involving Smoking generally resulted in higher information criterion values (e.g., Obesity_Smoking AIC = 65,268.05). These results suggest that the synergistic inclusion of Diabetes and Hypertension offers the most parsimonious and effective explanation for the outcome variance among the paired models tested.
 
 # Graphs
 Graph a Heatmap to represent combined result table
