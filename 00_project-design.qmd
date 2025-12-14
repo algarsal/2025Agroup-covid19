@@ -98,6 +98,9 @@ Name the analyses you think are necessary or which you would like to use.
 
 ```{r}
 library(dplyr)
+
+#install.packages("kableExtra")
+library (kableExtra)
 ```
 
 Data Link: https://gaia.inegi.org.mx/covid19/
@@ -290,8 +293,12 @@ MVM_tidy <- tidy(MVM) |>
     )
   )
 
+
 #summary(MVM)
-knitr::kable(MVM_tidy, caption = "Table 2. Multivariable Model of Individual LRM", digits= 2, align = "c")
+knitr::kable(MVM_tidy, caption = "Table 2. Multivariable Model of Individual LRM", digits= 2, align = "c") %>%
+kable_styling(full_width = FALSE) %>%
+footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, . p < 0.1",
+           general_title = "")
 
 ```
 
