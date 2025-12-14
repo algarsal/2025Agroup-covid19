@@ -92,7 +92,7 @@ Name the analyses you think are necessary or which you would like to use.
 
 2.Test for Moderation - To see how the comorbidities impacts COVID-19 deaths.
 
-3.  ANOVA - To see if there is a statistical difference between mean deaths per age group.
+3.ANOVA - To see if there is a statistical difference between mean deaths per age group.
 
 4.Post-hoc tests ANOVA (Tukey test) - Used to see the statistical differences and attempt to explain their correlation to mortality rates.
 
