@@ -329,8 +329,7 @@ MVMwithCM_tidy <- tidy(MVMwithCM) |>
 #summary(MVMwithCM)
 knitr::kable(MVMwithCM_tidy, caption = "Table 3. Multivariable Model with CM of Individual LRM", digits = 2, align = "c")%>%
 kable_styling(full_width = FALSE) %>%
-footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, . p < 0.1",
-           general_title = "")
+footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, . p < 0.1", general_title = "")
 
 ```
 
@@ -401,13 +400,25 @@ library(knitr)
 
 combined_results_clean <- combined_results %>%
   filter(term != "(Intercept)") %>%
-  select(-contains("stat", ignore.case = TRUE)) %>%
-  as.data.frame()
+  select(Model, everything(), -term) %>%
+  mutate(
+    p.value = formatC(p.value, format = "e", digits = 3),
+    signif = case_when(
+      as.numeric(p.value) < 0.001 ~ "***",
+      as.numeric(p.value) < 0.01  ~ "**",
+      as.numeric(p.value) < 0.05  ~ "*",
+      as.numeric(p.value) < 0.1   ~ ".",
+      TRUE                        ~ ""
+    )
+  )
 
-knitr::kable(combined_results_clean, caption = "Table 4. Paired Logistic Regression Results", digits = 2, align = "c")
+knitr::kable(combined_results_clean, caption = "Table 4. Paired Logistic Regression Results", digits = 2, align = "c") %>%
+kable_styling(full_width = FALSE) %>%
+footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, . p < 0.1", general_title = "")
+
 ```
 
-Table 6 shows 
+Table 4 shows 
 
 ```{r}
 
@@ -419,7 +430,7 @@ combined_results2_clean <- combined_results2 %>%
 knitr::kable(combined_results2_clean, caption = "Table 5. Single-Predictor Logistic Regression Results", digits = 2, align = "c")
 ```
 
-Table 7 reveals 
+Table 5 reveals 
 
 # AIC and BIC Analyses
 
@@ -469,13 +480,13 @@ AIC_BIC_table2 <- dplyr::bind_rows(info_criteria2)
 knitr::kable(AIC_BIC_table2, caption = "Table 6. AIC and BIC for Single-Predictor Models", digits = 2, align = "c")
 ```
 
-Table 8 shows
+Table 6 shows
 
 ```{r}
 knitr::kable(AIC_BIC_table_paired, caption = "Table 7. AIC and BIC for Paired Models", digits = 2, align = "c")
 ```
 
-Table 9 reveals 
+Table 7 reveals 
 
 # Graphs
 Graph a Heatmap to represent combined result table
