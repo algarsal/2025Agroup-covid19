@@ -646,9 +646,6 @@ ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
 Figure 4 reveals that 
 
 # ANOVA Analyses
-```{r}
-
-```
 
 
 #11 Discussion From your objectives.
