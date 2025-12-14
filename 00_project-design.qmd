@@ -188,7 +188,7 @@ The logistic model is ideal for this analysis because our outcome variables are 
     All predictors (Diabetes, Hypertension, Smoking, Obesity) have p-values \< 2.2e-16, meaning extremely strong evidence that each predictor is associated with COVID-19 mortality, independently of the other variable in the model.
     Strength of predictors, based on the LR Chisq value is the strongest for Hypertension, then for Diabetes, then Obesity and lastlt Smoking is slightly less strong than others.
 
-# Results
+## Results
 
 Datasets
 ```{r}
@@ -547,7 +547,7 @@ combined_results2 %>%
 
 ```
 
-Figure 1 shows
+Figure 1 presents a heatmap illustrating the statistical significance of the associations between individual comorbidities and the outcome, expressed as -log10(p-value). The color intensity corresponds to the magnitude of the significance, with darker red indicating a more highly significant relationship. The heatmap shows that Hypertension and Diabetes have the highest levels of statistical significance, represented by the darkest red tiles, with -log10(p-values) exceeding 80. Obesity also shows a strong significant association, indicated by a medium-dark red tile corresponding to a -log10(p-value) around 70-75. Smoking appears to have the lowest relative significance among the four factors, represented by a white tile, suggesting its -log10(p-value) is below 60 in this comparative view, although it remains statistically significant based on the tabular data.
 
 
 ```{r}
@@ -571,14 +571,14 @@ combined_results %>%
     plot.caption = element_text(hjust = 0.5)  
   ) +
   labs(
-    title = "Comorbidities Risk Factor Heatmap",
+    title = "Paired Comorbidities Risk Factor Heatmap",
     x = "Model",
     y = "Risk Factor",
     caption = strwrap(caption_text, width = 110)
   )
 ```
 
-Figure 2 reveals that
+Figure 2 reveals that a distinct hierarchy in the robustness of the paired associations of each comorbidity. Hypertension exhibits the most profound statistical signal, represented by the highest intensity red tile, followed closely by Diabetes and Obesity, which display strong but progressively lower magnitudes of significance. Notably, the tile corresponding to Smoking appears unpigmented, indicating that while the association is statistically significant (as confirmed in tabular data) the p-value falls below the visualization’s lower threshold of 60. This visualization underscores that while all four factors are predictors, Hypertension and Diabetes provide the highest degree of statistical certainty within the modeled cohort.
 
 # AIV and GIV Analyses
 
@@ -634,7 +634,7 @@ ggplot(aiv, aes(x = reorder(term, AIV), y = AIV)) +
   )
 ```
 
-Figure 3 shows that
+Figure 3 displays a horizontal bar plot quantifying the Average Incremental Value (AIV) for four selected comorbid risk factors, ordered by their relative contribution to COVID-19 mortality. The y-axis categorizes the predictors—Hypertension, Obesity, Diabetes, and Smoking—while the x-axis measures their AIV magnitude. The results indicate a hierarchical ranking of importance, with Hypertension exhibiting the highest average incremental value, followed closely by Obesity and Diabetes, both of which surpass an AIV threshold of 60. Smoking demonstrates the lowest relative contribution among the modeled comorbidities, with an AIV falling below 60.
 
 ```{r}
 giv_caption <- "Figure 4: The GIV of the 4 comorbidities are ordered from highest to lowest contribution to COVID-19 mortality."
@@ -658,7 +658,7 @@ ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
   )
 ```
 
-Figure 4 reveals that 
+Figure 4 shows a horizontal bar plot that illustrates the General Incremental Value (GIV) of four comorbidities in relation to COVID-19 mortality, with the predictors ordered from highest to lowest contribution. The y-axis displays the comorbid predictors—Hypertension, Obesity, Diabetes, and Smoking—while the x-axis quantifies the magnitude of their GIV. The results show a clear hierarchical ranking, where Hypertension demonstrates the largest General Incremental Value, with its bar exceeding the 250 mark on the GIV scale. Obesity and Diabetes follow with similarly high values, both also extending to approximately 250, whereas Smoking exhibits the lowest relative contribution among the tested factors, with a GIV falling between 200 and 250.
 
 # ANOVA Analyses
 ```{r}
@@ -712,7 +712,7 @@ predictor_summary <- predictor_summary[order(predictor_summary$Rank), ]
 # Render table using knitr::kable
 kable(
   predictor_summary,
-  caption = "Ranking of COVID-19 Death Predictors by Deviance",
+  caption = "Table 8. Ranking of COVID-19 Death Predictors by Deviance",
   col.names = c("Predictor", "Deviance vs Diabetes", "Rank"),
   digits = 2,
   align = c("l", "r", "r")
@@ -721,9 +721,9 @@ kable(
 
 Table 8 shows that when comparing the Hypertension and Diabetes model it is the only positive deviance, meaning the Hypertension model fits better than the Diabetes model and that Hypertension and Diabetes are the strongest single predictors of COVID-19 death in our dataset. Positive deviance indicates the second model is better. All other comparisons had Negative deviance values in LRT comparisons, indicating that the second model is worse than the first. For example, when comparing Diabetes and Smoking, the negative deviance indicates that Model 2 (Smoking) fits worse than Model 1 (Diabetes). Meaning that Diabetes is a stronger predictor than Smoking for COVID deaths.
 
-#11 Discussion From your objectives.
+## Discussion
 Every table and analysis we conducted in this project confirmed that Hypertension had the largest contribution to increasing the risk factor in COVID-19 deaths and Smoking has the most insignificant impact on mortality. 
 The Chi-test analysis
 The ANOVA Anaylsis confirmed that Hypertension and Diabetes are the strongest single predictors of COVID-19 death in our dataset. Obesity is a weaker predictor than Hypertension/Diabetes but stronger than Smoking. Smoking consistently has the worst model fit among these risk factors.
 
-#12 Conclusions
+## Conclusion
