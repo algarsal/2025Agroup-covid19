@@ -128,7 +128,7 @@ These findings were further solidified by a study conducted by Lowhorn et al. (2
 
   Considering the literatures cited, the impact of the COVID-19 pandemic in Mexico is arguably one of the most severe in the world.
 The pandemic in Mexico wasn't just a viral outbreak; it was a synergistic epidemic where the virus collided with the country's high rates of pre-existing chronic disease crisis (comorbidities).
-In line with this, our project aims to statistically analyze the data presented in the Analytical Viewer for COVID-19, a platform created by Mexico's National Institute of Statistics and Geography (INEGI).
+In line with this, our project aims to statistically analyze the data from Mexico City presented in the Analytical Viewer for COVID-19, a platform created by Mexico's National Institute of Statistics and Geography (INEGI).
 By exploring this link, our project aims to delve deeper into the nuances of comorbidity-related risks and its implications on actionable insights and protective measures for future pandemic preparedness, especially to the vulnerable sector of the population.
 
 ## Objective
@@ -722,8 +722,22 @@ kable(
 Table 8 shows that when comparing the Hypertension and Diabetes model it is the only positive deviance, meaning the Hypertension model fits better than the Diabetes model and that Hypertension and Diabetes are the strongest single predictors of COVID-19 death in our dataset. Positive deviance indicates the second model is better. All other comparisons had Negative deviance values in LRT comparisons, indicating that the second model is worse than the first. For example, when comparing Diabetes and Smoking, the negative deviance indicates that Model 2 (Smoking) fits worse than Model 1 (Diabetes). Meaning that Diabetes is a stronger predictor than Smoking for COVID deaths.
 
 ## Discussion
-Every table and analysis we conducted in this project confirmed that Hypertension had the largest contribution to increasing the risk factor in COVID-19 deaths and Smoking has the most insignificant impact on mortality. 
-The Chi-test analysis
-The ANOVA Anaylsis confirmed that Hypertension and Diabetes are the strongest single predictors of COVID-19 death in our dataset. Obesity is a weaker predictor than Hypertension/Diabetes but stronger than Smoking. Smoking consistently has the worst model fit among these risk factors.
+# Hypothesis 1: Impact of Pre-existing Comorbidities on Mortality 
+The results provide robust evidence supporting the hypothesis that pre-existing comorbidities significantly elevate the risk of mortality of COVID-19 patients in Mexico City. Univariate logistic regression analysis (Table 5) confirms that all four examined conditions—Diabetes, Hypertension, Obesity, and Smoking—are statistically significant predictors of mortality (p<0.001). The Odds Ratios (OR) for these conditions range from 1.54 to 1.62, indicating that patients with any one of these comorbidities have approximately 50-60% higher odds of mortality compared to those without. This association is visually reinforced by the heatmap in Figure 2, where the intense red coloration across the diagonal confirms that the probability of these associations occurring by chance is virtually zero.
+
+# Hypothesis 2: Hypertension as the Leading Risk Factor
+The data supports the hypothesis that Hypertension is the most critical single risk factor among the four comorbidities identified. While Diabetes shares the highest Odds Ratio (1.62) with Hypertension in single-predictor models, Hypertension exhibits the strongest statistical signal, evidenced by the highest z-statistic (19.78) and the most significant p-value (4.38×10 −87). Furthermore, model selection metrics in Table 6 identify the Hypertension-only model as having the lowest Akaike Information Criterion (AIC = 65,453.78) and Bayesian Information Criterion (BIC), suggesting it provides the best trade-off between model fit and complexity. This dominance is further corroborated by Figure 3, where Hypertension displays the highest Average Incremental Value (AIV), surpassing Obesity, Diabetes, and Smoking in its contribution to predicting mortality.
+
+# Hypothesis 3: Cumulative Risk of Hypertension Combined with Other Comorbidities
+The analysis validates the hypothesis that the combination of Hypertension with other comorbidities, particularly Diabetes, represents a more severe prognostic profile. Table 4 demonstrates that the risk estimates for Hypertension and its paired comorbidities remain stable and independent (e.g., OR ~1.62 for both Hypertension and Diabetes in the paired model), indicating an additive risk rather than redundancy. The paired model analysis in Table 7 identifies the Diabetes + Hypertension combination as the superior statistical model, achieving the lowest AIC (65,131.99) among all paired configurations. This confirms that while Hypertension is a primary driver, its co-occurrence with Diabetes creates the most informative predictive model for mortality, implying that patients presenting with this specific dual morbidity warrant the highest level of clinical vigilance.
+
 
 ## Conclusion
+
+This comprehensive analysis elucidates the differential impact of common comorbidities on COVID-19 mortality. Hypertension was identified as the single most critical risk factor, demonstrating both the highest statistical robustness and the greatest incremental value for mortality prediction.
+
+While Diabetes and Obesity are both severe risk factors, their roles differ slightly in modeling contexts: Diabetes offers high statistical confidence, whereas Obesity offers superior incremental predictive gain. Smoking, while significant, presents a lower risk profile relative to these metabolic conditions.
+
+These findings support a risk-stratification strategy that prioritizes patients with Hypertension, particularly when comorbid with Obesity or Diabetes, for early intervention and intensive monitoring. Future research should focus on the mechanistic interactions between these comorbidities to further refine prognostic models.
+
+

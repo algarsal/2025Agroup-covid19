@@ -217,4 +217,7 @@ extract_pair_results <- function(model, model_name) { tidy(model) %\>% filter(te
   knitr::kable(tidy(LRM_NCM), caption = "Table 5. LRM Number of comorbidities", digits = 2, align = "c")
   ```
   
+  Every table and analysis we conducted in this project confirmed that Hypertension had the largest contribution to increasing the risk factor in COVID-19 deaths and Smoking has the most insignificant impact on mortality. 
+  The Chi-test analysis
+  The ANOVA Anaylsis confirmed that Hypertension and Diabetes are the strongest single predictors of COVID-19 death in our dataset. Obesity is a weaker predictor than Hypertension/Diabetes but stronger than Smoking. Smoking consistently has the worst model fit among these risk factors.
   
