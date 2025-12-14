@@ -26,7 +26,7 @@ editor:
     wrap: sentence
 ---
 
-# Teacher comments
+## Teacher comments
 
 ## Group A
 
@@ -54,7 +54,7 @@ For example Salinas-Aguirre et al. (2021) Clinical characteristics and comorbidi
 
 You can start with your project (check the task "Your project. Preliminary results" in PoliformaT).
 
-# Students proposal
+## Students proposal
 
 Quarto enables you to weave together content and executable code into a finished document.
 To learn more about Quarto see <https://quarto.org>.
@@ -113,10 +113,10 @@ Introduction Why your project is interesting?
 and What is known already about it?
 Most citations should be done in the introduction.
 
-## Introduction 
+# Introduction 
 
   Experiencing a global pandemic in the 21st century is scientifically and statistically jarring, particularly given the era’s sophisticated pharmaceutical and surveillance capabilities.
-The emergence of a highly contagious respiratory illness in 2020 infamously known as the Coronavirus Disease 2019 (COVID-19), caused by the virus ‘Severe Acute Respiratory Syndrome Coronavirus 2’ (SARs-CoV-2), has profoundly impacted global health that resulted in a declaration of global health emergency.As a result, this prompted extensive research into the factors that contribute to severe outcomes and mortality.
+The emergence of a highly contagious respiratory illness in 2020 infamously known as the Coronavirus Disease 2019 (COVID-19), caused by the virus ‘Severe Acute Respiratory Syndrome Coronavirus 2’ (SARs-CoV-2), has profoundly impacted global health that resulted in a declaration of global health emergency. As a result, this prompted extensive research into the factors that contribute to severe outcomes and mortality.
 
   Understanding the pathophysiological mechanism of viral disease infections, the role of comorbidities, i.e., pre-existing health conditions, became the main research interest linking its influence on the risk of death among individuals infected with SARS-CoV-2.
 Over the years since the pandemic passed, multiple literature quantified the mortality risk associated with comorbidities.
@@ -131,18 +131,18 @@ The pandemic in Mexico wasn't just a viral outbreak; it was a synergistic epidem
 In line with this, our project aims to statistically analyze the data from Mexico City presented in the Analytical Viewer for COVID-19, a platform created by Mexico's National Institute of Statistics and Geography (INEGI).
 By exploring this link, our project aims to delve deeper into the nuances of comorbidity-related risks and its implications on actionable insights and protective measures for future pandemic preparedness, especially to the vulnerable sector of the population.
 
-## Objective
+# Objective
 The current project aims to substantiate the association between the mortality and the pre-existing health conditions / comorbidities of COVID-19 patients from Mexico City using the INEGI dataset, thereby providing a comparative analysis against literature-based evidence from some parts of Mexico and national studies to validate the consistency of comorbidity impact across different Mexican demographics.
 
-## Hypotheses
+# Hypotheses
 1. COVID-19 patients with pre-existing health condition / comorbidity are more likely to die from the viral disease.
 
 2. Among the 4 identified comorbidities, COVID-19 patients with hypertension are more likely to die from the viral disease.
 
 3. Ultimately, COVID-19 patients with hypertension in combination of another comorbidity are more likely to die from the viral disease.
 
-## Methodology
-1. Chi square Test - The Chi square test is gonna allow us to find statistical association between DEATHS & each COMORBIDITY.
+# Methodology
+1. Chi square Test - The Chi square test is gonna allow us to find statistical association between deaths & each comorbidity.
 All tests resulted in highly significant p-values, indicating that the distribution of deaths differs significantly between patients with and without the comorbidity.
 So the death rate for those with any comorbidities is not likely to be random.
 This supports the conclusion that comorbidities are strongly associated with increased mortality.
@@ -188,7 +188,7 @@ The logistic model is ideal for this analysis because our outcome variables are 
     All predictors (Diabetes, Hypertension, Smoking, Obesity) have p-values \< 2.2e-16, meaning extremely strong evidence that each predictor is associated with COVID-19 mortality, independently of the other variable in the model.
     Strength of predictors, based on the LR Chisq value is the strongest for Hypertension, then for Diabetes, then Obesity and lastlt Smoking is slightly less strong than others.
 
-## Results
+# Results
 
 Datasets
 ```{r}
@@ -200,9 +200,8 @@ covid19A <- read.table(data, header = T, sep = ",")
 
 ```
 
-# Chi square Test
+## Chi square Test
 
-The Chi square test is gonna allow us to find association between Deaths & each Comorbidities
 
 ```{r}
 
@@ -247,10 +246,10 @@ footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, 
 
 ```
 
-  Table 1 confirms that the presence of four comorbidities namely Diabetes, Hypertension, Obesity, or Smoking is significantly non-randomly associated with mortality, as shown in the low p-values (p<0.001). Hypertension displays the strongest statistical signal of association supporting its prioritization as a critical risk factor.
+  Table 1 showing the results of Chi-square test confirms that the presence of four comorbidities namely Diabetes, Hypertension, Obesity, or Smoking is significantly non-randomly associated with mortality, as shown in the low p-values (p<0.001). Hypertension displays the strongest statistical signal of association supporting its prioritization as a critical risk factor.
 
 
-# Logistic Regression Model (LRM)
+## Logistic Regression Model (LRM)
 
 LRM for each Comorbidity Individually
 
@@ -365,7 +364,7 @@ model_Obesity_Smoking <- glm( COVID_Death ~ Obesity + Smoking, data = covid19A, 
 model_Hypertension_Obesity <- glm( COVID_Death ~ Hypertension + Obesity, data = covid19A, family = binomial() )
 ```
 
-# Paired LRM and Individual LRM
+## Individual LRM and Paired LRM
 
 ```{r}
 #library(dplyr)
@@ -456,7 +455,7 @@ footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, 
 
 Table 5 displays the results of the paired logistic regression analyses, which assess the stability of the associations between the comorbidities and the outcome when adjusting for one another. The data reveals that the risk estimates for diabetes, hypertension, obesity, and smoking remain highly statistically significant (p<0.001) and remarkably consistent across all model configurations. Specifically, diabetes and hypertension consistently showed the strongest associations, with odds ratios (OR) holding steady at approximately 1.62 in both individual and paired models. This stability in effect sizes indicates that these comorbidities function as independent risk factors, as their predictive power is not diminished by the inclusion of concurrent conditions in the model.
 
-# AIC and BIC Analyses
+## AIC and BIC Analyses
 
 ```{r}
 models_paired <- list(
@@ -512,7 +511,7 @@ knitr::kable(AIC_BIC_table_paired, caption = "Table 7. AIC and BIC for Paired Mo
 
 Table 7 reveals that the model combining Diabetes and Hypertension provided the best fit among all paired combinations, achieving the lowest AIC (65,131.99) and BIC (65,160.53). This was followed by the Hypertension and Obesity model (AIC = 65,147.32) and the Diabetes and Obesity model (AIC = 65,188.86), while the combination involving Smoking generally resulted in higher information criterion values (e.g., Obesity_Smoking AIC = 65,268.05). These results suggest that the synergistic inclusion of Diabetes and Hypertension offers the most parsimonious and effective explanation for the outcome variance among the paired models tested.
 
-# Graphs
+## Graphs
 Graph a Heatmap to represent results.
 
 ```{r}
@@ -580,7 +579,7 @@ combined_results %>%
 
 Figure 2 reveals that a distinct hierarchy in the robustness of the paired associations of each comorbidity. Hypertension exhibits the most profound statistical signal, represented by the highest intensity red tile, followed closely by Diabetes and Obesity, which display strong but progressively lower magnitudes of significance. Notably, the tile corresponding to Smoking appears unpigmented, indicating that while the association is statistically significant (as confirmed in tabular data) the p-value falls below the visualization’s lower threshold of 60. This visualization underscores that while all four factors are predictors, Hypertension and Diabetes provide the highest degree of statistical certainty within the modeled cohort.
 
-# AIV and GIV Analyses
+## AIV and GIV Analyses
 
 ```{r}
 # Extract variables from model name
@@ -660,7 +659,8 @@ ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
 
 Figure 4 shows a horizontal bar plot that illustrates the General Incremental Value (GIV) of four comorbidities in relation to COVID-19 mortality, with the predictors ordered from highest to lowest contribution. The y-axis displays the comorbid predictors—Hypertension, Obesity, Diabetes, and Smoking—while the x-axis quantifies the magnitude of their GIV. The results show a clear hierarchical ranking, where Hypertension demonstrates the largest General Incremental Value, with its bar exceeding the 250 mark on the GIV scale. Obesity and Diabetes follow with similarly high values, both also extending to approximately 250, whereas Smoking exhibits the lowest relative contribution among the tested factors, with a GIV falling between 200 and 250.
 
-# ANOVA Analyses
+## ANOVA Analyses
+
 ```{r}
 #Comparisons of ANOVA
 #anova(model_Diabetes, model_Hypertension, test = "LRT")
@@ -721,18 +721,18 @@ kable(
 
 Table 8 shows that when comparing the Hypertension and Diabetes model it is the only positive deviance, meaning the Hypertension model fits better than the Diabetes model and that Hypertension and Diabetes are the strongest single predictors of COVID-19 death in our dataset. Positive deviance indicates the second model is better. All other comparisons had Negative deviance values in LRT comparisons, indicating that the second model is worse than the first. For example, when comparing Diabetes and Smoking, the negative deviance indicates that Model 2 (Smoking) fits worse than Model 1 (Diabetes). Meaning that Diabetes is a stronger predictor than Smoking for COVID deaths.
 
-## Discussion
-# Hypothesis 1: Impact of Pre-existing Comorbidities on Mortality 
+# Discussion
+## Hypothesis 1: Impact of Pre-existing Comorbidities on Mortality 
 The results provide robust evidence supporting the hypothesis that pre-existing comorbidities significantly elevate the risk of mortality of COVID-19 patients in Mexico City. Univariate logistic regression analysis (Table 5) confirms that all four examined conditions—Diabetes, Hypertension, Obesity, and Smoking—are statistically significant predictors of mortality (p<0.001). The Odds Ratios (OR) for these conditions range from 1.54 to 1.62, indicating that patients with any one of these comorbidities have approximately 50-60% higher odds of mortality compared to those without. This association is visually reinforced by the heatmap in Figure 2, where the intense red coloration across the diagonal confirms that the probability of these associations occurring by chance is virtually zero.
 
-# Hypothesis 2: Hypertension as the Leading Risk Factor
+## Hypothesis 2: Hypertension as the Leading Risk Factor
 The data supports the hypothesis that Hypertension is the most critical single risk factor among the four comorbidities identified. While Diabetes shares the highest Odds Ratio (1.62) with Hypertension in single-predictor models, Hypertension exhibits the strongest statistical signal, evidenced by the highest z-statistic (19.78) and the most significant p-value (4.38×10 −87). Furthermore, model selection metrics in Table 6 identify the Hypertension-only model as having the lowest Akaike Information Criterion (AIC = 65,453.78) and Bayesian Information Criterion (BIC), suggesting it provides the best trade-off between model fit and complexity. This dominance is further corroborated by Figure 3, where Hypertension displays the highest Average Incremental Value (AIV), surpassing Obesity, Diabetes, and Smoking in its contribution to predicting mortality.
 
-# Hypothesis 3: Cumulative Risk of Hypertension Combined with Other Comorbidities
+## Hypothesis 3: Cumulative Risk of Hypertension Combined with Other Comorbidities
 The analysis validates the hypothesis that the combination of Hypertension with other comorbidities, particularly Diabetes, represents a more severe prognostic profile. Table 4 demonstrates that the risk estimates for Hypertension and its paired comorbidities remain stable and independent (e.g., OR ~1.62 for both Hypertension and Diabetes in the paired model), indicating an additive risk rather than redundancy. The paired model analysis in Table 7 identifies the Diabetes + Hypertension combination as the superior statistical model, achieving the lowest AIC (65,131.99) among all paired configurations. This confirms that while Hypertension is a primary driver, its co-occurrence with Diabetes creates the most informative predictive model for mortality, implying that patients presenting with this specific dual morbidity warrant the highest level of clinical vigilance.
 
 
-## Conclusion
+# Conclusion
 
 This current project provides a comprehensive analysis about the impact of common comorbidities on COVID-19 mortality. Based on the results, it was proven that there is a significant role of comorbidities and pre-exisiting health conditions on the likelihood of death. Among the comorbidities, hypertension was identified as the single most critical risk factor, demonstrating both the highest statistical robustness and the greatest incremental value for mortality prediction.
 
