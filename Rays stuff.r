@@ -188,3 +188,33 @@ extract_pair_results <- function(model, model_name) { tidy(model) %\>% filter(te
   #Hypertension shows the highest average incremental value among predictor Figure 4: The GIV reflects the overall added predictive value contributed by each predictor across the full model.
   #Larger GIV values represent more influential predictors.
   #Hypertension shows the highest average incremental value among predictor.
+
+  Table 4. Mortality baseline (Deaths WITH OUT CM)
+  #Removed because significance or relevance cannot be understood
+  #Below is the code for that
+  
+  ```{r}
+  #Mortality baseline (Deaths WITH OUT CM)
+  no_comorb <- subset(covid19A, Number_of_Comorbidities == 0)
+  LRMnoCM <- glm(COVID_Death ~ 1,        
+                 data = no_comorb,
+                 family = binomial)
+  #summary(LRMnoCM)
+  knitr::kable(tidy(LRMnoCM), caption = "Table 4. Mortality baseline (Deaths WITH OUT CM)", digits = 2, align = "c")
+  ```
+  
+  
+  Table 5. LRM Number of comorbidities
+  #Removed because significance or relevance cannot be understood
+  #Below is the code for that
+  
+  ```{r}
+  #LRM Number of comorbidities
+  LRM_NCM <- glm(COVID_Death ~ Number_of_Comorbidities,
+                 data = with_comorb, #again with the subset 
+                 family = binomial)
+  #summary(LRM_NCM)
+  knitr::kable(tidy(LRM_NCM), caption = "Table 5. LRM Number of comorbidities", digits = 2, align = "c")
+  ```
+  
+  

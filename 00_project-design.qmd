@@ -311,29 +311,6 @@ knitr::kable(tidy(MVMwithCM), caption = "Table 3. Multivariable Model with CM of
 Table 3 reveals 
 
 ```{r}
-#Mortality baseline (Deaths WITH OUT CM)
-no_comorb <- subset(covid19A, Number_of_Comorbidities == 0)
-LRMnoCM <- glm(COVID_Death ~ 1,        
-                data = no_comorb,
-                family = binomial)
-#summary(LRMnoCM)
-knitr::kable(tidy(LRMnoCM), caption = "Table 4. Mortality baseline (Deaths WITH OUT CM)", digits = 2, align = "c")
-```
-
-Table 4 shows 
-
-```{r}
-#LRM Number of comorbidities
-LRM_NCM <- glm(COVID_Death ~ Number_of_Comorbidities,
-                 data = with_comorb, #again with the subset 
-                 family = binomial)
-#summary(LRM_NCM)
-knitr::kable(tidy(LRM_NCM), caption = "Table 5. LRM Number of comorbidities", digits = 2, align = "c")
-```
-
-Table 5 reveals 
-
-```{r}
 #Logistic Regression 1: Diabetes + Hypertension 
 model_Diabetes_Hypertension <- glm( COVID_Death ~ Diabetes + Hypertension, data = covid19A, family = binomial() )
 
@@ -401,7 +378,7 @@ combined_results_clean <- combined_results %>%
   select(-contains("stat", ignore.case = TRUE)) %>%
   as.data.frame()
 
-knitr::kable(combined_results_clean, caption = "Table 6. Paired Logistic Regression Results", digits = 2, align = "c")
+knitr::kable(combined_results_clean, caption = "Table 4. Paired Logistic Regression Results", digits = 2, align = "c")
 ```
 
 Table 6 shows 
@@ -413,7 +390,7 @@ combined_results2_clean <- combined_results2 %>%
   select(-contains("stat", ignore.case = TRUE)) %>%
   as.data.frame()
 
-knitr::kable(combined_results2_clean, caption = "Table 7. Single-Predictor Logistic Regression Results", digits = 2, align = "c")
+knitr::kable(combined_results2_clean, caption = "Table 5. Single-Predictor Logistic Regression Results", digits = 2, align = "c")
 ```
 
 Table 7 reveals 
@@ -463,13 +440,13 @@ info_criteria2 <- lapply(names(models2), function(name) {
 AIC_BIC_table2 <- dplyr::bind_rows(info_criteria2)
 #AIC_BIC_table2
 
-knitr::kable(AIC_BIC_table2, caption = "Table 8. AIC and BIC for Single-Predictor Models", digits = 2, align = "c")
+knitr::kable(AIC_BIC_table2, caption = "Table 6. AIC and BIC for Single-Predictor Models", digits = 2, align = "c")
 ```
 
 Table 8 shows
 
 ```{r}
-knitr::kable(AIC_BIC_table_paired, caption = "Table 9. AIC and BIC for Paired Models", digits = 2, align = "c")
+knitr::kable(AIC_BIC_table_paired, caption = "Table 7. AIC and BIC for Paired Models", digits = 2, align = "c")
 ```
 
 Table 9 reveals 
