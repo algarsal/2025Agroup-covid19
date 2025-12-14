@@ -704,6 +704,11 @@ kable(
 )
 ```
 
+Table 8 shows that when comparing the Hypertension and Diabetes model it is the only positive deviance, meaning the Hypertension model fits better than the Diabetes model and that Hypertension and Diabetes are the strongest single predictors of COVID-19 death in our dataset. Positive deviance indicates the second model is better. All other comparisons had Negative deviance values in LRT comparisons, indicating that the second model is worse than the first. For example, when comparing Diabetes and Smoking, the negative deviance indicates that Model 2 (Smoking) fits worse than Model 1 (Diabetes). Meaning that Diabetes is a stronger predictor than Smoking for COVID deaths.
+
 #11 Discussion From your objectives.
+Every table and analysis we conducted in this project confirmed that Hypertension had the largest contribution to increasing the risk factor in COVID-19 deaths and Smoking has the most insignificant impact on mortality. 
+The Chi-test analysis
+The ANOVA Anaylsis confirmed that Hypertension and Diabetes are the strongest single predictors of COVID-19 death in our dataset. Obesity is a weaker predictor than Hypertension/Diabetes but stronger than Smoking. Smoking consistently has the worst model fit among these risk factors.
 
 #12 Conclusions
