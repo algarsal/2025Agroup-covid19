@@ -424,10 +424,22 @@ Table 4 shows
 
 combined_results2_clean <- combined_results2 %>%
   filter(term != "(Intercept)") %>%
-  select(-contains("stat", ignore.case = TRUE)) %>%
-  as.data.frame()
+  select(Model, everything(), -term) %>%
+  mutate(
+    p.value = formatC(p.value, format = "e", digits = 3),
+    signif = case_when(
+      as.numeric(p.value) < 0.001 ~ "***",
+      as.numeric(p.value) < 0.01  ~ "**",
+      as.numeric(p.value) < 0.05  ~ "*",
+      as.numeric(p.value) < 0.1   ~ ".",
+      TRUE                        ~ ""
+    )
+  )
 
-knitr::kable(combined_results2_clean, caption = "Table 5. Single-Predictor Logistic Regression Results", digits = 2, align = "c")
+knitr::kable(combined_results2_clean, caption = "Table 5. Single-Predictor Logistic Regression Results", digits = 2, align = "c")%>%
+kable_styling(full_width = FALSE) %>%
+footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, . p < 0.1", general_title = "")
+
 ```
 
 Table 5 reveals 
