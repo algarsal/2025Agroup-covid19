@@ -648,12 +648,12 @@ Figure 4 reveals that
 # ANOVA Analyses
 ```{r}
 #Comparisons of ANOVA
-anova(model_Diabetes, model_Hypertension, test = "LRT")
-anova(model_Diabetes, model_Smoking, test = "LRT")
-anova(model_Diabetes, model_Obesity, test = "LRT")
-anova(model_Hypertension, model_Smoking, test = "LRT")
-anova(model_Obesity, model_Smoking, test = "LRT")
-anova(model_Hypertension, model_Obesity, test = "LRT")
+#anova(model_Diabetes, model_Hypertension, test = "LRT")
+#anova(model_Diabetes, model_Smoking, test = "LRT")
+#anova(model_Diabetes, model_Obesity, test = "LRT")
+#anova(model_Hypertension, model_Smoking, test = "LRT")
+#anova(model_Obesity, model_Smoking, test = "LRT")
+#anova(model_Hypertension, model_Obesity, test = "LRT")
 
 # Create a data frame with your predictors and model deviances
 predictor_summary <- data.frame(
@@ -673,7 +673,7 @@ predictor_summary$Rank <- rank(-predictor_summary$Deviance_vs_baseline, ties.met
 predictor_summary <- predictor_summary[order(predictor_summary$Rank), ]
 
 # Print summary table
-print(predictor_summary)
+#print(predictor_summary)
 
 #library(knitr)
 
