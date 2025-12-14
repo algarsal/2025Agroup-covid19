@@ -205,6 +205,10 @@ covid19A <- read.table(data, header = T, sep = ",")
 The Chi square test is gonna allow us to find association between Deaths & each Comorbidities
 
 ```{r}
+
+##load library 
+library(broom)
+
 comorbidities <- c("Diabetes", "Hypertension", "Obesity", "Smoking")
 
 chi_results <- data.frame(
@@ -225,13 +229,21 @@ for (c in comorbidities) {
     Chi_square  = as.numeric(chi$statistic),
     df          = as.numeric(chi$parameter),
     P_value     = formatC(chi$p.value, format = "e", digits = 3),
-    stringsAsFactors = FALSE
+    signif = case_when(
+      as.numeric(chi$p.value) < 0.001 ~ "***",
+      as.numeric(chi$p.value) < 0.01  ~ "**",
+      as.numeric(chi$p.value) < 0.05  ~ "*",
+      as.numeric(chi$p.value) < 0.1   ~ ".",
+    )
   )
 )
 }
 
+
 #chi_results
-knitr::kable(chi_results, caption = "Table 1. Summary of Chi Square Tests", align = "c")
+knitr::kable(chi_results, caption = "Table 1. Summary of Chi Square Tests", align = "c") %>%
+kable_styling(full_width = FALSE) %>%
+footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, . p < 0.1", general_title = "")
 
 ```
 
@@ -297,8 +309,7 @@ MVM_tidy <- tidy(MVM) |>
 #summary(MVM)
 knitr::kable(MVM_tidy, caption = "Table 2. Multivariable Model of Individual LRM", digits= 2, align = "c") %>%
 kable_styling(full_width = FALSE) %>%
-footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, . p < 0.1",
-           general_title = "")
+footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, . p < 0.1", general_title = "")
 
 ```
 
