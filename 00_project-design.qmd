@@ -311,8 +311,27 @@ with_comorb <- subset(covid19A, Number_of_Comorbidities > 0)
 MVMwithCM <- glm(COVID_Death ~ Diabetes + Hypertension + Obesity + Smoking,
                   data = with_comorb,
                   family = binomial)
+
+MVMwithCM_tidy <- tidy(MVMwithCM) |>
+  filter(term != "(Intercept)") |>
+  mutate(
+    p.value = formatC(p.value, format = "e", digits = 3),
+    signif = case_when(
+      as.numeric(p.value) < 0.001 ~ "***",
+      as.numeric(p.value) < 0.01  ~ "**",
+      as.numeric(p.value) < 0.05  ~ "*",
+      as.numeric(p.value) < 0.1   ~ ".",
+      TRUE                        ~ ""
+    )
+  )
+
+
 #summary(MVMwithCM)
-knitr::kable(tidy(MVMwithCM), caption = "Table 3. Multivariable Model with CM of Individual LRM", digits = 2, align = "c")
+knitr::kable(MVMwithCM_tidy, caption = "Table 3. Multivariable Model with CM of Individual LRM", digits = 2, align = "c")%>%
+kable_styling(full_width = FALSE) %>%
+footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, . p < 0.1",
+           general_title = "")
+
 ```
 
 Table 3 reveals 
