@@ -137,9 +137,9 @@ The current project aims to substantiate the association between the mortality a
 ## Hypotheses
 1. COVID-19 patients with pre-existing health condition / comorbidity are more likely to die from the viral disease.
 
-2. Among the 4 identified comorbidities, COVID-19 patients with cardiovascular diseases are more likely to die from the viral disease.
+2. Among the 4 identified comorbidities, COVID-19 patients with hypertension are more likely to die from the viral disease.
 
-3. Ultimately, COVID-19 patients with cardiovascular disease in combination of another comorbidity are more likely to die from the viral disease.
+3. Ultimately, COVID-19 patients with hypertension in combination of another comorbidity are more likely to die from the viral disease.
 
 ## Methodology
 1. Chi square Test - The Chi square test is gonna allow us to find statistical association between DEATHS & each COMORBIDITY.
@@ -247,11 +247,10 @@ footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, 
 
 ```
 
-  Table 1 confirms that the presence of four comorbidities namely Diabetes, Hypertension, Obesity, or Smoking is significantly non-randomly associated with mortality. Hypertension displays the strongest statistical signal of association supporting its prioritization as a critical risk factor.
+  Table 1 confirms that the presence of four comorbidities namely Diabetes, Hypertension, Obesity, or Smoking is significantly non-randomly associated with mortality, as shown in the low p-values (p<0.001). Hypertension displays the strongest statistical signal of association supporting its prioritization as a critical risk factor.
 
 
-
-# LOGISTIC REGRESION MODEL (LRM)
+# Logistic Regression Model (LRM)
 
 LRM for each Comorbidity Individually
 
@@ -313,7 +312,7 @@ footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, 
 
 ```
 
-Table 2 shows 
+Table 2 presents the results of the logistic regression analysis evaluating the individual impact of four key comorbidities—diabetes, hypertension, obesity, and smoking—on the outcome of interest. The data indicates that all four variables are statistically significant positive predictors (p<0.001), with high z-statistics ranging from 16.25 to 19.70. Diabetes demonstrated the strongest association with a coefficient estimate of 0.49, closely followed by hypertension (β=0.48) and smoking (β=0.47), while obesity showed a slightly lower but still highly significant estimate of 0.44. These positive coefficients suggest that the presence of each comorbidity is associated with an increase in the log-odds of the outcome occurring. 
 
 
 ```{r}
