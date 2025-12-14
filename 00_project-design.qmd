@@ -343,7 +343,7 @@ footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, 
 
 ```
 
-Table 3 reveals 
+Table 3 reveals the results of the multivariable logistic regression model incorporating all comorbidities. Consistent with the individual models, all four risk factors: diabetes, hypertension, smoking, and obesity—retained high statistical significance (p<0.001) with z-statistics ranging from 10.92 to 12.47. Diabetes and hypertension demonstrated the strongest associations, both yielding a coefficient estimate of 0.39, while smoking (β=0.38) and obesity (β=0.34) followed with slightly lower estimates. The persistence of these significant positive coefficients suggests that these comorbidities remain robust, independent predictors of the outcome even when adjusted within the multivariable framework.
 
 ```{r}
 #Logistic Regression 1: Diabetes + Hypertension 
