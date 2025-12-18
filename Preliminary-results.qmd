@@ -45,8 +45,11 @@ library(broom)
 library(ggplot2)
 library(tidyr)
 
-```
+#Dataset
+data <- "data/covid_mexico_comorbidity_dataset_100k.csv"
+covid19A <- read.table(data, header = T, sep = ",")
 
+```
 
 # Introduction 
 
@@ -76,7 +79,7 @@ The current project aims to substantiate the association between the mortality a
 
 3. Ultimately, COVID-19 patients with hypertension in combination of another comorbidity are more likely to die from the viral disease.
 
-# Methodology
+# Materials and Methods 
 1. Chi square Test - The Chi square test is gonna allow us to find statistical association between deaths & each comorbidity.
 All tests resulted in highly significant p-values, indicating that the distribution of deaths differs significantly between patients with and without the comorbidity.
 So the death rate for those with any comorbidities is not likely to be random.
@@ -125,18 +128,7 @@ The logistic model is ideal for this analysis because our outcome variables are 
 
 # Results
 
-Datasets
-```{r}
-dir("data")
-data <- "data/covid_mexico_comorbidity_dataset_100k.csv"
-covid19A <- read.table(data, header = T, sep = ",")
-#str (covid19A) 
-#summary(covid19A)
-
-```
-
 ## Chi square Test
-
 
 ```{r}
 
