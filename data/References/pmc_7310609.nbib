@@ -1,0 +1,102 @@
+PMID- 32578683
+OWN - NLM
+STAT- MEDLINE
+DCOM- 20200629
+LR  - 20201218
+IS  - 1678-9946 (Electronic)
+IS  - 0036-4665 (Print)
+IS  - 0036-4665 (Linking)
+VI  - 62
+DP  - 2020
+TI  - Prevalence of comorbidities in patients and mortality cases affected by 
+      SARS-CoV2: a systematic review and meta-analysis.
+PG  - e43
+LID - S0036-46652020000100223 [pii]
+LID - 10.1590/S1678-9946202062043 [doi]
+LID - e43
+AB  - The new coronavirus, COVID-19 was declared a pandemic by the World Health 
+      Organization on March 11, 2020. Risk factors associated with this disease are 
+      age, sex, and the presence of comorbidities, the most common being hypertension, 
+      diabetes, and heart disease. The aim of this meta-analysis was to calculate the 
+      prevalence and geographical distribution of comorbidities in all patients 
+      admitted to intensive care units (ICUs), and the mortality rate of COVID-19. We 
+      selected studies based upon epidemiological and clinical descriptions of the 
+      patients and mortality from the disease to determine the pooled prevalence of 
+      comorbidities in all patients and in mortality cases due to COVID-19. The pooled 
+      prevalence was estimated using the random effects model, and odds ratios were 
+      used to measure the probability of death for a patient with a comorbidity. The 
+      total prevalence of comorbidities in patients with COVID-19 was 42% (95% CI: 
+      25-60), 61% (95% CI: 42-80) in those admitted to the ICU, and 77% (95% CI: 68-86) 
+      among death cases; males were the most affected. Hypertension was the most 
+      prevalent comorbidity in all three groups studied, accounting for 32%, 26%, and 
+      35%, respectively. The odds ratio of death for a patient with a comorbidity 
+      compared to one with no comorbidity was 2.4 (P < 0.0001). The higher the 
+      prevalence of comorbidities the higher the odds that the COVID-19 patient will 
+      need intensive care or will die, especially if the pre-existing disease is 
+      hypertension, heart disease, or diabetes.
+FAU - Espinosa, Omar Ariel
+AU  - Espinosa OA
+AUID- ORCID: 0000-0002-0912-9527
+AD  - Faculdade do Pantanal, Cáceres, Mato Grosso, Brazil.
+FAU - Zanetti, Andernice Dos Santos
+AU  - Zanetti ADS
+AUID- ORCID: 0000-0001-7888-8183
+AD  - Universidade do Estado de Mato Grosso, Faculdade de Ciências Agrárias e 
+      Biológicas, Programa de Pós-Graduação em Ciências Ambientais. Cáceres, Mato 
+      Grosso, Brazil.
+FAU - Antunes, Ednardo Fornanciari
+AU  - Antunes EF
+AUID- ORCID: 0000-0003-4524-6576
+AD  - Faculdade do Pantanal, Cáceres, Mato Grosso, Brazil.
+FAU - Longhi, Fabiana Gulin
+AU  - Longhi FG
+AUID- ORCID: 0000-0001-6987-7271
+AD  - Centro de Excelência do Instituto Joanna Briggs, Centro Brasileiro para o Cuidado 
+      à Saúde Informado por Evidências, São Paulo, São Paulo, Brazil.
+FAU - Matos, Tatiane Amorim de
+AU  - Matos TA
+AUID- ORCID: 0000-0002-2898-1897
+AD  - Universidade do Estado de Mato Grosso, Faculdade de Ciências Agrárias e 
+      Biológicas, Programa de Pós-Graduação em Ciências Ambientais. Cáceres, Mato 
+      Grosso, Brazil.
+FAU - Battaglini, Paula Franciene
+AU  - Battaglini PF
+AUID- ORCID: 0000-0001-7351-5257
+AD  - Universidade Federal de Mato Grosso, Hospital Universitário Júlio Miller, Cuiabá, 
+      Mato Grosso, Brazil.
+LA  - eng
+PT  - Journal Article
+PT  - Meta-Analysis
+PT  - Systematic Review
+DEP - 20200622
+PL  - Brazil
+TA  - Rev Inst Med Trop Sao Paulo
+JT  - Revista do Instituto de Medicina Tropical de Sao Paulo
+JID - 7507484
+SB  - IM
+MH  - *Betacoronavirus
+MH  - COVID-19
+MH  - *Comorbidity
+MH  - Coronavirus Infections/*mortality
+MH  - Humans
+MH  - *Pandemics
+MH  - Pneumonia, Viral/*mortality
+MH  - Prevalence
+MH  - Risk Factors
+MH  - SARS-CoV-2
+PMC - PMC7310609
+EDAT- 2020/06/25 06:00
+MHDA- 2020/07/01 06:00
+PMCR- 2020/06/22
+CRDT- 2020/06/25 06:00
+PHST- 2020/06/12 00:00 [received]
+PHST- 2020/06/12 00:00 [accepted]
+PHST- 2020/06/25 06:00 [entrez]
+PHST- 2020/06/25 06:00 [pubmed]
+PHST- 2020/07/01 06:00 [medline]
+PHST- 2020/06/22 00:00 [pmc-release]
+AID - S0036-46652020000100223 [pii]
+AID - 10.1590/S1678-9946202062043 [doi]
+PST - epublish
+SO  - Rev Inst Med Trop Sao Paulo. 2020 Jun 22;62:e43. doi: 
+      10.1590/S1678-9946202062043. eCollection 2020.

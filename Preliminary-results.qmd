@@ -33,6 +33,7 @@ format:
 editor: 
   markdown: 
     wrap: sentence
+bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}

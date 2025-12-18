@@ -1,0 +1,100 @@
+PMID- 38630736
+OWN - NLM
+STAT- MEDLINE
+DCOM- 20240419
+LR  - 20240419
+IS  - 1932-6203 (Electronic)
+IS  - 1932-6203 (Linking)
+VI  - 19
+IP  - 4
+DP  - 2024
+TI  - Comorbidities and their association with COVID-19 mortality in Mexico between 
+      January 2020 and August 2021.
+PG  - e0296895
+LID - 10.1371/journal.pone.0296895 [doi]
+LID - e0296895
+AB  - By August 17, 2021, 4.3 million people had died globally as a result of 
+      SARS-CoV-2 infection. While data collection is ongoing, it is abundantly obvious 
+      that this is one of the most significant public health crises in modern history. 
+      Consequently, global efforts are being made to attain a greater understanding of 
+      this disease and to identify risk factors associated with more severe outcomes. 
+      The goal of this study is to identify clinical characteristics and risk factors 
+      associated with COVID-19 mortality in Mexico. The dataset used in this study was 
+      released by Sistema Nacional de Vigilancia Epidemiologica de Enfermedades 
+      Respiratorias (SISVER) de la Secretaría de Salud and contains 2.9 million 
+      COVID-19 cases. The effects of risk factors on COVID-19 mortality were estimated 
+      using multivariable logistic regression models with generalized estimation 
+      equation and Kaplan-Meier curves. Case fatality rates, case hospitalization rates 
+      are also reported using the Centers for Disease Control and Prevention (CDC) USA 
+      death-to-case ratio method. In general, older males with pre-existing conditions 
+      had higher odds of death. Age greater than 40, male sex, hypertension, diabetes, 
+      and obesity are associated with higher COVID-19 mortality. End-stage renal 
+      disease, chronic obstructive pulmonary disease, and immunosuppression are all 
+      linked with COVID-19 patient fatalities. Smoking and Asthma are associated with 
+      lower COVID-19 mortality which is consistent with findings from the article 
+      published in Nature based on National Health Service (NHS) of UK dataset (17 
+      million cases). Intensive care unit (ICU), patient intubation, and pneumonia 
+      diagnosis are shown to substantially increase mortality risk for COVID-19 
+      patients.
+CI  - Copyright: © 2024 Lowhorn et al. This is an open access article distributed under 
+      the terms of the Creative Commons Attribution License, which permits unrestricted 
+      use, distribution, and reproduction in any medium, provided the original author 
+      and source are credited.
+FAU - Lowhorn, Ryan J
+AU  - Lowhorn RJ
+AUID- ORCID: 0000-0002-1322-3786
+AD  - School of Data Science and Analytics, Kennesaw State University, Kennesaw, 
+      Georgia, United States of America.
+FAU - Chowdhury, Mohammed
+AU  - Chowdhury M
+AD  - College of Business and Technology, Western Illinois University, Macomb, 
+      Illinois, United States of America.
+FAU - Kimitei, Symon
+AU  - Kimitei S
+AD  - School of Data Science and Analytics, Kennesaw State University, Kennesaw, 
+      Georgia, United States of America.
+FAU - Haskin, Sammie
+AU  - Haskin S
+AD  - School of Data Science and Analytics, Kennesaw State University, Kennesaw, 
+      Georgia, United States of America.
+FAU - Masum, Mohammad
+AU  - Masum M
+AD  - San Jose State University, San Jose, California, United States of America.
+FAU - Rahman, A K M Fazlur
+AU  - Rahman AKMF
+AD  - Department of Biostatistics, University of Alabama, Birmingham, Alabama, United 
+      States of America.
+LA  - eng
+PT  - Journal Article
+DEP - 20240417
+PL  - United States
+TA  - PLoS One
+JT  - PloS one
+JID - 101285081
+SB  - IM
+MH  - Humans
+MH  - Male
+MH  - *COVID-19
+MH  - Mexico
+MH  - State Medicine
+MH  - SARS-CoV-2
+MH  - Comorbidity
+MH  - Risk Factors
+MH  - Hospitalization
+PMC - PMC11023256
+COIS- The authors have declared that no competing interests exist.
+EDAT- 2024/04/17 18:43
+MHDA- 2024/04/19 06:43
+PMCR- 2024/04/17
+CRDT- 2024/04/17 13:44
+PHST- 2022/03/31 00:00 [received]
+PHST- 2023/12/13 00:00 [accepted]
+PHST- 2024/04/19 06:43 [medline]
+PHST- 2024/04/17 18:43 [pubmed]
+PHST- 2024/04/17 13:44 [entrez]
+PHST- 2024/04/17 00:00 [pmc-release]
+AID - PONE-D-22-09540 [pii]
+AID - 10.1371/journal.pone.0296895 [doi]
+PST - epublish
+SO  - PLoS One. 2024 Apr 17;19(4):e0296895. doi: 10.1371/journal.pone.0296895. 
+      eCollection 2024.
