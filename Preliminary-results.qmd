@@ -132,8 +132,8 @@ The logistic model is ideal for this analysis because our outcome variables are 
 
 ```{r}
 
-##load library 
-library(broom)
+#| label: tbl-chi
+#| tbl-cap: The caption of the table
 
 comorbidities <- c("Diabetes", "Hypertension", "Obesity", "Smoking")
 
