@@ -2,12 +2,18 @@
 title: Covid-19 Comorbidity in Mexico
 subtitle: Project for the subject Data Acquistion, Analysis and Scientific Methods in Life Sciences.  
 author: 
-   - affiliation: Instituto Agroforestal Mediterráneo. Departamento de Ecosistemas Agroforestales. Universidad Politécnica de Valencia.
-     affiliation-url: https://www.upv.es/entidades/DEAF/
-     email: algarsal@upv.es
-     name: Alfonso Garmendia
-     orcid: 0000-0001-6837-1818
-     url: https://garmendia.blogs.upv.es/
+   - affiliation: Universidad Politécnica de Valencia.
+     email: czmeystr@posgrado.upv.es
+     name: Cléa Zoe Meystre
+
+   - affiliation: Universidad Politécnica de Valencia.
+     email: knmabalo@posgrado.upv.es
+     name: Kenneth Neil Mabalot
+
+   - affiliation: Universidad Politécnica de Valencia.
+     email: rhgutmor@posgrado.upv.es
+     name: Raymundo Humberto Gutiérrez Morán
+
 title-block-banner: true
 date: last-modified
 date-format: iso
