@@ -173,7 +173,10 @@ footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, 
 
 ```
 
-  Table 1 showing the results of Chi-square test confirms that the presence of four comorbidities namely Diabetes, Hypertension, Obesity, or Smoking is significantly non-randomly associated with mortality, as shown in the low p-values (p<0.001). Hypertension displays the strongest statistical signal of association supporting its prioritization as a critical risk factor.
+  Table 1. Results of the Chi-square Test for all the CM: Confirming the statistical association between them and covid deaths.
+Considering that all p values < α (0.05) we will consider scientifically demonstrated that the observed frecuences of each CM 
+is affecting covid deaths and not randomly distributed. Comparing the p values between each CM we can highlight that Hypertension displays the strongest statistical signal of association supporting its prioritization as a critical risk factor.
+However the Chi-square test can no longer provide that information.
 
 
 ## Logistic Regression Model (LRM)
