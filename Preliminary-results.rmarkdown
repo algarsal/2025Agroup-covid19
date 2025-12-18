@@ -51,6 +51,8 @@ covid19A <- read.table(data, header = T, sep = ",")
 
 ```
 
+
+
 # Introduction 
 
   Experiencing a global pandemic in the 21st century is scientifically and statistically jarring, particularly given the era’s sophisticated pharmaceutical and surveillance capabilities.
@@ -130,6 +132,8 @@ The logistic model is ideal for this analysis because our outcome variables are 
 
 ## Chi square Test
 
+
+
 ```{r}
 
 #| label: tbl-chi
@@ -173,6 +177,8 @@ footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, 
 
 ```
 
+
+
   Table 1. Results of the Chi-square Test for all the CM: Confirming the statistical association between them and Covid deaths.
 Considering that all p values < α (0.05) we will consider scientifically demonstrated that the observed frequencies of each CM 
 is affecting Covid deaths and not randomly distributed. Comparing the p values between each CM we can highlight that Hypertension displays the strongest statistical signal of association supporting its prioritization as a critical risk factor.
@@ -182,6 +188,8 @@ However the Chi-square test can no longer provide that information.
 ## Logistic Regression Model (LRM)
 
 LRM for each Comorbidity Individually
+
+
 
 ```{r}
 ##load library 
@@ -241,7 +249,11 @@ footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, 
 
 ```
 
+
+
 Table 2 presents the results of the logistic regression analysis evaluating the individual impact of four key comorbidities—diabetes, hypertension, obesity, and smoking—on the outcome of interest. The data indicates that all four variables are statistically significant positive predictors (p<0.001), with high z-statistics ranging from 16.25 to 19.70. Diabetes demonstrated the strongest association with a coefficient estimate of 0.49, closely followed by hypertension (β=0.48) and smoking (β=0.47), while obesity showed a slightly lower but still highly significant estimate of 0.44. These positive coefficients suggest that the presence of each comorbidity is associated with an increase in the log-odds of the outcome occurring. 
+
+
 
 
 ```{r}
@@ -272,7 +284,11 @@ footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, 
 
 ```
 
+
+
 Table 3 reveals the results of the multivariable logistic regression model incorporating all comorbidities. Consistent with the individual models, all four risk factors: diabetes, hypertension, smoking, and obesity—retained high statistical significance (p<0.001) with z-statistics ranging from 10.92 to 12.47. Diabetes and hypertension demonstrated the strongest associations, both yielding a coefficient estimate of 0.39, while smoking (β=0.38) and obesity (β=0.34) followed with slightly lower estimates. The persistence of these significant positive coefficients suggests that these comorbidities remain robust, independent predictors of the outcome even when adjusted within the multivariable framework.
+
+
 
 ```{r}
 #Logistic Regression 1: Diabetes + Hypertension 
@@ -294,7 +310,11 @@ model_Obesity_Smoking <- glm( COVID_Death ~ Obesity + Smoking, data = covid19A, 
 model_Hypertension_Obesity <- glm( COVID_Death ~ Hypertension + Obesity, data = covid19A, family = binomial() )
 ```
 
+
+
 ## Individual LRM and Paired LRM
+
+
 
 ```{r}
 #library(dplyr)
@@ -358,7 +378,11 @@ footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, 
 
 ```
 
+
+
 Table 4 summarizes the results of the single-predictor logistic regression models, providing the unadjusted odds ratios for each comorbidity. All four risk factors demonstrated highly statistically significant associations with the outcome (p<0.001). Hypertension and diabetes exhibited the strongest magnitude of effect, both yielding an estimate of 1.62, with 95% confidence intervals of 1.55–1.70 and 1.54–1.70, respectively. These findings confirm that, in isolation, each condition serves as a robust predictor of increased odds for the outcome.
+
+
 
 ```{r}
 
@@ -383,9 +407,13 @@ footnote(general = "Significance codes: *** p < 0.001, ** p < 0.01, * p < 0.05, 
 
 ```
 
+
+
 Table 5 displays the results of the paired logistic regression analyses, which assess the stability of the associations between the comorbidities and the outcome when adjusting for one another. The data reveals that the risk estimates for diabetes, hypertension, obesity, and smoking remain highly statistically significant (p<0.001) and remarkably consistent across all model configurations. Specifically, diabetes and hypertension consistently showed the strongest associations, with odds ratios (OR) holding steady at approximately 1.62 in both individual and paired models. This stability in effect sizes indicates that these comorbidities function as independent risk factors, as their predictive power is not diminished by the inclusion of concurrent conditions in the model.
 
 ## AIC and BIC Analyses
+
+
 
 ```{r}
 models_paired <- list(
@@ -433,16 +461,24 @@ AIC_BIC_table2 <- dplyr::bind_rows(info_criteria2)
 knitr::kable(AIC_BIC_table2, caption = "Table 6. AIC and BIC for Single-Predictor Models", digits = 2, align = "c")
 ```
 
+
+
 Table 6 evaluates the relative quality of the single-predictor logistic regression models using the Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC), where lower values indicate a better trade-off between goodness-of-fit and model complexity. The model utilizing Hypertension as the sole predictor demonstrated the superior statistical fit, yielding the lowest AIC (65,453.78) and BIC (65,472.81) among the four comorbidities analyzed. This suggests that while all predictors are significant, Hypertension provides the most informative individual explanation for the data variance within this set.
+
+
 
 ```{r}
 knitr::kable(AIC_BIC_table_paired, caption = "Table 7. AIC and BIC for Paired Models", digits = 2, align = "c")
 ```
 
+
+
 Table 7 reveals that the model combining Diabetes and Hypertension provided the best fit among all paired combinations, achieving the lowest AIC (65,131.99) and BIC (65,160.53). This was followed by the Hypertension and Obesity model (AIC = 65,147.32) and the Diabetes and Obesity model (AIC = 65,188.86), while the combination involving Smoking generally resulted in higher information criterion values (e.g., Obesity_Smoking AIC = 65,268.05). These results suggest that the synergistic inclusion of Diabetes and Hypertension offers the most parsimonious and effective explanation for the outcome variance among the paired models tested.
 
 ## Graphs
 Graph a Heatmap to represent results.
+
+
 
 ```{r}
 
@@ -476,7 +512,11 @@ combined_results2 %>%
 
 ```
 
+
+
 Figure 1 presents a heatmap illustrating the statistical significance of the associations between individual comorbidities and the outcome, expressed as -log10(p-value). The color intensity corresponds to the magnitude of the significance, with darker red indicating a more highly significant relationship. The heatmap shows that Hypertension and Diabetes have the highest levels of statistical significance, represented by the darkest red tiles, with -log10(p-values) exceeding 80. Obesity also shows a strong significant association, indicated by a medium-dark red tile corresponding to a -log10(p-value) around 70-75. Smoking appears to have the lowest relative significance among the four factors, represented by a white tile, suggesting its -log10(p-value) is below 60 in this comparative view, although it remains statistically significant based on the tabular data.
+
+
 
 
 ```{r}
@@ -507,9 +547,13 @@ combined_results %>%
   )
 ```
 
+
+
 Figure 2 reveals that a distinct hierarchy in the robustness of the paired associations of each comorbidity. Hypertension exhibits the most profound statistical signal, represented by the highest intensity red tile, followed closely by Diabetes and Obesity, which display strong but progressively lower magnitudes of significance. Notably, the tile corresponding to Smoking appears unpigmented, indicating that while the association is statistically significant (as confirmed in tabular data) the p-value falls below the visualization’s lower threshold of 60. This visualization underscores that while all four factors are predictors, Hypertension and Diabetes provide the highest degree of statistical certainty within the modeled cohort.
 
 ## AIV and GIV Analyses
+
+
 
 ```{r}
 # Extract variables from model name
@@ -563,7 +607,11 @@ ggplot(aiv, aes(x = reorder(term, AIV), y = AIV)) +
   )
 ```
 
+
+
 Figure 3 displays a horizontal bar plot quantifying the Average Incremental Value (AIV) for four selected comorbid risk factors, ordered by their relative contribution to COVID-19 mortality. The y-axis categorizes the predictors—Hypertension, Obesity, Diabetes, and Smoking—while the x-axis measures their AIV magnitude. The results indicate a hierarchical ranking of importance, with Hypertension exhibiting the highest average incremental value, followed closely by Obesity and Diabetes, both of which surpass an AIV threshold of 60. Smoking demonstrates the lowest relative contribution among the modeled comorbidities, with an AIV falling below 60.
+
+
 
 ```{r}
 giv_caption <- "Figure 4: The GIV of the 4 comorbidities are ordered from highest to lowest contribution to COVID-19 mortality."
@@ -587,9 +635,13 @@ ggplot(giv, aes(x = reorder(term, GIV), y = GIV)) +
   )
 ```
 
+
+
 Figure 4 shows a horizontal bar plot that illustrates the General Incremental Value (GIV) of four comorbidities in relation to COVID-19 mortality, with the predictors ordered from highest to lowest contribution. The y-axis displays the comorbid predictors—Hypertension, Obesity, Diabetes, and Smoking—while the x-axis quantifies the magnitude of their GIV. The results show a clear hierarchical ranking, where Hypertension demonstrates the largest General Incremental Value, with its bar exceeding the 250 mark on the GIV scale. Obesity and Diabetes follow with similarly high values, both also extending to approximately 250, whereas Smoking exhibits the lowest relative contribution among the tested factors, with a GIV falling between 200 and 250.
 
 ## ANOVA Analyses
+
+
 
 ```{r}
 #Comparisons of ANOVA
@@ -649,6 +701,8 @@ kable(
 )
 ```
 
+
+
 Table 8 shows that when comparing the Hypertension and Diabetes model it is the only positive deviance, meaning the Hypertension model fits better than the Diabetes model and that Hypertension and Diabetes are the strongest single predictors of COVID-19 death in our dataset. Positive deviance indicates the second model is better. All other comparisons had Negative deviance values in LRT comparisons, indicating that the second model is worse than the first. For example, when comparing Diabetes and Smoking, the negative deviance indicates that Model 2 (Smoking) fits worse than Model 1 (Diabetes). Meaning that Diabetes is a stronger predictor than Smoking for COVID deaths.
 
 # Discussion
@@ -669,5 +723,6 @@ This current project provides a comprehensive analysis about the impact of commo
 While Diabetes and Obesity are both severe risk factors, their roles differ slightly in modeling contexts: Diabetes offers high statistical confidence, whereas Obesity offers superior incremental predictive gain. Smoking, while significant, presents a lower risk profile relative to these metabolic conditions.
 
 These findings support a risk-stratification strategy that prioritizes patients with Hypertension, particularly when combined with Obesity or Diabetes, for early intervention and intensive monitoring of vulnerable sectors of the population. Ultimately, this current project recommends future research to focus on the mechanistic interactions between these comorbidities, specifically hypertension, to further refine prognostic models.
+
 
 
