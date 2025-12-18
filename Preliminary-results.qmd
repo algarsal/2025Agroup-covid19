@@ -41,8 +41,9 @@ editor:
 library(dplyr)
 library (kableExtra)
 library(knitr)
-
-
+library(broom)
+library(ggplot2)
+library(tidyr)
 
 ```
 
