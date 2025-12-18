@@ -5,14 +5,17 @@ author:
    - affiliation: Universidad Politécnica de Valencia.
      email: czmeystr@posgrado.upv.es
      name: Cléa Zoe Meystre
+     url: https://github.com/Cmey1338
 
    - affiliation: Universidad Politécnica de Valencia.
      email: knmabalo@posgrado.upv.es
      name: Kenneth Neil Mabalot
+     url: https://github.com/neilmabalot-34404 
 
    - affiliation: Universidad Politécnica de Valencia.
      email: rhgutmor@posgrado.upv.es
      name: Raymundo Humberto Gutiérrez Morán
+     url: https://github.com/raymoran-netizen
 
 title-block-banner: true
 date: last-modified
