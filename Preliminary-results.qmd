@@ -33,7 +33,7 @@ format:
 editor: 
   markdown: 
     wrap: sentence
-bibliography: references.bib
+bibliography: data/references
 ---
 
 ```{r setup, include=FALSE}
@@ -60,7 +60,7 @@ The emergence of a highly contagious respiratory illness in 2020 infamously know
   Understanding the pathophysiological mechanism of viral disease infections, the role of comorbidities, i.e., pre-existing health conditions, became the main research interest linking its influence on the risk of death among individuals infected with SARS-CoV-2.
 Over the years since the pandemic passed, multiple literature quantified the mortality risk associated with comorbidities.
 
-  One study by Elezkurtaj et al. (2021) highlighted that COVID-19 patients with more than two comorbidities increased mortality than those with single or no comorbidities.
+  One study by @Elezkurtaj2021 highlighted that COVID-19 patients with more than two comorbidities increased mortality than those with single or no comorbidities.
 Among the comorbidities identified, a study by Espinosa et al. (2021) revealed that hypertension, diabetes, and cardiovascular disease were the most frequent comorbidities in fatal cases of COVID-19.
 Furthermore, another study by Salinas-Aguirre et al. (2022) concluded that diabetes mellitus, systemic arterial hypertension, obesity, and chronic kidney damage increase mortality in patients with COVID-19 in the population of Coahuila in Mexico.
 These findings were further solidified by a study conducted by Lowhorn et al. (2024) stating that hypertension, followed by obesity and diabetes, are the most often occurring comorbidities in COVID-19 patients and are also some of the comorbidities most strongly related with high mortality rates in the Mexican population.
