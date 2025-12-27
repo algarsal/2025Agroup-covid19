@@ -41,4 +41,7 @@ cell11_table %>%
   kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover"))
 ´´´
 
+##Table for ILR
+
+
 

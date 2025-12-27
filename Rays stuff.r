@@ -37,7 +37,7 @@ model_Hypertension <- glm(
 #Results table
 
 # List of your models
-models_individual <- list(
+model <- list(
   Diabetes = model_Diabetes,
   Smoking = model_Smoking,
   Obesity = model_Obesity,
