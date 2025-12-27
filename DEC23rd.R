@@ -107,9 +107,248 @@ ggplot(plot_data, aes(x = Comorbidity, y = Count, fill = Type)) +
 #under the null hypothesis; in all cases, observed deaths lie well above this 
 #range, supporting the chi-square results.
 
-##Table for ILR
+##Indivudal Regression Models 
+
+```{r}
+#| label: tbl-indiv-lrm
+#| tbl-cap: "Individual logistic regression models predicting COVID-19 mortality"
+
+library(broom)
+library(dplyr)
+library(knitr)
+library(kableExtra)
 
 
+# Indiv. LRM Diabetes
+model_Diabetes <- glm(
+  COVID_Death ~ Diabetes,
+  data = covid19A,
+  family = binomial()
+)
 
+# Indiv. LRM Smoking
+model_Smoking <- glm(
+  COVID_Death ~ Smoking,
+  data = covid19A,
+  family = binomial()
+)
 
+# Indiv. LRM  Obesity
+model_Obesity <- glm(
+  COVID_Death ~ Obesity,
+  data = covid19A,
+  family = binomial()
+)
 
+# Indiv. LRM  Hypertension
+model_Hypertension <- glm(
+  COVID_Death ~ Hypertension,
+  data = covid19A,
+  family = binomial()
+)
+
+#Results table
+
+# List of your models
+model <- list(
+  Diabetes = model_Diabetes,
+  Smoking = model_Smoking,
+  Obesity = model_Obesity,
+  Hypertension = model_Hypertension
+)
+
+##Results table
+
+extract_results <- function(model) {
+  tidy_res <- tidy(model, exponentiate = TRUE, conf.int = TRUE)
+  
+  OR    <- tidy_res$estimate[2]
+  p_val <- tidy_res$p.value[2]
+  
+  probs <- predict(model, type = "response")
+  pred  <- model$model[, 2]
+  
+  prob_0 <- mean(probs[pred == 0])
+  prob_1 <- mean(probs[pred == 1])
+  
+  data.frame(
+    Predictor      = names(model$model)[2],
+    Prob_Death_0   = prob_0 * 100,
+    Prob_Death_1   = prob_1 * 100,
+    Odds_Ratio     = OR,
+    P_value_num    = p_val
+  )
+}
+
+results_individual <- bind_rows(
+  lapply(models_individual, extract_results)
+) %>%
+  arrange(desc(Odds_Ratio)) %>%
+  mutate(
+    Signif = case_when(
+      P_value_num < 0.001 ~ "***",
+      P_value_num < 0.01  ~ "**",
+      P_value_num < 0.05  ~ "*",
+      TRUE ~ ""
+    ),
+    `Prob_Death_0 (%)` = round(Prob_Death_0, 2),
+    `Prob_Death_1 (%)` = round(Prob_Death_1, 2),
+    `Odds Ratio`       = round(Odds_Ratio, 2),
+    `P value`          = paste0(
+      formatC(P_value_num, format = "e", digits = 3),
+      " ",
+      Signif
+    )
+  ) %>%
+  select(
+    Predictor,
+    `Prob_Death_0 (%)`,
+    `Prob_Death_1 (%)`,
+    `Odds Ratio`,
+    `P value`
+  )
+
+results_individual %>%
+  kable(align = "c") %>%
+  kable_styling(
+    full_width = FALSE,
+    bootstrap_options = c("striped", "hover")
+  ) %>%
+  footnote(
+    general = "Significance levels: *** p < 0.001, ** p < 0.01, * p < 0.05.",
+    general_title = ""
+  )
+```
+
+## Graphs Individual Logistic Regression Models
+```{r}
+#| label: fig-logit-curves-individual
+#| fig-cap: "Individual logistic regression models shown on the log-odds (logit) scale for predictor = 0 and predictor = 1. The slope equals the model coefficient (β1 = log(OR))."
+#| fig-align: center
+
+library(dplyr)
+library(ggplot2)
+
+models_individual <- list(
+  Diabetes = model_Diabetes,
+  Smoking = model_Smoking,
+  Obesity = model_Obesity,
+  Hypertension = model_Hypertension
+)
+
+logit_data <- bind_rows(
+  lapply(names(models_individual), function(nm) {
+    m  <- models_individual[[nm]]
+    b0 <- coef(m)[1]
+    b1 <- coef(m)[2]
+    
+    data.frame(
+      Model = nm,
+      Predictor = c(0, 1),
+      Logit = c(b0, b0 + b1),
+      Slope = b1
+    )
+  })
+)
+
+slope_labels <- logit_data %>%
+  group_by(Model) %>%
+  summarise(
+    Predictor = 0.75,
+    Logit = mean(Logit),
+    SlopeLabel = paste0("Slope = ", round(first(Slope), 3)),
+    .groups = "drop"
+  )
+
+ggplot(logit_data, aes(x = Predictor, y = Logit, group = Model)) +
+  geom_line(linewidth = 0.5) +
+  geom_point(size = 1) +
+  geom_text(
+    data = slope_labels,
+    aes(x = Predictor, y = Logit, label = SlopeLabel),
+    inherit.aes = FALSE,
+    size = 3.5
+  ) +
+  facet_wrap(~ Model) +
+  scale_x_continuous(breaks = c(0, 1)) +
+  labs(
+    x = "Predictor (0 = No, 1 = Yes)",
+    y = "Log-odds of COVID-19 death"
+  ) +
+  theme_minimal()
+
+##Multivariable LRM 
+
+##Analysis
+LRM_NCM <- glm(COVID_Death ~ Number_of_Comorbidities, data = covid19A, family = binomial())
+
+#Results table
+
+tid <- tidy(LRM_NCM)
+
+b0 <- coef(LRM_NCM)[1]
+b1 <- coef(LRM_NCM)[2]
+
+# Predicted probabilities at N=0 and N=1 (for consistency with binary tables)
+p0 <- plogis(b0 + b1 * 0)
+p1 <- plogis(b0 + b1 * 1)
+
+# OR per +1 comorbidity and p-value for the slope term
+OR <- exp(b1)
+p_val <- tid$p.value[tid$term == "Number_of_Comorbidities"]
+
+# Significance stars
+sig <- dplyr::case_when(
+  p_val < 0.001 ~ "***",
+  p_val < 0.01  ~ "**",
+  p_val < 0.05  ~ "*",
+  TRUE ~ ""
+)
+LRM_NCM_table <- data.frame(
+  Predictor = "Number_of_Comorbidities",
+  `Prob_Death_0 (%)` = round(100 * p0, 2),
+  `Prob_Death_1 (%)` = round(100 * p1, 2),
+  `Odds Ratio` = round(OR, 2),
+  `P value` = paste0(formatC(p_val, format = "e", digits = 3), " ", sig)
+)
+
+LRM_NCM_table %>%
+  kable(align = "c") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover")) %>%
+  footnote(
+    general = "Significance levels: *** p < 0.001, ** p < 0.01, * p < 0.05.",
+    general_title = ""
+  )
+##Graph
+
+n_min <- min(covid19A$Number_of_Comorbidities, na.rm = TRUE)
+n_max <- max(covid19A$Number_of_Comorbidities, na.rm = TRUE)
+
+grid <- data.frame(
+  Number_of_Comorbidities = seq(n_min, n_max, by = 0.1)
+) %>%
+  mutate(Predicted_Prob = predict(LRM_NCM, newdata = ., type = "response"))
+
+int_points <- data.frame(
+  Number_of_Comorbidities = seq(ceiling(n_min), floor(n_max), by = 1)
+) %>%
+  mutate(
+    Predicted_Prob = predict(LRM_NCM, newdata = ., type = "response"),
+    Label = paste0(round(100 * Predicted_Prob, 1), "%")
+  )
+
+ggplot(grid, aes(x = Number_of_Comorbidities, y = Predicted_Prob)) +
+  geom_line(linewidth = 1) +
+  geom_point(data = int_points, size = 2) +
+  geom_text(
+    data = int_points,
+    aes(label = Label),
+    vjust = -0.8,
+    size = 3
+  ) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  labs(
+    x = "Number of comorbidities",
+    y = "Predicted probability of death"
+  ) +
+  theme_minimal()
