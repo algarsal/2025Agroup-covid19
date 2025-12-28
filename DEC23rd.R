@@ -277,7 +277,7 @@ ggplot(logit_data, aes(x = Predictor, y = Logit, group = Model)) +
   ) +
   theme_minimal()
 
-##Multivariable LRM 
+##Number of Comorbidities LRM 
 
 ##Analysis
 LRM_NCM <- glm(COVID_Death ~ Number_of_Comorbidities, data = covid19A, family = binomial())
@@ -307,7 +307,6 @@ sig <- dplyr::case_when(
 LRM_NCM_table <- data.frame(
   Predictor = "Number_of_Comorbidities",
   `Prob_Death_0 (%)` = round(100 * p0, 2),
-  `Prob_Death_1 (%)` = round(100 * p1, 2),
   `Odds Ratio` = round(OR, 2),
   `P value` = paste0(formatC(p_val, format = "e", digits = 3), " ", sig)
 )
@@ -319,6 +318,7 @@ LRM_NCM_table %>%
     general = "Significance levels: *** p < 0.001, ** p < 0.01, * p < 0.05.",
     general_title = ""
   )
+
 ##Graph
 
 n_min <- min(covid19A$Number_of_Comorbidities, na.rm = TRUE)
@@ -352,3 +352,71 @@ ggplot(grid, aes(x = Number_of_Comorbidities, y = Predicted_Prob)) +
     y = "Predicted probability of death"
   ) +
   theme_minimal()
+´´´
+
+##MVLRM
+
+```{r}
+
+#| label: fig-mvm-or
+#| fig-cap: "Multivariable model (MVM): adjusted odds ratios (95% CI) for each comorbidity."
+#| fig-align: center
+
+
+mvm_or <- tidy(MVM, exponentiate = TRUE, conf.int = TRUE) %>%
+  filter(term != "(Intercept)") %>%
+  mutate(
+    term = factor(term, levels = c("Diabetes", "Hypertension", "Obesity", "Smoking")),
+    p_sci = formatC(p.value, format = "e", digits = 3),
+    signif = case_when(
+      p.value < 0.001 ~ "***",
+      p.value < 0.01  ~ "**",
+      p.value < 0.05  ~ "*",
+      TRUE ~ ""
+    ),
+    label = paste0(
+      "OR = ", round(estimate, 2),
+      "\nP = ", p_sci, " ", signif
+    ),
+    # label placed safely to the right of CI
+    x_label = conf.high * 1.15
+  )
+
+ggplot(mvm_or, aes(x = estimate, y = term)) +
+  # CI first
+  geom_errorbarh(
+    aes(xmin = conf.low, xmax = conf.high),
+    height = 0.25,
+    linewidth = 0.6
+  ) +
+  # Points on top (never disappear)
+  geom_point(size = 3, shape = 21, fill = "black") +
+  # Labels
+  geom_text(
+    aes(x = x_label, label = label),
+    hjust = 0,
+    size = 3.2,
+    lineheight = 0.95
+  ) +
+  # OR = 1 reference
+  geom_vline(xintercept = 1, linetype = "dashed", linewidth = 0.6) +
+  scale_x_continuous(
+    expand = expansion(mult = c(0.05, 0.35))   # ← space for labels, keeps OR=1 visible
+  ) +
+  scale_y_discrete(expand = expansion(add = 0.6)) +
+  labs(
+    x = "Adjusted Odds Ratio (95% CI)",
+    y = "Comorbidity",
+    caption = "Significance levels: *** p < 0.001, ** p < 0.01, * p < 0.05."
+  ) +
+  coord_cartesian(clip = "off") +
+  theme_minimal() +
+  theme(
+    axis.line = element_line(linewidth = 0.6, color = "black"),
+    axis.ticks = element_line(color = "black"),
+    panel.grid.minor = element_blank(),
+    plot.margin = margin(t = 10, r = 100, b = 10, l = 10),
+    plot.caption.position = "plot",
+    plot.caption = element_text(hjust = 0)
+  )
+````
