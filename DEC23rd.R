@@ -420,3 +420,99 @@ ggplot(mvm_or, aes(x = estimate, y = term)) +
     plot.caption = element_text(hjust = 0)
   )
 ````
+
+## Paired models (Interactions)
+```{r}
+
+model_Dia_Hyp_int <- glm(
+  COVID_Death ~ Diabetes * Hypertension + Obesity + Smoking,
+  data = covid19A,
+  family = binomial()
+)
+model_Dia_Obe_int <- glm(
+  COVID_Death ~ Diabetes * Obesity + Hypertension + Smoking,
+  data = covid19A,
+  family = binomial()
+)
+
+model_Dia_Smo_int <- glm(
+  COVID_Death ~ Diabetes * Smoking + Hypertension + Obesity,
+  data = covid19A,
+  family = binomial()
+)
+
+model_Hyp_Obe_int <- glm(
+  COVID_Death ~ Hypertension * Obesity + Diabetes + Smoking,
+  data = covid19A,
+  family = binomial()
+)
+
+model_Hyp_Smo_int <- glm(
+  COVID_Death ~ Hypertension * Smoking + Diabetes + Obesity,
+  data = covid19A,
+  family = binomial()
+)
+
+model_Obe_Smo_int <- glm(
+  COVID_Death ~ Obesity * Smoking + Diabetes + Hypertension,
+  data = covid19A,
+  family = binomial()
+)
+
+#| label: tbl-interactions
+#| tbl-cap: "Interaction effects between comorbidities from multivariable logistic regression models."
+
+# List of interaction models
+interaction_models <- list(
+  "Diabetes × Hypertension" = model_Dia_Hyp_int,
+  "Diabetes × Obesity"      = model_Dia_Obe_int,
+  "Diabetes × Smoking"     = model_Dia_Smo_int,
+  "Hypertension × Obesity" = model_Hyp_Obe_int,
+  "Hypertension × Smoking" = model_Hyp_Smo_int,
+  "Obesity × Smoking"      = model_Obe_Smo_int
+)
+# Extract ONLY interaction terms
+interaction_results <- bind_rows(
+  lapply(names(interaction_models), function(name) {
+    m <- interaction_models[[name]]
+    
+    tidy(m, exponentiate = TRUE, conf.int = TRUE) %>%
+      filter(grepl(":", term)) %>%
+      mutate(
+        Comorbidities = name,
+        `Odd Ratio`   = estimate,
+        P_value_num   = p.value,
+        Signif = case_when(
+          p.value < 0.001 ~ "***",
+          p.value < 0.01  ~ "**",
+          p.value < 0.05  ~ "*",
+          TRUE ~ ""
+        ),
+        `P value` = paste0(
+          formatC(p.value, format = "e", digits = 3),
+          " ",
+          Signif
+        )
+      ) %>%
+      select(
+        Comorbidities,
+        `Odd Ratio`,
+        `P value`
+      )
+  })
+) %>%
+  arrange(desc(`Odd Ratio`))
+
+# Display table
+interaction_results %>%
+  kable(align = "c") %>%
+  kable_styling(
+    full_width = FALSE,
+    bootstrap_options = c("striped", "hover")
+  ) %>%
+  footnote(
+    general = "Significance levels: *** p < 0.001, ** p < 0.01, * p < 0.05.",
+    general_title = ""
+  )
+```
+
