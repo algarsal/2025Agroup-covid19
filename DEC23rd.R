@@ -515,4 +515,102 @@ interaction_results %>%
     general_title = ""
   )
 ```
+##heat map Paired models
 
+```{r}
+#| label: fig-heatmap-interactions-3x3
+#| fig-cap: "Interaction effects (OR) between comorbidities from multivariable logistic regression models (adjusted for remaining comorbidities)."
+#| fig-align: center
+
+
+# ---- 1) Extract interaction terms from all models ----
+int_models <- list(
+  model_Dia_Hyp_int,
+  model_Dia_Obe_int,
+  model_Dia_Smo_int,
+  model_Hyp_Obe_int,
+  model_Hyp_Smo_int,
+  model_Obe_Smo_int
+)
+
+int_df <- bind_rows(lapply(int_models, function(m) {
+  tidy(m, exponentiate = TRUE, conf.int = TRUE) %>%
+    filter(grepl(":", term)) %>%
+    transmute(term, OR = estimate, p = p.value)
+})) %>%
+  separate(term, into = c("A", "B"), sep = ":", remove = FALSE) %>%
+  rowwise() %>%
+  mutate(pair_key = paste(sort(c(A, B)), collapse = ":")) %>%
+  ungroup() %>%
+  mutate(
+    OR_label = formatC(OR, format = "f", digits = 2),
+    p_sci = formatC(p, format = "e", digits = 3),          # ✅ 3 decimals
+    signif = case_when(
+      p < 0.001 ~ "***",
+      p < 0.01  ~ "**",
+      p < 0.05  ~ "*",
+      TRUE ~ ""
+    ),
+    p_label = paste0("p=", p_sci, " ", signif)
+  ) %>%
+  select(pair_key, OR, OR_label, p_label)
+
+# ---- 2) Build the exact 3×3 grid (your axis order) ----
+y_order <- c("Smoking", "Obesity", "Hypertension")          # top → bottom
+x_order <- c("Diabetes", "Hypertension", "Obesity")         # left → right
+
+# Global order to define the triangle (prevents duplicates)
+global_order <- c("Diabetes", "Hypertension", "Obesity", "Smoking")
+
+grid <- expand.grid(
+  Y = factor(y_order, levels = y_order),
+  X = factor(x_order, levels = x_order)
+) %>%
+  as_tibble() %>%
+  mutate(
+    ordY = match(as.character(Y), global_order),
+    ordX = match(as.character(X), global_order)
+  ) %>%
+  rowwise() %>%
+  mutate(pair_key = paste(sort(c(as.character(Y), as.character(X))), collapse = ":")) %>%
+  ungroup() %>%
+  left_join(int_df, by = "pair_key") %>%
+  # ---- 3) Keep ONLY the triangle: ordY > ordX ----
+mutate(
+  OR = ifelse(ordY > ordX, OR, NA),
+  OR_label = ifelse(ordY > ordX, OR_label, ""),
+  p_label  = ifelse(ordY > ordX, p_label, "")
+)
+
+# ---- 4) Plot ----
+ggplot(grid, aes(x = X, y = Y, fill = OR)) +
+  geom_tile(color = "white", linewidth = 0.6) +
+  geom_text(aes(label = OR_label), fontface = "bold", size = 4, vjust = -0.2) +
+  geom_text(aes(label = p_label), size = 3.1, vjust = 1.2) +
+  scale_fill_gradient(
+    low = "white",
+    high = "darkorange",
+    na.value = "white",
+    name = "Odds Ratio\n(interaction)"
+  ) +
+  labs(
+    x = "Comorbidity",
+    y = "Comorbidity",
+    caption = paste(
+      "Cell text: OR (bold) and p-value (scientific notation, 3 decimals).",
+      "Significance levels: *** p < 0.001, ** p < 0.01, * p < 0.05.",
+      sep = "\n"
+    )
+  ) +
+  coord_equal() +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    axis.line = element_line(color = "black", linewidth = 0.6),
+    axis.ticks = element_line(color = "black"),
+    plot.caption.position = "plot",
+    plot.caption = element_text(hjust = 0)
+  )
+
+````
+`
