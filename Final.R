@@ -305,6 +305,68 @@ combined_results2_clean <- combined_results2 %>%
 names(combined_results2_clean)
 kable(combined_results2_clean, digits = 3, caption = "Single-Predictor Logistic Regression Results")
 
+#Violin plot instead of Heat maps for LRM
+library(dplyr)
+library(ggplot2)
+
+combined_results2 %>%
+  filter(term != "(Intercept)") %>%
+  mutate(signif = -log10(p.value)) %>%
+  ggplot(aes(x = term, y = signif)) +
+  geom_violin(trim = FALSE, fill = "skyblue", alpha = 0.7) +
+  geom_jitter(width = 0.15, height = 0, alpha = 0.4) +
+  theme_bw() +
+  coord_flip() +
+  labs(
+    title = "Individual Comorbidities: Distribution of Statistical Significance",
+    x = "Risk Factor",
+    y = "-log10(p-value)"
+  )
+
+combined_results %>%
+  filter(term != "(Intercept)") %>%
+  mutate(signif = -log10(p.value)) %>%
+  ggplot(aes(x = term, y = signif)) +
+  geom_violin(trim = FALSE, fill = "lightgreen", alpha = 0.7) +
+  geom_jitter(width = 0.15, height = 0, alpha = 0.4) +
+  theme_bw() +
+  coord_flip() +
+  labs(
+    title = "Paired Comorbidities: Distribution of Statistical Significance",
+    x = "Risk Factor",
+    y = "-log10(p-value)"
+  )
+
+#Box plot
+combined_results2 %>%
+  filter(term != "(Intercept)") %>%
+  mutate(signif = -log10(p.value)) %>%
+  ggplot(aes(x = term, y = signif)) +
+  geom_boxplot(width = 0.9, fill = "skyblue", alpha = 0.75, outlier.alpha = 0.55) +
+  geom_jitter(height = 0.15, alpha = 0.35) +
+  scale_y_continuous(breaks = seq(60, 85, 5)) +
+  theme_bw() +
+  labs(
+    title = "Individual Comorbidities: Statistical Significance",
+    x = "-log10(p-value)",
+    y = "Risk Factor"
+  )
+
+combined_results %>%
+  filter(term != "(Intercept)") %>%
+  mutate(signif = -log10(p.value)) %>%
+  ggplot(aes(x = term, y = signif)) +
+  geom_boxplot(width = 0.9, fill = "lightgreen", alpha = 0.75, outlier.alpha = 0.55) +
+  geom_jitter(height = 0.15, alpha = 0.35) +
+  scale_y_continuous(breaks = seq(60, 85, 5)) +
+  theme_bw() +
+  labs(
+    title = "Paired Comorbidities: Statistical Significance",
+    x = "-log10(p-value)",
+    y = "Risk Factor"
+    fig.cap = ""Distribution of model significance for paired comorbidities") +
+ 
+
 #AIC and BIC Analyses
 models_paired <- list(
   Diabetes_Hypertension = model_Diabetes_Hypertension,
