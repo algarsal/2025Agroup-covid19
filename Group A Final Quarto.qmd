@@ -82,5 +82,10 @@ The current project aims to substantiate the association between the mortality a
 
 3. Ultimately, COVID-19 patients with hypertension in combination of another comorbidity are more likely to die from the viral disease.
 
+#Materials and Methods
+This project utilizes the data lifted from the Mexico's National Institute of Statistics and Geography (INEGI). The raw dataset contains 100,000 records of individual patient data related to COVID-19 cases in Mexico City, Mexico. It includes demographic information such as Age and Gender, however, for the purpose of this current project, age and gender were excluded from the statistical analyses. 
+
+The main data of interest for this project is the presence of specific comorbidities like Diabetes, Hypertension, Obesity, and Smoking (encoded as binary 0/1 values). Moreover, the dataset also features a summary column, Number_of_Comorbidities, which counts the total conditions per patient, and a target variable, COVID_Death, indicating whether the patient passed away. These data are suitable for predictive modeling or statistical analysis to determine how pre-existing conditions impact COVID-19 mortality rates, which aligns well with the objectives of this current project. 
+
 
 
