@@ -347,10 +347,12 @@ combined_results2 %>%
   scale_y_continuous(breaks = seq(60, 85, 5)) +
   theme_bw() +
   labs(
-    title = "Individual Comorbidities: Statistical Significance",
+    title = "Boxplot for LRM Individual Comorbidities",
     x = "-log10(p-value)",
-    y = "Risk Factor"
+    y = "Risk Factor",
+    caption = "Each point represents an individual model estimate; boxplots summarize distributions of statistical significance across individual comorbidities."
   )
+
 
 combined_results %>%
   filter(term != "(Intercept)") %>%
@@ -361,11 +363,12 @@ combined_results %>%
   scale_y_continuous(breaks = seq(60, 85, 5)) +
   theme_bw() +
   labs(
-    title = "Paired Comorbidities: Statistical Significance",
+    title = "Boxplot for LRM Paired Comorbidities",
     x = "-log10(p-value)",
-    y = "Risk Factor"
-    fig.cap = ""Distribution of model significance for paired comorbidities") +
- 
+    y = "Risk Factor",
+    caption = "Each point represents an individual model estimate; boxplots summarize distributions of statistical significance across paired comorbidities."
+  )
+
 
 #AIC and BIC Analyses
 models_paired <- list(
@@ -508,7 +511,7 @@ model_vars <- results %>%
   mutate(vars = strsplit(Model, "_"))
 
 #AIV (Average Incremental Value) = average of the absolute standardized coefficients of a variable across all models where it appears. Measures the average strength of each variable across all the model specifications where it appears. Higher AIV = stronger, more stable effect.
-# Compute AIV: mean(|β| / SE) across models where variable appears
+#Compute AIV: mean(|β| / SE) across models where variable appears
 aiv <- results %>%
   filter(term != "(Intercept)") %>%
   mutate(standardized = abs(estimate / std.error)) %>%
