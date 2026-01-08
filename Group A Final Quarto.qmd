@@ -40,6 +40,7 @@ bibliography: references.bib
 
 #Load libraries
 library(dplyr)
+library(purrr)
 library (kableExtra)
 library(knitr)
 library(broom)
@@ -80,4 +81,6 @@ The current project aims to substantiate the association between the mortality a
 2. COVID-19 patients with two or more pre-existing health conditions / comorbidities are more likely to die from the viral disease.
 
 3. Ultimately, COVID-19 patients with hypertension in combination of another comorbidity are more likely to die from the viral disease.
+
+
 
