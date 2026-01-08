@@ -80,7 +80,7 @@ The current project aims to substantiate the association between the mortality a
 
 2. COVID-19 patients with two or more pre-existing health conditions / comorbidities are more likely to die from the viral disease.
 
-3. Ultimately, COVID-19 patients with hypertension in combination of another comorbidity are more likely to die from the viral disease.
+3. Ultimately, COVID-19 patients with a combination of a high risk CM are more likely to die from the viral disease.
 
 #Materials and Methods
 This project utilizes the data lifted from the Mexico's National Institute of Statistics and Geography (INEGI). The raw dataset contains 100,000 records of individual patient data related to COVID-19 cases in Mexico City, Mexico. It includes demographic information such as Age and Gender, however, for the purpose of this current project, age and gender were excluded from the statistical analyses. 
