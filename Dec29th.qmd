@@ -120,6 +120,33 @@ ggplot(plot_data, aes(x = Comorbidity, y = Count, fill = Type)) +
     y = "Number of deaths (COVID_Death = 1)"
   ) +
   theme_minimal()
+
+#Mean values of expected and observed 
+mean_values <- plot_data %>%
+  group_by(Comorbidity, Type) %>%
+  summarise(
+    mean_value = mean(SE_Expected, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+plot_data %>%
+  arrange(Comorbidity, Type) %>%
+  select(Comorbidity, Type, SE_Expected)
+mean_values
+
+mean_table %>%
+  gt() %>%
+  fmt_number(
+    columns = c(Expected, Observed),
+    decimals = 2
+  ) %>%
+  cols_label(
+    Comorbidity = "Comorbidity",
+    Expected = "Expected Mean",
+    Observed = "Observed Mean"
+  ) %>%
+  tab_caption("Mean expected and observed values by comorbidity")
+mean_table
 ```
 
 #Error bars are shown only for expected counts and represent the uncertainty 
