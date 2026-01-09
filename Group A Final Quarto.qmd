@@ -240,7 +240,7 @@ Furthermore, looking at the graph, the gaps between the observed frequencies (O)
 Specifically, mean values for each comorbidity are as follows: Hypertension (O - 2,577 vs E - 1,843.02), Diabetes (O - 2,200 vs E - 1,553.52), Obesity (O - 2,729 vs E - 2,035.79), Smoking (O - 1,708 vs E - 1,204.45).
 These values strongly imply that a systematic relationship exists between the factors rather than chance alone.
 
-## Indivudal Logistic Regression Models
+## Individudal Logistic Regression Models
 
 ```{r}
 #| label: tbl-indiv-lrm
@@ -384,9 +384,7 @@ ggplot(logit_data, aes(x = Predictor, y = Logit, group = Model)) +
 
 ```
 
-
 The Individual Logistic Regression Model showed that
-
 
 ## Multivariable Logistic Regression Model
 
@@ -460,8 +458,7 @@ ggplot(mvm_or, aes(x = estimate, y = term)) +
 
 The Multivariable Logistic Regression Model presented that
 
-Both the Individual Logistic Regression Model and Multivariable Logistic Regression Model were able to answer the Hypothesis 1. 
-
+Both the Individual Logistic Regression Model and Multivariable Logistic Regression Model were able to answer the Hypothesis 1.
 
 ## Paired models (Interactions)
 
@@ -559,7 +556,7 @@ interaction_results %>%
   )
 ```
 
-## BIC Analyses 
+## BIC Analyses
 
 ```{r}
 #| label: tbl-BIC-ILRM
@@ -636,7 +633,7 @@ BIC_table_paired %>%
 
 ```
 
-The result of BIC Analysess revealed that the Multivariable Logistic Regression Model was the better model to utilize. 
+The result of BIC Analyses revealed that the Multivariable Logistic Regression Model was the better model to utilize.
 
 ## Number of Comorbidities LRM
 
@@ -682,7 +679,6 @@ LRM_NCM_table %>%
   )
 ```
 
-
 ### Non-Linear Association Graph
 
 ```{r}
@@ -720,7 +716,7 @@ ggplot(grid, aes(x = Number_of_Comorbidities, y = Predicted_Prob)) +
   theme_minimal()
 ```
 
-The result of this test answered the Hypothesis 2 
+The result of this test answered the Hypothesis 2
 
 ## Heat Map for Paired models
 
@@ -820,5 +816,7 @@ ggplot(grid, aes(x = X, y = Y, fill = OR)) +
   )
 
 ```
+
+The result of this test answered the Hypothesis 3. 
 
 # Conclusion
