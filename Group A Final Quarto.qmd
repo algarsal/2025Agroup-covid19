@@ -88,9 +88,9 @@ This project utilizes the data lifted from the Mexico's National Institute of St
 The main data of interest for this project is the presence of specific comorbidities like Diabetes, Hypertension, Obesity, and Smoking (encoded as binary 0/1 values). Moreover, the dataset also features a summary column, Number_of_Comorbidities, which counts the total conditions per patient, and a target variable, COVID_Death, indicating whether the patient passed away. These data are suitable for predictive modeling or statistical analysis to determine how pre-existing conditions impact COVID-19 mortality rates, which aligns well with the objectives of this current project. 
 
 ##Preliminary Analysis
-###Chi-Square Test
+###Chi Square Test
 
-The Chi square test was utilized as a preliminary analysis to find a statistical association between COVID-19 deaths and having a comorbidity. This test was used to determine whether a systemic relationship exists between two categorical variables or if the patterns in your data are simply due to random chance. The test works by comparing two sets of numbers:(1) Observed frequencies and (2) Expected frequencies. It calculates the "distance" between the actual observed and what simple randomness predicts. If the gap between observed and expected frequencies, is small, the data looks like random noise. Otherwise, if the gap is large, then a relationship exists. 
+The Chi square test was utilized as a preliminary analysis to find a statistical association between COVID-19 deaths and having a comorbidity. This test was used to determine whether a systemic relationship exists between these two categorical variables or if the patterns in the dataset are simply due to random chance. The test works by comparing two sets of numbers:(1) Observed frequencies and (2) Expected frequencies. It calculates the "distance" between the actual observed and what simple randomness predicts. If the gap between observed and expected frequencies is small, the data looks like random noise. Otherwise, if the gap is large, then a relationship exists. 
 
 ##Hypothesis 1 Testing
 ###Individual Logistic Regression Model
