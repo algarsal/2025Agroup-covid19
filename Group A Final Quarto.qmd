@@ -90,7 +90,7 @@ The main data of interest for this project is the presence of specific comorbidi
 ##Preliminary Analysis
 ###Chi Square Test
 
-The Chi square test was utilized as a preliminary analysis to find a statistical association between COVID-19 deaths and having a comorbidity. This test was used to determine whether a systemic relationship exists between these two categorical variables or if the patterns in the dataset are simply due to random chance. The test works by comparing two sets of numbers:(1) Observed frequencies and (2) Expected frequencies. It calculates the "distance" between the actual observed and what simple randomness predicts. If the gap between observed and expected frequencies is small, the data looks like random noise. Otherwise, if the gap is large, then a relationship exists. 
+The Chi square test was utilized as a preliminary analysis to find a statistical association between COVID-19 deaths and having a comorbidity. This test was used to determine whether a systemic relationship exists between these two categorical variables or if the patterns in the dataset are simply due to random chance. The test works by comparing two sets of numbers:(1) Observed frequencies and (2) Expected frequencies. It calculates the "distance" between the actual observed and what simple randomness predicts. If the gap between observed and expected frequencies is small, the data is most likely just a random noise. Otherwise, if the gap is large, then a relationship exists. 
 
 ##Hypothesis 1 Testing
 ###Individual Logistic Regression Model
