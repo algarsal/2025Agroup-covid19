@@ -95,7 +95,9 @@ The Chi square test was utilized as a preliminary analysis to find a statistical
 ##Hypothesis 1 Testing
 ###Individual Logistic Regression Model
 
-###Multi-variable Regression Model
+
+
+###Multi-variable Regression Model 
 
 ###BIC Analysis
 
