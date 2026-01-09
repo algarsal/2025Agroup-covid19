@@ -191,7 +191,7 @@ cell11_table %>%
   )
 ```
 
-### Graph for Chi Square Test
+### Graph for Chi Square test
 
 ```{r}
 #| label: fig-chi-observed-expected
@@ -240,7 +240,7 @@ Furthermore, looking at the graph, the gaps between the observed frequencies (O)
 Specifically, mean values for each comorbidity are as follows: Hypertension (O - 2,577 vs E - 1,843.02), Diabetes (O - 2,200 vs E - 1,553.52), Obesity (O - 2,729 vs E - 2,035.79), Smoking (O - 1,708 vs E - 1,204.45).
 These values strongly imply that a systematic relationship exists between the factors rather than chance alone.
 
-## Individual Logistic Regression Models
+## Individudal Logistic Regression Models
 
 ```{r}
 #| label: tbl-indiv-lrm
@@ -820,3 +820,4 @@ ggplot(grid, aes(x = X, y = Y, fill = OR)) +
 The result of this test answered the Hypothesis 3.
 
 # Conclusion
+
