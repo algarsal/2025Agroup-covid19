@@ -384,86 +384,9 @@ ggplot(logit_data, aes(x = Predictor, y = Logit, group = Model)) +
 
 ```
 
-## Number of Comorbidities LRM
 
-```{r}
-##Analysis
-LRM_NCM <- glm(COVID_Death ~ Number_of_Comorbidities, data = covid19A, family = binomial())
+The Individual Logistic Regression Model showed that
 
-#Results table
-
-tid <- tidy(LRM_NCM)
-
-b0 <- coef(LRM_NCM)[1]
-b1 <- coef(LRM_NCM)[2]
-
-# Predicted probabilities at N=0 and N=1 (for consistency with binary tables)
-p0 <- plogis(b0 + b1 * 0)
-p1 <- plogis(b0 + b1 * 1)
-
-# OR per +1 comorbidity and p-value for the slope term
-OR <- exp(b1)
-p_val <- tid$p.value[tid$term == "Number_of_Comorbidities"]
-
-# Significance stars
-sig <- dplyr::case_when(
-  p_val < 0.001 ~ "***",
-  p_val < 0.01  ~ "**",
-  p_val < 0.05  ~ "*",
-  TRUE ~ ""
-)
-LRM_NCM_table <- data.frame(
-  Predictor = "Number_of_Comorbidities",
-  `Prob_Death_0 (%)` = round(100 * p0, 2),
-  `Odds Ratio` = round(OR, 2),
-  `P value` = paste0(formatC(p_val, format = "e", digits = 3), " ", sig)
-)
-
-LRM_NCM_table %>%
-  kable(align = "c") %>%
-  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover")) %>%
-  footnote(
-    general = "Significance levels: *** p < 0.001, ** p < 0.01, * p < 0.05.",
-    general_title = ""
-  )
-```
-
-### Non-Linear Association Graph
-
-```{r}
-
-n_min <- min(covid19A$Number_of_Comorbidities, na.rm = TRUE)
-n_max <- max(covid19A$Number_of_Comorbidities, na.rm = TRUE)
-
-grid <- data.frame(
-  Number_of_Comorbidities = seq(n_min, n_max, by = 0.1)
-) %>%
-  mutate(Predicted_Prob = predict(LRM_NCM, newdata = ., type = "response"))
-
-int_points <- data.frame(
-  Number_of_Comorbidities = seq(ceiling(n_min), floor(n_max), by = 1)
-) %>%
-  mutate(
-    Predicted_Prob = predict(LRM_NCM, newdata = ., type = "response"),
-    Label = paste0(round(100 * Predicted_Prob, 1), "%")
-  )
-
-ggplot(grid, aes(x = Number_of_Comorbidities, y = Predicted_Prob)) +
-  geom_line(linewidth = 1) +
-  geom_point(data = int_points, size = 2) +
-  geom_text(
-    data = int_points,
-    aes(label = Label),
-    vjust = -0.8,
-    size = 3
-  ) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
-  labs(
-    x = "Number of comorbidities",
-    y = "Predicted probability of death"
-  ) +
-  theme_minimal()
-```
 
 ## Multivariable Logistic Regression Model
 
@@ -534,6 +457,11 @@ ggplot(mvm_or, aes(x = estimate, y = term)) +
     plot.caption = element_text(hjust = 0)
   )
 ```
+
+The Multivariable Logistic Regression Model presented that
+
+Both the Individual Logistic Regression Model and Multivariable Logistic Regression Model were able to answer the Hypothesis 1. 
+
 
 ## Paired models (Interactions)
 
@@ -630,6 +558,169 @@ interaction_results %>%
     general_title = ""
   )
 ```
+
+## BIC Analyses 
+
+```{r}
+#| label: tbl-BIC-ILRM
+#| tbl-cap: "BIC Analysis for Individual Logistic Regression Model."
+
+#Individual Logistic Regression Model
+
+models_individual <- list(
+  Diabetes = model_Diabetes,
+  Smoking = model_Smoking,
+  Obesity = model_Obesity,
+  Hypertension = model_Hypertension
+)
+
+info_criteria <- lapply(names(models_individual), function(name) {
+  m <- models_individual[[name]]
+  
+  data.frame(
+    Model = name,
+    BIC  = BIC(m)
+  )
+})
+
+BIC_table <- dplyr::bind_rows(info_criteria)
+
+BIC_table %>%
+  kable(align = "c") %>%
+  kable_styling(
+    full_width = FALSE,
+    bootstrap_options = c("striped", "hover")
+  ) %>%
+  footnote(
+    general_title = ""
+  )
+```
+
+```{r}
+
+ #| label: tbl-BIC-MLRM
+ #| tbl-cap: "BIC Analysis for Multivariable Logistic Regression Model."
+
+ # Multivariable Logistic Regression Model
+
+interaction_models <- list(
+  "Diabetes × Hypertension" = model_Dia_Hyp_int,
+  "Diabetes × Obesity"      = model_Dia_Obe_int,
+  "Diabetes × Smoking"     = model_Dia_Smo_int,
+  "Hypertension × Obesity" = model_Hyp_Obe_int,
+  "Hypertension × Smoking" = model_Hyp_Smo_int,
+  "Obesity × Smoking"      = model_Obe_Smo_int
+)
+  
+info_criteria_paired <- lapply(names(interaction_models), function(name) {
+  m <- interaction_models[[name]]
+  
+  data.frame(
+    Model = name,
+    BIC  = BIC(m)
+  )
+})
+
+BIC_table_paired <- dplyr::bind_rows(info_criteria_paired)
+
+BIC_table_paired %>%
+  kable(align = "c") %>%
+  kable_styling(
+    full_width = FALSE,
+    bootstrap_options = c("striped", "hover")
+  ) %>%
+  footnote(
+    general_title = ""
+  )
+
+
+```
+
+The result of BIC Analysess revealed that the Multivariable Logistic Regression Model was the better model to utilize. 
+
+## Number of Comorbidities LRM
+
+```{r}
+##Analysis
+LRM_NCM <- glm(COVID_Death ~ Number_of_Comorbidities, data = covid19A, family = binomial())
+
+#Results table
+
+tid <- tidy(LRM_NCM)
+
+b0 <- coef(LRM_NCM)[1]
+b1 <- coef(LRM_NCM)[2]
+
+# Predicted probabilities at N=0 and N=1 (for consistency with binary tables)
+p0 <- plogis(b0 + b1 * 0)
+p1 <- plogis(b0 + b1 * 1)
+
+# OR per +1 comorbidity and p-value for the slope term
+OR <- exp(b1)
+p_val <- tid$p.value[tid$term == "Number_of_Comorbidities"]
+
+# Significance stars
+sig <- dplyr::case_when(
+  p_val < 0.001 ~ "***",
+  p_val < 0.01  ~ "**",
+  p_val < 0.05  ~ "*",
+  TRUE ~ ""
+)
+LRM_NCM_table <- data.frame(
+  Predictor = "Number_of_Comorbidities",
+  `Prob_Death_0 (%)` = round(100 * p0, 2),
+  `Odds Ratio` = round(OR, 2),
+  `P value` = paste0(formatC(p_val, format = "e", digits = 3), " ", sig)
+)
+
+LRM_NCM_table %>%
+  kable(align = "c") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover")) %>%
+  footnote(
+    general = "Significance levels: *** p < 0.001, ** p < 0.01, * p < 0.05.",
+    general_title = ""
+  )
+```
+
+
+### Non-Linear Association Graph
+
+```{r}
+
+n_min <- min(covid19A$Number_of_Comorbidities, na.rm = TRUE)
+n_max <- max(covid19A$Number_of_Comorbidities, na.rm = TRUE)
+
+grid <- data.frame(
+  Number_of_Comorbidities = seq(n_min, n_max, by = 0.1)
+) %>%
+  mutate(Predicted_Prob = predict(LRM_NCM, newdata = ., type = "response"))
+
+int_points <- data.frame(
+  Number_of_Comorbidities = seq(ceiling(n_min), floor(n_max), by = 1)
+) %>%
+  mutate(
+    Predicted_Prob = predict(LRM_NCM, newdata = ., type = "response"),
+    Label = paste0(round(100 * Predicted_Prob, 1), "%")
+  )
+
+ggplot(grid, aes(x = Number_of_Comorbidities, y = Predicted_Prob)) +
+  geom_line(linewidth = 1) +
+  geom_point(data = int_points, size = 2) +
+  geom_text(
+    data = int_points,
+    aes(label = Label),
+    vjust = -0.8,
+    size = 3
+  ) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  labs(
+    x = "Number of comorbidities",
+    y = "Predicted probability of death"
+  ) +
+  theme_minimal()
+```
+
+The result of this test answered the Hypothesis 2 
 
 ## Heat Map for Paired models
 
