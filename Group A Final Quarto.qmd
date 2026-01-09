@@ -105,14 +105,14 @@ It calculates the "distance" between the actual observed and what simple randomn
 If the gap between observed and expected frequencies is small, the data is most likely just a random noise.
 Otherwise, if the gap is large, then a relationship exists.
 
-## Hypothesis 1 Testing
+## Hypothesis Testing
 
 The Logistic Regression was used to model the relationship between a dichotomous dependent variable (outcome) and a set of independent covariates (predictors).
 Logistic Regression serves as a Generalized Linear Model (GLM).
 Its goal is not merely to detect if an association exists, but to parameterize that association.
 It estimates the probability that an event will likely to occur, conditioned on the values of the independent variables.
 
-This test will help in testing the first hypothesis by estimating the probability of a COVID-19 patient to die with a pre-existing health condition / comorbidity.
+This test will help in testing the hypotheses presented by estimating the probability of a COVID-19 patient to die with a pre-existing health condition / comorbidity.
 To further validate the test, both the Individual Logistic Regression and Multivariable Regression models to ensure the validity, confounding, and the nature of the association.
 
 ### Individual Logistic Regression Model
@@ -131,13 +131,7 @@ This model yields an adjusted Odds Ratio (aOR).
 
 After the two models were created, the Bayesian Information Criterion (BIC) analysis was utilized for model selection between the Individual Logistic Regression model and Multivariable Regression model.
 The goal of BIC analysis is to identify the most parsimonious model that adequately explains the observed data.
-In formal terms, it seeks to maximize the posterior probability of a model being the "true" data-generating process.
+It seeks to maximize the posterior probability of a model being the "true" data-generating process.
 The model with the lowest BIC value is generally preferred.
 
-## Hypothesis 2 Testing
 
-### Logistic Regression Model of No. of Comorbidities
-
-## Hypothesis 3 Testing
-
-### Heat Map
