@@ -53,58 +53,70 @@ covid19A <- read.table(data, header = T, sep = ",")
 
 ```
 
+# Introduction
 
-# Introduction 
+Experiencing a global pandemic in the 21st century is scientifically and statistically jarring, particularly given the era’s sophisticated pharmaceutical and surveillance capabilities.
+The emergence of a highly contagious respiratory illness in 2020 infamously known as the Coronavirus Disease 2019 (COVID-19), caused by the virus ‘Severe Acute Respiratory Syndrome Coronavirus 2’ (SARs-CoV-2), has profoundly impacted global health that resulted in a declaration of global health emergency.
+As a result, this prompted extensive research into the factors that contribute to severe outcomes and mortality.
 
-  Experiencing a global pandemic in the 21st century is scientifically and statistically jarring, particularly given the era’s sophisticated pharmaceutical and surveillance capabilities.
-The emergence of a highly contagious respiratory illness in 2020 infamously known as the Coronavirus Disease 2019 (COVID-19), caused by the virus ‘Severe Acute Respiratory Syndrome Coronavirus 2’ (SARs-CoV-2), has profoundly impacted global health that resulted in a declaration of global health emergency. As a result, this prompted extensive research into the factors that contribute to severe outcomes and mortality.
-
-  Understanding the pathophysiological mechanism of viral disease infections, the role of comorbidities, i.e., pre-existing health conditions, became the main research interest linking its influence on the risk of death among individuals infected with SARS-CoV-2.
+Understanding the pathophysiological mechanism of viral disease infections, the role of comorbidities, i.e., pre-existing health conditions, became the main research interest linking its influence on the risk of death among individuals infected with SARS-CoV-2.
 Over the years since the pandemic passed, multiple literature quantified the mortality risk associated with comorbidities.
 
-  One study by @Elezkurtaj2021 highlighted that COVID-19 patients with more than two comorbidities increased mortality than those with single or no comorbidities.
+One study by @Elezkurtaj2021 highlighted that COVID-19 patients with more than two comorbidities increased mortality than those with single or no comorbidities.
 Among the comorbidities identified, a study by @Espinosa2020 revealed that hypertension, diabetes, and cardiovascular disease were the most frequent comorbidities in fatal cases of COVID-19.
 Furthermore, another study by @Salinas2022 concluded that diabetes mellitus, systemic arterial hypertension, obesity, and chronic kidney damage increase mortality in patients with COVID-19 in the population of Coahuila in Mexico.
 These findings were further solidified by a study conducted by @Lowhorn2024 stating that hypertension, followed by obesity and diabetes, are the most often occurring comorbidities in COVID-19 patients and are also some of the comorbidities most strongly related with high mortality rates in the Mexican population.
 
-  Considering the literatures cited, the impact of the COVID-19 pandemic in Mexico is arguably one of the most severe in the world.
+Considering the literatures cited, the impact of the COVID-19 pandemic in Mexico is arguably one of the most severe in the world.
 The pandemic in Mexico wasn't just a viral outbreak; it was a synergistic epidemic where the virus collided with the country's high rates of pre-existing chronic disease crisis (comorbidities).
 In line with this, our project aims to statistically analyze the data from Mexico City presented in the Analytical Viewer for COVID-19, a platform created by Mexico's National Institute of Statistics and Geography (INEGI).
 By exploring this link, our project aims to delve deeper into the nuances of comorbidity-related risks and its implications on actionable insights and protective measures for future pandemic preparedness, especially to the vulnerable sector of the population.
 
 # Objective
+
 The current project aims to substantiate the association between the mortality and the pre-existing health conditions / comorbidities of COVID-19 patients from Mexico City using the INEGI dataset, thereby providing a comparative analysis against literature-based evidence from some parts of Mexico and national studies to validate the consistency of comorbidity impact across different Mexican demographics.
 
 # Hypotheses
-1. COVID-19 patients with pre-existing health condition / comorbidity are more likely to die from the viral disease.
 
-2. COVID-19 patients with two or more pre-existing health conditions / comorbidities are more likely to die from the viral disease.
+1.  COVID-19 patients with pre-existing health condition / comorbidity are more likely to die from the viral disease.
 
-3. Ultimately, COVID-19 patients with a combination of high risk comorbidities are more likely to die from the viral disease.
+2.  COVID-19 patients with two or more pre-existing health conditions / comorbidities are more likely to die from the viral disease.
 
-#Materials and Methods
-This project utilizes the data lifted from the Mexico's National Institute of Statistics and Geography (INEGI). The raw dataset contains 100,000 records of individual patient data related to COVID-19 cases in Mexico City, Mexico. It includes demographic information such as Age and Gender, however, for the purpose of this current project, age and gender were excluded from the statistical analyses. 
+3.  Ultimately, COVID-19 patients with a combination of high risk comorbidities are more likely to die from the viral disease.
 
-The main data of interest for this project is the presence of specific comorbidities like Diabetes, Hypertension, Obesity, and Smoking (encoded as binary 0/1 values). Moreover, the dataset also features a summary column, Number_of_Comorbidities, which counts the total conditions per patient, and a target variable, COVID_Death, indicating whether the patient passed away. These data are suitable for predictive modeling or statistical analysis to determine how pre-existing conditions impact COVID-19 mortality rates, which aligns well with the objectives of this current project. 
+# Materials and Methods
 
-##Preliminary Analysis
-###Chi Square Test
+This project utilizes the data lifted from the Mexico's National Institute of Statistics and Geography (INEGI).
+The raw dataset contains 100,000 records of individual patient data related to COVID-19 cases in Mexico City, Mexico.
+It includes demographic information such as Age and Gender, however, for the purpose of this current project, age and gender were excluded from the statistical analyses.
 
-The Chi square test was utilized as a preliminary analysis to find a statistical association between COVID-19 deaths and having a comorbidity. This test was used to determine whether a systemic relationship exists between these two categorical variables or if the patterns in the dataset are simply due to random chance. The test works by comparing two sets of numbers:(1) Observed frequencies and (2) Expected frequencies. It calculates the "distance" between the actual observed and what simple randomness predicts. If the gap between observed and expected frequencies is small, the data is most likely just a random noise. Otherwise, if the gap is large, then a relationship exists. 
+The main data of interest for this project is the presence of specific comorbidities like Diabetes, Hypertension, Obesity, and Smoking (encoded as binary 0/1 values).
+Moreover, the dataset also features a summary column, Number_of_Comorbidities, which counts the total conditions per patient, and a target variable, COVID_Death, indicating whether the patient passed away.
+These data are suitable for predictive modeling or statistical analysis to determine how pre-existing conditions impact COVID-19 mortality rates, which aligns well with the objectives of this current project.
 
-##Hypothesis 1 Testing
-###Individual Logistic Regression Model
+## Preliminary Analysis
 
+### Chi Square Test
 
+The Chi square test was utilized as a preliminary analysis to find a statistical association between COVID-19 deaths and having a comorbidity.
+This test was used to determine whether a systemic relationship exists between these two categorical variables or if the patterns in the dataset are simply due to random chance.
+The test works by comparing two sets of numbers:(1) Observed frequencies and (2) Expected frequencies.
+It calculates the "distance" between the actual observed and what simple randomness predicts.
+If the gap between observed and expected frequencies is small, the data is most likely just a random noise.
+Otherwise, if the gap is large, then a relationship exists.
 
-###Multi-variable Regression Model 
+## Hypothesis 1 Testing
 
-###BIC Analysis
+### Individual Logistic Regression Model
 
-##Hypothesis 2 Testing
-###Logistic Regression Model of No. of Comorbidities
+### Multi-variable Regression Model
 
-##Hypothesis 3 Testing
-###Heat Map
+### BIC Analysis
 
+## Hypothesis 2 Testing
 
+### Logistic Regression Model of No. of Comorbidities
+
+## Hypothesis 3 Testing
+
+### Heat Map
