@@ -107,17 +107,32 @@ Otherwise, if the gap is large, then a relationship exists.
 
 ## Hypothesis 1 Testing
 
-The Logistic Regression was used to model the relationship between a dichotomous dependent variable (outcome) and a set of independent covariates (predictors). Logistic Regression serves as a Generalized Linear Model (GLM). Its goal is not merely to detect if an association exists, but to parameterize that association. It estimates the probability that an event will likely to occur, conditioned on the values of the independent variables. 
+The Logistic Regression was used to model the relationship between a dichotomous dependent variable (outcome) and a set of independent covariates (predictors).
+Logistic Regression serves as a Generalized Linear Model (GLM).
+Its goal is not merely to detect if an association exists, but to parameterize that association.
+It estimates the probability that an event will likely to occur, conditioned on the values of the independent variables.
 
-This test will help in testing the first hypothesis by estimating the probability of a COVID-19 patient to die with a pre-existing health condition / comorbidity. To further validate the test, both the Individual Logistic Regression and Multivariable Regression models to ensure the validity, confounding, and the nature of the association. 
+This test will help in testing the first hypothesis by estimating the probability of a COVID-19 patient to die with a pre-existing health condition / comorbidity.
+To further validate the test, both the Individual Logistic Regression and Multivariable Regression models to ensure the validity, confounding, and the nature of the association.
 
 ### Individual Logistic Regression Model
 
-The Individual Logistic Regression model was primarily used for exploratory screening. It quantifies the magnitude of the relationship between a single predictor and the outcome without accounting for external variance. 
+The Individual Logistic Regression model was primarily used for exploratory screening.
+It quantifies the magnitude of the relationship between a single predictor and the outcome without accounting for external variance.
+This model yields an unadjusted or crude Odds Ratio (cOR).
 
 ### Multivariable Regression Model
 
+On the other hand, the Multivariable Regression Model was used for confirmatory analysis.
+Its purpose is to isolate the effect of the primary predictor by statistically holding other covariates constant.
+This model yields an adjusted Odds Ratio (aOR).
+
 ### BIC Analysis
+
+After the two models were created, the Bayesian Information Criterion (BIC) analysis was utilized for model selection between the Individual Logistic Regression model and Multivariable Regression model.
+The goal of BIC analysis is to identify the most parsimonious model that adequately explains the observed data.
+In formal terms, it seeks to maximize the posterior probability of a model being the "true" data-generating process.
+The model with the lowest BIC value is generally preferred.
 
 ## Hypothesis 2 Testing
 
