@@ -53,39 +53,45 @@ covid19A <- read.table(data, header = T, sep = ",")
 
 ```
 
+# Introduction
 
-# Introduction 
+Experiencing a global pandemic in the 21st century is scientifically and statistically jarring, particularly given the era’s sophisticated pharmaceutical and surveillance capabilities.
+The emergence of a highly contagious respiratory illness in 2020 infamously known as the Coronavirus Disease 2019 (COVID-19), caused by the virus ‘Severe Acute Respiratory Syndrome Coronavirus 2’ (SARs-CoV-2), has profoundly impacted global health that resulted in a declaration of global health emergency.
+As a result, this prompted extensive research into the factors that contribute to severe outcomes and mortality.
 
-  Experiencing a global pandemic in the 21st century is scientifically and statistically jarring, particularly given the era’s sophisticated pharmaceutical and surveillance capabilities.
-The emergence of a highly contagious respiratory illness in 2020 infamously known as the Coronavirus Disease 2019 (COVID-19), caused by the virus ‘Severe Acute Respiratory Syndrome Coronavirus 2’ (SARs-CoV-2), has profoundly impacted global health that resulted in a declaration of global health emergency. As a result, this prompted extensive research into the factors that contribute to severe outcomes and mortality.
-
-  Understanding the pathophysiological mechanism of viral disease infections, the role of comorbidities, i.e., pre-existing health conditions, became the main research interest linking its influence on the risk of death among individuals infected with SARS-CoV-2.
+Understanding the pathophysiological mechanism of viral disease infections, the role of comorbidities, i.e., pre-existing health conditions, became the main research interest linking its influence on the risk of death among individuals infected with SARS-CoV-2.
 Over the years since the pandemic passed, multiple literature quantified the mortality risk associated with comorbidities.
 
-  One study by @Elezkurtaj2021 highlighted that COVID-19 patients with more than two comorbidities increased mortality than those with single or no comorbidities.
+One study by @Elezkurtaj2021 highlighted that COVID-19 patients with more than two comorbidities increased mortality than those with single or no comorbidities.
 Among the comorbidities identified, a study by @Espinosa2020 revealed that hypertension, diabetes, and cardiovascular disease were the most frequent comorbidities in fatal cases of COVID-19.
 Furthermore, another study by @Salinas2022 concluded that diabetes mellitus, systemic arterial hypertension, obesity, and chronic kidney damage increase mortality in patients with COVID-19 in the population of Coahuila in Mexico.
 These findings were further solidified by a study conducted by @Lowhorn2024 stating that hypertension, followed by obesity and diabetes, are the most often occurring comorbidities in COVID-19 patients and are also some of the comorbidities most strongly related with high mortality rates in the Mexican population.
 
-  Considering the literatures cited, the impact of the COVID-19 pandemic in Mexico is arguably one of the most severe in the world.
+Considering the literatures cited, the impact of the COVID-19 pandemic in Mexico is arguably one of the most severe in the world.
 The pandemic in Mexico wasn't just a viral outbreak; it was a synergistic epidemic where the virus collided with the country's high rates of pre-existing chronic disease crisis (comorbidities).
 In line with this, our project aims to statistically analyze the data from Mexico City presented in the Analytical Viewer for COVID-19, a platform created by Mexico's National Institute of Statistics and Geography (INEGI).
 By exploring this link, our project aims to delve deeper into the nuances of comorbidity-related risks and its implications on actionable insights and protective measures for future pandemic preparedness, especially to the vulnerable sector of the population.
 
 # Objective
+
 The current project aims to substantiate the association between the mortality and the pre-existing health conditions / comorbidities of COVID-19 patients from Mexico City using the INEGI dataset, thereby providing a comparative analysis against literature-based evidence from some parts of Mexico and national studies to validate the consistency of comorbidity impact across different Mexican demographics.
 
 # Hypotheses
-1. COVID-19 patients with pre-existing health condition / comorbidity are more likely to die from the viral disease.
 
-2. COVID-19 patients with two or more pre-existing health conditions / comorbidities are more likely to die from the viral disease.
+1.  COVID-19 patients with pre-existing health condition / comorbidity are more likely to die from the viral disease.
 
-3. Ultimately, the risk probability of COVID-19 patients with a combination of comorbidities is the result of the addition of the individual probabilities plus the interaction between them potentiating the effect of some comorbidities combinations, specially in those where the individual probability is already high. 
+2.  COVID-19 patients with two or more pre-existing health conditions / comorbidities are more likely to die from the viral disease.
 
-#Materials and Methods
-This project utilizes the data lifted from the Mexico's National Institute of Statistics and Geography (INEGI). The raw dataset contains 100,000 records of individual patient data related to COVID-19 cases in Mexico City, Mexico. It includes demographic information such as Age and Gender, however, for the purpose of this current project, age and gender were excluded from the statistical analyses. 
+3.  Ultimately, the risk probability of COVID-19 patients with a combination of comorbidities is the result of the addition of the individual probabilities plus the interaction between them potentiating the effect of some comorbidities combinations, specially in those where the individual probability is already high.
 
-The main data of interest for this project is the presence of specific comorbidities like Diabetes, Hypertension, Obesity, and Smoking (encoded as binary 0/1 values). Moreover, the dataset also features a summary column, Number_of_Comorbidities, which counts the total conditions per patient, and a target variable, COVID_Death, indicating whether the patient passed away. These data are suitable for predictive modeling or statistical analysis to determine how pre-existing conditions impact COVID-19 mortality rates, which aligns well with the objectives of this current project. 
+# Materials and Methods 
+This project utilizes the data lifted from the Mexico's National Institute of Statistics and Geography (INEGI).
+The raw dataset contains 100,000 records of individual patient data related to COVID-19 cases in Mexico City, Mexico.
+It includes demographic information such as Age and Gender, however, for the purpose of this current project, age and gender were excluded from the statistical analyses.
+
+The main data of interest for this project is the presence of specific comorbidities like Diabetes, Hypertension, Obesity, and Smoking (encoded as binary 0/1 values).
+Moreover, the dataset also features a summary column, Number_of_Comorbidities, which counts the total conditions per patient, and a target variable, COVID_Death, indicating whether the patient passed away.
+These data are suitable for predictive modeling or statistical analysis to determine how pre-existing conditions impact COVID-19 mortality rates, which aligns well with the objectives of this current project.
 
 ## Preliminary Analysis
 
@@ -377,9 +383,23 @@ ggplot(logit_data, aes(x = Predictor, y = Logit, group = Model)) +
 
 ```
 
-The individual logistic regression models indicate that the presence of comorbidities in patients with COVID-19 is associated with an increased risk of death. As shown in Table 2, all predictors have highly significant p-values, demonstrating a statistically meaningful relationship between comorbid conditions and mortality. Examination of the odds ratios further supports this finding, as all four comorbidities have odds ratio values greater than 1, indicating increased odds of death when the condition is present. Interpretation of the odds ratios follows standard conventions: an odds ratio (OR) equal to 1 indicates no effect, an OR less than 1 indicates reduced odds of the outcome, and an OR greater than 1 indicates increased odds. Based on these results, it can be concluded that each comorbidity is associated with a higher probability of death among COVID-19 patients. Additionally, the estimated probability of death is consistently higher when a comorbidity is present (predictor = 1) compared to when it is absent (predictor = 0), further confirming the direct impact of comorbidities on mortality risk.
-Figure 2 presents four separate line graphs, each corresponding to an individual logistic regression model for one comorbidity (diabetes, hypertension, obesity, and smoking). The x-axis represents the binary predictor, where 0 indicates the absence of the condition and 1 indicates its presence, resulting in each line connecting two points. The y-axis displays the log-odds of COVID-19 death, which is the natural scale of the logistic regression model. More negative log-odds values correspond to lower risk, whereas higher (less negative) values indicate greater risk. The slope shown in each panel represents the logistic regression coefficient, with positive slopes indicating that the presence of the comorbidity increases the odds of COVID-19 death. Larger slope values reflect stronger associations. Exponentiating these slope values yields the corresponding odds ratios reported in Table 2.
-Taken together, Table 2 and Figure 2 demonstrate that all four comorbidities are associated with increased odds of COVID-19–related death, although the magnitude of their effects differs slightly. Diabetes and hypertension exhibit the strongest associations, each with an odds ratio of approximately 1.62 (slope = 0.483). Smoking shows a moderately smaller effect, while obesity has the weakest association among the four. These findings provide a clear framework for interpreting future results and making further predictions. 
+The individual logistic regression models indicate that the presence of comorbidities in patients with COVID-19 is associated with an increased risk of death.
+As shown in Table 2, all predictors have highly significant p-values, demonstrating a statistically meaningful relationship between comorbid conditions and mortality.
+Examination of the odds ratios further supports this finding, as all four comorbidities have odds ratio values greater than 1, indicating increased odds of death when the condition is present.
+Interpretation of the odds ratios follows standard conventions: an odds ratio (OR) equal to 1 indicates no effect, an OR less than 1 indicates reduced odds of the outcome, and an OR greater than 1 indicates increased odds.
+Based on these results, it can be concluded that each comorbidity is associated with a higher probability of death among COVID-19 patients.
+Additionally, the estimated probability of death is consistently higher when a comorbidity is present (predictor = 1) compared to when it is absent (predictor = 0), further confirming the direct impact of comorbidities on mortality risk.
+Figure 2 presents four separate line graphs, each corresponding to an individual logistic regression model for one comorbidity (diabetes, hypertension, obesity, and smoking).
+The x-axis represents the binary predictor, where 0 indicates the absence of the condition and 1 indicates its presence, resulting in each line connecting two points.
+The y-axis displays the log-odds of COVID-19 death, which is the natural scale of the logistic regression model.
+More negative log-odds values correspond to lower risk, whereas higher (less negative) values indicate greater risk.
+The slope shown in each panel represents the logistic regression coefficient, with positive slopes indicating that the presence of the comorbidity increases the odds of COVID-19 death.
+Larger slope values reflect stronger associations.
+Exponentiating these slope values yields the corresponding odds ratios reported in Table 2.
+Taken together, Table 2 and Figure 2 demonstrate that all four comorbidities are associated with increased odds of COVID-19–related death, although the magnitude of their effects differs slightly.
+Diabetes and hypertension exhibit the strongest associations, each with an odds ratio of approximately 1.62 (slope = 0.483).
+Smoking shows a moderately smaller effect, while obesity has the weakest association among the four.
+These findings provide a clear framework for interpreting future results and making further predictions.
 
 ## Multivariable Logistic Regression Model
 
@@ -451,11 +471,20 @@ ggplot(mvm_or, aes(x = estimate, y = term)) +
   )
 ```
 
-The Multivariable Logistic Regression Model presented the adjusted odds ratios for COVID-19 death associated with four comorbidities. Each dot represents the odds ratio, and the horizontal lines show the 95% confidence intervals. The dashed vertical line at an odds ratio of 1 indicates no effect.
-All four comorbidities have odds ratios greater than 1, and their confidence intervals do not cross 1, indicating that they are statistically significant risk factors for COVID-19 death. The very small p-values (all p < 0.001) further confirm these associations.
-Diabetes and hypertension show the strongest effects, each increasing the odds of death by about 60%. Smoking also increases the odds of death by a similar amount, while obesity has a slightly smaller but still meaningful effect. Overall, the figure demonstrates that the presence of any of these comorbidities increases the risk of death from COVID-19, even after adjusting for other factors. Furthermore we have continued to observe similar trends of impact for each comorbidity with diabetes and hypertension having the strongest effect and obesity the weakest. 
+The Multivariable Logistic Regression Model presented the adjusted odds ratios for COVID-19 death associated with four comorbidities.
+Each dot represents the odds ratio, and the horizontal lines show the 95% confidence intervals.
+The dashed vertical line at an odds ratio of 1 indicates no effect.
+All four comorbidities have odds ratios greater than 1, and their confidence intervals do not cross 1, indicating that they are statistically significant risk factors for COVID-19 death.
+The very small p-values (all p \< 0.001) further confirm these associations.
+Diabetes and hypertension show the strongest effects, each increasing the odds of death by about 60%.
+Smoking also increases the odds of death by a similar amount, while obesity has a slightly smaller but still meaningful effect.
+Overall, the figure demonstrates that the presence of any of these comorbidities increases the risk of death from COVID-19, even after adjusting for other factors.
+Furthermore we have continued to observe similar trends of impact for each comorbidity with diabetes and hypertension having the strongest effect and obesity the weakest.
 
-Both the Individual Logistic Regression Model and Multivariable Logistic Regression Model were able to answer the Hypothesis 1. By studying the table and figures created using the Logistic Regression Models we were able to confirm that COVID-19 patients with pre-existing health condition / comorbidity are more likely to die from the viral disease. All three representations of data showed high significance values, high odd ratio values and positive slopes. This confirms that the impact comorbidities have on COVID-19 deaths is very significant and will increase the probability of death. 
+Both the Individual Logistic Regression Model and Multivariable Logistic Regression Model were able to answer the Hypothesis 1.
+By studying the table and figures created using the Logistic Regression Models we were able to confirm that COVID-19 patients with pre-existing health condition / comorbidity are more likely to die from the viral disease.
+All three representations of data showed high significance values, high odd ratio values and positive slopes.
+This confirms that the impact comorbidities have on COVID-19 deaths is very significant and will increase the probability of death.
 
 ## Paired models (Interactions)
 
@@ -553,7 +582,7 @@ interaction_results %>%
   )
 ```
 
-## BIC Analyses 
+## BIC Analyses
 
 ```{r}
 #| label: tbl-BIC-ILRM
@@ -630,7 +659,7 @@ BIC_table_paired %>%
 
 ```
 
-The result of BIC Analysess revealed that the Multivariable Logistic Regression Model was the better model to utilize. 
+The result of BIC Analysess revealed that the Multivariable Logistic Regression Model was the better model to utilize.
 
 ## Number of Comorbidities LRM
 
@@ -676,7 +705,6 @@ LRM_NCM_table %>%
   )
 ```
 
-
 ### Non-Linear Association Graph
 
 ```{r}
@@ -714,9 +742,13 @@ ggplot(grid, aes(x = Number_of_Comorbidities, y = Predicted_Prob)) +
   theme_minimal()
 ```
 
-The result of this test answered the Hypothesis 2. 
-As shown in Figure X, COVID-19 patients with two or more pre-existing health conditions (comorbidities) exhibit a higher probability of mortality compared with patients with fewer or no comorbidities. The connected scatter plot illustrates a nonlinear, upward-curving trend, indicating that the risk of death increases at an accelerating rate as the number of comorbidities increases.
-The x-axis represents the number of comorbidities per patient, while the y-axis depicts the predicted probability of mortality expressed as a percentage. The figure demonstrates that patients with one comorbidity have a 3.9% higher predicted risk of death compared with patients without comorbidities. Additionally, patients with two comorbidities exhibit a 5.6% higher mortality risk than those with one comorbidity. This increasing trend continues, with patients presenting three comorbidities showing a 7.6% higher risk of death and those with four comorbidities exhibiting a 9.7% higher predicted mortality risk.
+The result of this test answered the Hypothesis 2.
+As shown in Figure X, COVID-19 patients with two or more pre-existing health conditions (comorbidities) exhibit a higher probability of mortality compared with patients with fewer or no comorbidities.
+The connected scatter plot illustrates a nonlinear, upward-curving trend, indicating that the risk of death increases at an accelerating rate as the number of comorbidities increases.
+The x-axis represents the number of comorbidities per patient, while the y-axis depicts the predicted probability of mortality expressed as a percentage.
+The figure demonstrates that patients with one comorbidity have a 3.9% higher predicted risk of death compared with patients without comorbidities.
+Additionally, patients with two comorbidities exhibit a 5.6% higher mortality risk than those with one comorbidity.
+This increasing trend continues, with patients presenting three comorbidities showing a 7.6% higher risk of death and those with four comorbidities exhibiting a 9.7% higher predicted mortality risk.
 
 ## Heat Map for Paired models
 
@@ -817,22 +849,37 @@ ggplot(grid, aes(x = X, y = Y, fill = OR)) +
 
 ```
 
-The results of this analysis address Hypothesis 3. 
-As illustrated in Figure X, the heat map does not support the proposed hypothesis. The figure displays odds ratio values associated with patients presenting specific pairs of comorbidities, including hypertension and diabetes, obesity and diabetes, smoking and diabetes, obesity and hypertension, smoking and hypertension, and smoking and obesity.
-To support Hypothesis 3, the comorbidity pair of hypertension and diabetes would have been expected to exhibit the highest odds ratio. Although this pair demonstrated a relatively high odds ratio (0.91), it was not the highest observed value. Instead, the combination of smoking and obesity yielded the largest odds ratio among the comorbidity pairs examined.
-This finding was unexpected, as prior analyses of individual comorbidities consistently indicated diabetes as the strongest predictor of mortality risk, followed by hypertension and obesity, with smoking having the weakest association. The present result suggests that the combined effects of comorbidities may differ from their individual contributions and highlights the importance of evaluating interaction effects when assessing mortality risk in COVID-19 patients.
+The results of this analysis address Hypothesis 3.
+As illustrated in Figure X, the heat map does not support the proposed hypothesis.
+The figure displays odds ratio values associated with patients presenting specific pairs of comorbidities, including hypertension and diabetes, obesity and diabetes, smoking and diabetes, obesity and hypertension, smoking and hypertension, and smoking and obesity.
+To support Hypothesis 3, the comorbidity pair of hypertension and diabetes would have been expected to exhibit the highest odds ratio.
+Although this pair demonstrated a relatively high odds ratio (0.91), it was not the highest observed value.
+Instead, the combination of smoking and obesity yielded the largest odds ratio among the comorbidity pairs examined.
+This finding was unexpected, as prior analyses of individual comorbidities consistently indicated diabetes as the strongest predictor of mortality risk, followed by hypertension and obesity, with smoking having the weakest association.
+The present result suggests that the combined effects of comorbidities may differ from their individual contributions and highlights the importance of evaluating interaction effects when assessing mortality risk in COVID-19 patients.
 
 # Discussion
-Based on the results obtained from the heat map for paired models, we hypothesize that the co-occurrence of smoking and obesity confers a higher mortality risk, potentially due to their distinct and compounding pathophysiological effects. In contrast, hypertension and diabetes share several overlapping clinical manifestations—including headaches, dizziness, and blurred vision—that arise from common mechanisms such as vascular damage, inflammation, oxidative stress, and insulin resistance. These shared pathways often lead to similar complications affecting the eyes (retinopathy), kidneys (nephropathy), and peripheral nerves (neuropathy).
-Conversely, smoking and obesity are characterized by more divergent clinical profiles. Smoking is associated with an increased risk of multiple cancers, chronic lung disease, cardiovascular and vascular disorders, ocular disease, type 2 diabetes, and impaired fertility, whereas obesity is strongly linked to metabolic dysfunction, hypertension, dyslipidemia, liver disease, obstructive sleep apnea, and certain malignancies. The combination of these comorbidities may therefore exert a greater impact on mortality risk due to their complementary and non-overlapping effects on multiple physiological systems, compared with the more convergent effects observed in hypertension and diabetes.
+
+Based on the results obtained from the heat map for paired models, we hypothesize that the co-occurrence of smoking and obesity confers a higher mortality risk, potentially due to their distinct and compounding pathophysiological effects.
+In contrast, hypertension and diabetes share several overlapping clinical manifestations—including headaches, dizziness, and blurred vision—that arise from common mechanisms such as vascular damage, inflammation, oxidative stress, and insulin resistance.
+These shared pathways often lead to similar complications affecting the eyes (retinopathy), kidneys (nephropathy), and peripheral nerves (neuropathy).
+Conversely, smoking and obesity are characterized by more divergent clinical profiles.
+Smoking is associated with an increased risk of multiple cancers, chronic lung disease, cardiovascular and vascular disorders, ocular disease, type 2 diabetes, and impaired fertility, whereas obesity is strongly linked to metabolic dysfunction, hypertension, dyslipidemia, liver disease, obstructive sleep apnea, and certain malignancies.
+The combination of these comorbidities may therefore exert a greater impact on mortality risk due to their complementary and non-overlapping effects on multiple physiological systems, compared with the more convergent effects observed in hypertension and diabetes.
 
 # Conclusion
-This research project investigated the impact of pre-existing health conditions on mortality risk among COVID-19 patients through a series of statistical analyses. Overall, the findings demonstrate that comorbidities play a significant role in influencing COVID-19–related mortality, though their effects vary depending on both the number and combination of conditions present.
-The first hypothesis—that COVID-19 patients with pre-existing health conditions are more likely to die from the viral disease—was supported by the results of both the individual logistic regression and multivariable logistic regression analyses. These models consistently indicated an increased probability of mortality among patients with one or more comorbidities compared with those without underlying health conditions.
-The second hypothesis examined the relationship between the number of comorbidities and mortality risk. The results confirmed that patients with multiple comorbidities face progressively higher mortality risk. The connected scatter plot revealed a nonlinear, accelerating increase in the predicted probability of death as the number of comorbidities increased, demonstrating that the cumulative burden of pre-existing conditions substantially amplifies vulnerability to severe COVID-19 outcomes.
-The third hypothesis focused on the combined effects of specific pairs of comorbidities. Contrary to expectations, the hypothesis was not supported by the heat map analysis of odds ratios. While the combination of hypertension and diabetes exhibited a high odds ratio, the highest mortality risk was observed among patients with concurrent smoking and obesity. This unexpected finding suggests that interactions between comorbidities may influence mortality risk in ways that differ from their individual effects, underscoring the importance of evaluating comorbidity combinations rather than considering conditions in isolation. 
-In conclusion, this study provides evidence that both the presence and cumulative burden of comorbidities are associated with a significantly increased risk of mortality among patients with COVID-19. The findings further underscore the complexity of interactions among comorbid conditions and highlight the need for additional research to elucidate how specific combinations of underlying diseases contribute to adverse clinical outcomes. Collectively, these insights may support improved risk stratification and the development of more targeted clinical interventions for vulnerable patient populations.
 
-
-
-
+This research project investigated the impact of pre-existing health conditions on mortality risk among COVID-19 patients through a series of statistical analyses.
+Overall, the findings demonstrate that comorbidities play a significant role in influencing COVID-19–related mortality, though their effects vary depending on both the number and combination of conditions present.
+The first hypothesis—that COVID-19 patients with pre-existing health conditions are more likely to die from the viral disease—was supported by the results of both the individual logistic regression and multivariable logistic regression analyses.
+These models consistently indicated an increased probability of mortality among patients with one or more comorbidities compared with those without underlying health conditions.
+The second hypothesis examined the relationship between the number of comorbidities and mortality risk.
+The results confirmed that patients with multiple comorbidities face progressively higher mortality risk.
+The connected scatter plot revealed a nonlinear, accelerating increase in the predicted probability of death as the number of comorbidities increased, demonstrating that the cumulative burden of pre-existing conditions substantially amplifies vulnerability to severe COVID-19 outcomes.
+The third hypothesis focused on the combined effects of specific pairs of comorbidities.
+Contrary to expectations, the hypothesis was not supported by the heat map analysis of odds ratios.
+While the combination of hypertension and diabetes exhibited a high odds ratio, the highest mortality risk was observed among patients with concurrent smoking and obesity.
+This unexpected finding suggests that interactions between comorbidities may influence mortality risk in ways that differ from their individual effects, underscoring the importance of evaluating comorbidity combinations rather than considering conditions in isolation.
+In conclusion, this study provides evidence that both the presence and cumulative burden of comorbidities are associated with a significantly increased risk of mortality among patients with COVID-19.
+The findings further underscore the complexity of interactions among comorbid conditions and highlight the need for additional research to elucidate how specific combinations of underlying diseases contribute to adverse clinical outcomes.
+Collectively, these insights may support improved risk stratification and the development of more targeted clinical interventions for vulnerable patient populations.
