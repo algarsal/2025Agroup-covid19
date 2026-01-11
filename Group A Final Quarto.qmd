@@ -53,11 +53,10 @@ covid19A <- read.table(data, header = T, sep = ",")
 
 ```
 
-```{r bibliography, include=FALSE}
-
-nocite:
-  
-```
+---
+nocite: |
+  @Jia&Sowers2021, @Valderas2009, @Cascella2023 
+---
 
 # Introduction
 
