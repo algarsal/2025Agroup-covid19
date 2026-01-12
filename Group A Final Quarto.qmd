@@ -83,9 +83,9 @@ The current project aims to substantiate the association between the mortality a
 
 # Hypotheses
 
-1.  COVID-19 patients with pre-existing health condition / comorbidity are more likely to die from the viral disease.
+1.  COVID-19 patients with at least one pre-existing comorbidity listed have a greater probability to die from the viral disease compared to the patients which at the time of infection didn't presented any. 
 
-2.  COVID-19 patients with two or more pre-existing health conditions / comorbidities are more likely to die from the viral disease.
+2.  The simultaneous presence of two or more pre-existing comorbidities in COVID-19 patients increases the risk of dying from the viral disease.
 
 3.  Ultimately, the risk probability of COVID-19 patients with a combination of comorbidities is the result of the addition of the individual probabilities plus the interaction between them potentiating the effect of some comorbidities combinations, specially in those where the individual probability is already high.
 
@@ -711,7 +711,7 @@ LRM_NCM_table %>%
   )
 ```
 
-### Non-Linear Association Graph
+### Curve Association Graph
 
 ```{r}
 
@@ -855,8 +855,8 @@ ggplot(grid, aes(x = X, y = Y, fill = OR)) +
 
 ```
 
-The results of this analysis address Hypothesis 3.
-As illustrated in Figure X, the heat map does not support the proposed hypothesis.
+The results of this analysis addresses Hypothesis 3.
+As illustrated in Figure X, the heat map supports the proposed hypothesis.
 The figure displays odds ratio values associated with patients presenting specific pairs of comorbidities, including hypertension and diabetes, obesity and diabetes, smoking and diabetes, obesity and hypertension, smoking and hypertension, and smoking and obesity.
 To support Hypothesis 3, the comorbidity pair of hypertension and diabetes would have been expected to exhibit the highest odds ratio.
 Although this pair demonstrated a relatively high odds ratio (0.91), it was not the highest observed value.
