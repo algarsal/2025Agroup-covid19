@@ -129,13 +129,13 @@ To further validate the test, both the Individual Logistic Regression and Multiv
 
 The Individual Logistic Regression model was primarily used for exploratory screening.
 It quantifies the magnitude of the relationship between a single predictor and the outcome without accounting for external variance.
-This model yields an unadjusted or crude Odds Ratio (cOR).
+This model yielded an unadjusted or crude Odds Ratio (cOR).
 
 ### Multivariable Regression Model
 
 On the other hand, the Multivariable Regression Model was used for confirmatory analysis.
 Its purpose is to isolate the effect of the primary predictor by statistically holding other covariates constant.
-This model yields an adjusted Odds Ratio (aOR).
+This model yielded an adjusted Odds Ratio (aOR).
 
 ### BIC Analysis
 
@@ -497,7 +497,140 @@ By studying the table and figures created using the Logistic Regression Models w
 All three representations of data showed high significance values, high odd ratio values and positive slopes.
 This confirms that the impact comorbidities have on COVID-19 deaths is very significant and will increase the probability of death.
 
-## Paired models (Interactions)
+
+## BIC Analyses
+```{r}
+
+
+
+bic_individual <- data.frame(
+  Model = names(models_individual),
+  Type  = "Individual",
+  BIC   = sapply(models_individual, BIC),
+  stringsAsFactors = FALSE
+)
+
+bic_mvm <- data.frame(
+  Model = "MVM (Diabetes + Hypertension + Obesity + Smoking)",
+  Type  = "Multivariable",
+  BIC   = BIC(MVM),
+  stringsAsFactors = FALSE
+)
+
+bic_table <- bind_rows(bic_individual, bic_mvm) %>%
+  arrange(BIC) %>%
+  mutate(
+    Delta_BIC = BIC - min(BIC),
+    Better = ifelse(Delta_BIC == 0, "Best (lowest BIC)", "")
+  )
+
+bic_table %>%
+  kable(
+    align = "c",
+    col.names = c("Model", "Type", "BIC", "ΔBIC (vs best)", "")
+  ) %>%
+  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover")) %>%
+  footnote(
+    general = "Lower BIC indicates a better trade-off between goodness-of-fit and model complexity (penalizes additional parameters). ΔBIC is computed relative to the lowest BIC in the table.",
+    general_title = ""
+  )
+
+```
+
+
+
+The result of BIC Analysess revealed that the Multivariable Logistic Regression Model was the better model to utilize as BIC is the lowest when compared to any of the individual LRM.
+
+## Number of Comorbidities LRM
+
+```{r}
+##Analysis
+LRM_NCM <- glm(COVID_Death ~ Number_of_Comorbidities, data = covid19A, family = binomial())
+
+#Results table
+
+tid <- tidy(LRM_NCM)
+
+b0 <- coef(LRM_NCM)[1]
+b1 <- coef(LRM_NCM)[2]
+
+# Predicted probabilities at N=0 and N=1 (for consistency with binary tables)
+p0 <- plogis(b0 + b1 * 0)
+p1 <- plogis(b0 + b1 * 1)
+
+# OR per +1 comorbidity and p-value for the slope term
+OR <- exp(b1)
+p_val <- tid$p.value[tid$term == "Number_of_Comorbidities"]
+
+# Significance stars
+sig <- dplyr::case_when(
+  p_val < 0.001 ~ "***",
+  p_val < 0.01  ~ "**",
+  p_val < 0.05  ~ "*",
+  TRUE ~ ""
+)
+LRM_NCM_table <- data.frame(
+  Predictor = "Number_of_Comorbidities",
+  `Prob_Death_0 (%)` = round(100 * p0, 2),
+  `Odds Ratio` = round(OR, 2),
+  `P value` = paste0(formatC(p_val, format = "e", digits = 3), " ", sig)
+)
+
+LRM_NCM_table %>%
+  kable(align = "c") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover")) %>%
+  footnote(
+    general = "Significance levels: *** p < 0.001, ** p < 0.01, * p < 0.05.",
+    general_title = ""
+  )
+```
+
+### Curve Association Graph
+
+```{r}
+
+n_min <- min(covid19A$Number_of_Comorbidities, na.rm = TRUE)
+n_max <- max(covid19A$Number_of_Comorbidities, na.rm = TRUE)
+
+grid <- data.frame(
+  Number_of_Comorbidities = seq(n_min, n_max, by = 0.1)
+) %>%
+  mutate(Predicted_Prob = predict(LRM_NCM, newdata = ., type = "response"))
+
+int_points <- data.frame(
+  Number_of_Comorbidities = seq(ceiling(n_min), floor(n_max), by = 1)
+) %>%
+  mutate(
+    Predicted_Prob = predict(LRM_NCM, newdata = ., type = "response"),
+    Label = paste0(round(100 * Predicted_Prob, 1), "%")
+  )
+
+ggplot(grid, aes(x = Number_of_Comorbidities, y = Predicted_Prob)) +
+  geom_line(linewidth = 1) +
+  geom_point(data = int_points, size = 2) +
+  geom_text(
+    data = int_points,
+    aes(label = Label),
+    vjust = -0.8,
+    size = 3
+  ) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  labs(
+    x = "Number of comorbidities",
+    y = "Predicted probability of death"
+  ) +
+  theme_minimal()
+```
+
+The result of this test answered the Hypothesis 2.
+As shown in the figure , COVID-19 patients with two or more pre-existing health conditionsexhibit a higher probability of mortality compared with patients with fewer or no comorbidities.
+The connected scatter plot illustrates a nonlinear, upward-curving trend, indicating that the risk of death increases at an accelerating rate as the number of comorbidities increases.
+The x-axis represents the number of comorbidities per patient, while the y-axis depicts the predicted probability of mortality expressed as a percentage.
+The figure demonstrates that patients with one comorbidity have a 3.9% higher predicted risk of death compared with patients without comorbidities.
+Additionally, patients with two comorbidities exhibit a 5.6% higher mortality risk than those with one comorbidity.
+This increasing trend continues, with patients presenting three comorbidities showing a 7.6% higher risk of death and those with four comorbidities exhibiting a 9.7% higher predicted mortality risk.
+
+## Logistic Paired Models (Interactions)
 
 ```{r}
 
@@ -592,174 +725,6 @@ interaction_results %>%
     general_title = ""
   )
 ```
-
-## BIC Analyses
-
-```{r}
-#| label: tbl-BIC-ILRM
-#| tbl-cap: "BIC Analysis for Individual Logistic Regression Model."
-
-#Individual Logistic Regression Model
-
-models_individual <- list(
-  Diabetes = model_Diabetes,
-  Smoking = model_Smoking,
-  Obesity = model_Obesity,
-  Hypertension = model_Hypertension
-)
-
-info_criteria <- lapply(names(models_individual), function(name) {
-  m <- models_individual[[name]]
-  
-  data.frame(
-    Model = name,
-    BIC  = BIC(m)
-  )
-})
-
-BIC_table <- dplyr::bind_rows(info_criteria)
-
-BIC_table %>%
-  kable(align = "c") %>%
-  kable_styling(
-    full_width = FALSE,
-    bootstrap_options = c("striped", "hover")
-  ) %>%
-  footnote(
-    general_title = ""
-  )
-```
-
-```{r}
-
- #| label: tbl-BIC-MLRM
- #| tbl-cap: "BIC Analysis for Multivariable Logistic Regression Model."
-
- # Multivariable Logistic Regression Model
-
-interaction_models <- list(
-  "Diabetes × Hypertension" = model_Dia_Hyp_int,
-  "Diabetes × Obesity"      = model_Dia_Obe_int,
-  "Diabetes × Smoking"     = model_Dia_Smo_int,
-  "Hypertension × Obesity" = model_Hyp_Obe_int,
-  "Hypertension × Smoking" = model_Hyp_Smo_int,
-  "Obesity × Smoking"      = model_Obe_Smo_int
-)
-  
-info_criteria_paired <- lapply(names(interaction_models), function(name) {
-  m <- interaction_models[[name]]
-  
-  data.frame(
-    Model = name,
-    BIC  = BIC(m)
-  )
-})
-
-BIC_table_paired <- dplyr::bind_rows(info_criteria_paired)
-
-BIC_table_paired %>%
-  kable(align = "c") %>%
-  kable_styling(
-    full_width = FALSE,
-    bootstrap_options = c("striped", "hover")
-  ) %>%
-  footnote(
-    general_title = ""
-  )
-
-
-```
-
-The result of BIC Analysess revealed that the Multivariable Logistic Regression Model was the better model to utilize.
-
-## Number of Comorbidities LRM
-
-```{r}
-##Analysis
-LRM_NCM <- glm(COVID_Death ~ Number_of_Comorbidities, data = covid19A, family = binomial())
-
-#Results table
-
-tid <- tidy(LRM_NCM)
-
-b0 <- coef(LRM_NCM)[1]
-b1 <- coef(LRM_NCM)[2]
-
-# Predicted probabilities at N=0 and N=1 (for consistency with binary tables)
-p0 <- plogis(b0 + b1 * 0)
-p1 <- plogis(b0 + b1 * 1)
-
-# OR per +1 comorbidity and p-value for the slope term
-OR <- exp(b1)
-p_val <- tid$p.value[tid$term == "Number_of_Comorbidities"]
-
-# Significance stars
-sig <- dplyr::case_when(
-  p_val < 0.001 ~ "***",
-  p_val < 0.01  ~ "**",
-  p_val < 0.05  ~ "*",
-  TRUE ~ ""
-)
-LRM_NCM_table <- data.frame(
-  Predictor = "Number_of_Comorbidities",
-  `Prob_Death_0 (%)` = round(100 * p0, 2),
-  `Odds Ratio` = round(OR, 2),
-  `P value` = paste0(formatC(p_val, format = "e", digits = 3), " ", sig)
-)
-
-LRM_NCM_table %>%
-  kable(align = "c") %>%
-  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover")) %>%
-  footnote(
-    general = "Significance levels: *** p < 0.001, ** p < 0.01, * p < 0.05.",
-    general_title = ""
-  )
-```
-
-### Curve Association Graph
-
-```{r}
-
-n_min <- min(covid19A$Number_of_Comorbidities, na.rm = TRUE)
-n_max <- max(covid19A$Number_of_Comorbidities, na.rm = TRUE)
-
-grid <- data.frame(
-  Number_of_Comorbidities = seq(n_min, n_max, by = 0.1)
-) %>%
-  mutate(Predicted_Prob = predict(LRM_NCM, newdata = ., type = "response"))
-
-int_points <- data.frame(
-  Number_of_Comorbidities = seq(ceiling(n_min), floor(n_max), by = 1)
-) %>%
-  mutate(
-    Predicted_Prob = predict(LRM_NCM, newdata = ., type = "response"),
-    Label = paste0(round(100 * Predicted_Prob, 1), "%")
-  )
-
-ggplot(grid, aes(x = Number_of_Comorbidities, y = Predicted_Prob)) +
-  geom_line(linewidth = 1) +
-  geom_point(data = int_points, size = 2) +
-  geom_text(
-    data = int_points,
-    aes(label = Label),
-    vjust = -0.8,
-    size = 3
-  ) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
-  labs(
-    x = "Number of comorbidities",
-    y = "Predicted probability of death"
-  ) +
-  theme_minimal()
-```
-
-The result of this test answered the Hypothesis 2.
-As shown in Figure X, COVID-19 patients with two or more pre-existing health conditions (comorbidities) exhibit a higher probability of mortality compared with patients with fewer or no comorbidities.
-The connected scatter plot illustrates a nonlinear, upward-curving trend, indicating that the risk of death increases at an accelerating rate as the number of comorbidities increases.
-The x-axis represents the number of comorbidities per patient, while the y-axis depicts the predicted probability of mortality expressed as a percentage.
-The figure demonstrates that patients with one comorbidity have a 3.9% higher predicted risk of death compared with patients without comorbidities.
-Additionally, patients with two comorbidities exhibit a 5.6% higher mortality risk than those with one comorbidity.
-This increasing trend continues, with patients presenting three comorbidities showing a 7.6% higher risk of death and those with four comorbidities exhibiting a 9.7% higher predicted mortality risk.
 
 ## Heat Map for Paired models
 
@@ -861,12 +826,15 @@ ggplot(grid, aes(x = X, y = Y, fill = OR)) +
 ```
 
 The results of this analysis addresses Hypothesis 3.
-As illustrated in Figure X, the heat map supports the proposed hypothesis.
+As illustrated in Figure 3, the heat map supports partially the proposed hypothesis.
 The figure displays odds ratio values associated with patients presenting specific pairs of comorbidities, including hypertension and diabetes, obesity and diabetes, smoking and diabetes, obesity and hypertension, smoking and hypertension, and smoking and obesity.
-To support Hypothesis 3, the comorbidity pair of hypertension and diabetes would have been expected to exhibit the highest odds ratio.
-Although this pair demonstrated a relatively high odds ratio (0.91), it was not the highest observed value.
+As proposed in our 3rd Hypothesis, the comorbidity pair of hypertension and diabetes would have been expected to exhibit the highest odds ratio.
+Although this pair demonstrated a relatively high odds ratio (0.91), it was not the highest observed value and the effect of the combination didn't appeared to be potentiated, rather the result effect was not different statistically significant speaking, to the addition of the individual effects
+
 Instead, the combination of smoking and obesity yielded the largest odds ratio among the comorbidity pairs examined.
-This finding was unexpected, as prior analyses of individual comorbidities consistently indicated diabetes as the strongest predictor of mortality risk, followed by hypertension and obesity, with smoking having the weakest association.
+
+This finding was surprisingly unexpected, as the first analyses of individual comorbidities consistently indicated diabetes as the strongest predictor of mortality risk, followed by hypertension and obesity, with smoking having the weakest effect.
+
 The present result suggests that the combined effects of comorbidities may differ from their individual contributions and highlights the importance of evaluating interaction effects when assessing mortality risk in COVID-19 patients.
 
 # Discussion
