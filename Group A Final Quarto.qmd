@@ -55,7 +55,7 @@ covid19A <- read.table(data, header = T, sep = ",")
 
 ---
 nocite: |
-  @Jia&Sowers2021, @Valderas2009, @Cascella2023 
+  @Jia&Sowers2021, @Valderas2009, @Cascella2023, @Chokshi577
 ---
 
 # Introduction
