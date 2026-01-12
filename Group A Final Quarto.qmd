@@ -75,7 +75,8 @@ These findings were further solidified by a study conducted by @Lowhorn2024 stat
 Considering the literatures cited, the impact of the COVID-19 pandemic in Mexico is arguably one of the most severe in the world.
 The pandemic in Mexico was not only a viral outbreak; it was a synergistic epidemic where the virus collided with the country's high rates of pre-existing chronic disease crisis (comorbidities).
 In line with this, our project aims to statistically analyze the data from Mexico City presented in the Analytical Viewer for COVID-19, a platform created by Mexico's National Institute of Statistics and Geography (INEGI).
-By exploring this link, our project aims to delve deeper into the nuances of comorbidity-related risks and its implications on actionable insights and protective measures for future pandemic preparedness, especially to the vulnerable sector of the population.
+
+By exploring this link, this project aims to analyse the comorbidity-related risks and its implications on actionable insights and protective measures for future pandemic preparedness, especially to the vulnerable sector of the population.
 
 # Objective
 
@@ -97,9 +98,9 @@ The raw dataset contains 100,000 records from April 2020 to October 2025 of indi
 It includes demographic information such as age and gender (for the purpose of this current project, age and gender were excluded from the statistical analyses), location of the hospital in which the patient was treated, date and an ID number for each patient instead of name to maintain data privacy.
 In addition to the individual medical records of pre-existing health conditions declared at the moment of hospitalization. 
 
-For the objective of this project the  the interest comorbidities;  Diabetes, Hypertension, Obesity, and Smoking where filtered from the data, as well as, a summary column 'Number_of_Comorbidities' which counts the total conditions per patient, and the target variable 'COVID_Death'.
+For the objective of this project the interest comorbidities;  Diabetes, Hypertension, Obesity, and Smoking where filtered from the data, as well as, a summary column 'Number_of_Comorbidities' which counts the total conditions per patient, and the target variable 'COVID_Death'.
 
-(all the data encoded as binary 0/1 values for the exception of 'Number_of Comorbidities' which was considered as a categorical variable).
+(all the data was encoded as binary 0/1 values for the exception of 'Number_of Comorbidities' which was considered as a categorical variable).
 
 To then proceed to be analyzed with R Studio Software.
 
